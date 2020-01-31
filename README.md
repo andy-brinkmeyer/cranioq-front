@@ -1,6 +1,12 @@
-# CranioqFront
+# CranioQ Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+CranioQ is a web application for improving the diagnostic and referral process of children with rare craniofacial conditions.
+
+# Development prerequisites
+
+You need to install the bootstrap and jquery node modules.
+
+Run `npm install --save jasmine @popperjs/core jquery bootstrap`.
 
 ## Development server
 
