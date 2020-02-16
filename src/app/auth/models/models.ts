@@ -3,3 +3,8 @@ export interface LoginResponse200 {
   id: number;
   role: string;
 }
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
