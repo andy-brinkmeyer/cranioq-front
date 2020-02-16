@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-import {Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
@@ -30,8 +31,22 @@ export class LoginService {
   }
 
   login(loginData: LoginData): Observable<string> {
-    let returnString = '';
-
+    return this.http.post<LoginResponse200>(this.loginUrl, loginData).pipe(
+      map(res => {
+        this.storageService.token = res.token;
+        this.storageService.role = res.role;
+        this.isLoggedIn = true;
+        this.router.navigate([this.redirectUrl]);
+        return of('');
+      }),
+      catchError( error => {
+      if (error.error instanceof ErrorEvent) {
+        return of(error.error.message);
+      } else {
+        return of(error.error.errorMessage);
+      }
+    }));
+/*
     this.http.post<LoginResponse200>(this.loginUrl, loginData).subscribe( loginResponse => {
       this.storageService.token = loginResponse.token;
       this.storageService.role = loginResponse.role;
@@ -44,7 +59,6 @@ export class LoginService {
       } else {
         returnString = error.error.errorMessage;
       }
-    });
-    return of(returnString);
+    });*/
   }
 }
