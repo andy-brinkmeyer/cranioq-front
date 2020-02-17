@@ -4,8 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 
 import { Map } from 'immutable';
 
-import { NewQuestionnaireState } from './models/new-questionnaire.models';
-
 
 
 @Injectable({
