@@ -33,6 +33,7 @@ export class LoginService {
       map(res => {
         this.authStorageService.token = res.token;
         this.authStorageService.role = res.role;
+        this.authStorageService.isLoggedIn = true;
         this.router.navigate([this.redirectUrl]);
         return of('');
       }),
@@ -49,5 +50,6 @@ export class LoginService {
     this.authStorageService.token = '';
     this.authStorageService.userID = 0;
     this.authStorageService.role = 'anon';
+    this.authStorageService.isLoggedIn = false;
   }
 }
