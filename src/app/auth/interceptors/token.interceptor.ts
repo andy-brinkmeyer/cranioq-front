@@ -3,23 +3,23 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 
 import { Observable } from 'rxjs';
 
-import { StorageService } from '../services/storage.service';
+import { AuthStorageService } from '../services/auth-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private storageService: StorageService) { }
+  constructor(private authStorageService: AuthStorageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.storageService.token === '') {
+    if (this.authStorageService.token === '') {
       return next.handle(req);
     }
 
     req = req.clone({
       setHeaders: {
-        Authorization: 'Token ' + this.storageService.token
+        Authorization: 'Token ' + this.authStorageService.token
       }
     });
 
