@@ -4,4 +4,5 @@
     <img src="./assets/images/cranioq_logo.png" height="60" alt="Logo">
     CranioQ
   </a>
+  <a *ngIf="authStorageService.isLoggedIn" routerLink="logout">Logout</a>
 </nav>

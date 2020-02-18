@@ -7,7 +7,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
-import { StorageService } from './storage.service';
+import { AuthStorageService } from './auth-storage.service';
 
 import { LoginResponse200, LoginData } from '../models/models';
 
@@ -17,25 +17,22 @@ import { LoginResponse200, LoginData } from '../models/models';
 })
 export class LoginService {
   loginUrl: string;
-  isLoggedIn: boolean;
   redirectUrl: string;
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService,
+    private authStorageService: AuthStorageService,
     private router: Router
   ) {
     this.loginUrl = environment.apiBaseUrl + '/auth/login';
-    this.isLoggedIn = false;
     this.redirectUrl = '/dashboard';
   }
 
   login(loginData: LoginData): Observable<string> {
     return this.http.post<LoginResponse200>(this.loginUrl, loginData).pipe(
       map(res => {
-        this.storageService.token = res.token;
-        this.storageService.role = res.role;
-        this.isLoggedIn = true;
+        this.authStorageService.token = res.token;
+        this.authStorageService.role = res.role;
         this.router.navigate([this.redirectUrl]);
         return of('');
       }),
@@ -46,19 +43,11 @@ export class LoginService {
         return of(error.error.errorMessage);
       }
     }));
-/*
-    this.http.post<LoginResponse200>(this.loginUrl, loginData).subscribe( loginResponse => {
-      this.storageService.token = loginResponse.token;
-      this.storageService.role = loginResponse.role;
-      this.isLoggedIn = true;
-      this.router.navigate([this.redirectUrl]);
-    },
-    error => {
-      if (error.error instanceof ErrorEvent) {
-        returnString = error.error.message;
-      } else {
-        returnString = error.error.errorMessage;
-      }
-    });*/
+  }
+
+  logout() {
+    this.authStorageService.token = '';
+    this.authStorageService.userID = 0;
+    this.authStorageService.role = 'anon';
   }
 }

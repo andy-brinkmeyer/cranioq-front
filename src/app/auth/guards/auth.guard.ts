@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 
 import { Observable } from 'rxjs';
 
-import { StorageService } from '../services/storage.service';
+import { AuthStorageService } from '../services/auth-storage.service';
 import { LoginService } from '../services/login.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { LoginService } from '../services/login.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private storageService: StorageService,
+    private authStorageService: AuthStorageService,
     private loginService: LoginService,
     private router: Router
   ) { }
@@ -21,11 +21,11 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.loginService.redirectUrl = state.url;
-    if (!this.loginService.isLoggedIn) {
+    if (!this.authStorageService.isLoggedIn) {
       this.router.navigate(['/login']);
       return false;
     }
 
-    return this.storageService.role === 'gp' || this.storageService.role === 'specialist';
+    return this.authStorageService.role === 'gp' || this.authStorageService.role === 'specialist';
   }
 }
