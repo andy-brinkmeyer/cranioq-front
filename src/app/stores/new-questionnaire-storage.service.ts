@@ -9,7 +9,7 @@ import { Map } from 'immutable';
 @Injectable({
   providedIn: 'root'
 })
-export class NewQuestionnaireService {
+export class NewQuestionnaireStorage {
 
   private readonly stateDataSubject = new BehaviorSubject<Map<string, any>>(Map({
     email: '',
