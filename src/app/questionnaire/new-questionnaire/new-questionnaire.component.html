@@ -1,10 +1,18 @@
 <div class="d-flex flex-column justify-content-center align-items-center full-height">
   <div class="container mx-auto">
-    <form [formGroup]="emailForm" (ngSubmit)="onSubmit(emailForm.value)">
+    <form [formGroup]="newQuestionnaireForm" (ngSubmit)="onSubmit(newQuestionnaireForm.value)">
       <h1>Issue a new Questionnaire</h1>
+      <div class="form-group">
+        <label for="InputPatientID">Patient NHS Number</label>
+        <input formControlName="patientID" type="text" class="form-control" id="InputPatientID" aria-describedby="patientID" [value]="currentState.get('patientID')">
+      </div>
       <div class="form-group">
         <label for="InputEmail">Parent/Guardian email</label>
         <input formControlName="email" type="email" class="form-control" id="InputEmail" aria-describedby="email" [value]="currentState.get('email')">
+      </div>
+      <div class="form-group form-check">
+        <input formControlName="agreed" type="checkbox" class="form-check-input" id="InputAgreed" aria-describedby="agreed" [value]="currentState.get('agreed')">
+        <label for="InputAgreed" class="form-check-label">Agree to tbd</label>
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
     </form>

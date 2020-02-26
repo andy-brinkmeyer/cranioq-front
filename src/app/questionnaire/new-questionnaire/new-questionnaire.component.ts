@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import {NewQuestionnaireStorage} from '../../stores/new-questionnaire-storage.service';
@@ -11,15 +11,17 @@ import {NewQuestionnaireStorage} from '../../stores/new-questionnaire-storage.se
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewQuestionnaireComponent implements OnInit {
-  emailForm;
+  newQuestionnaireForm;
   currentState;
 
   constructor(
     private newQuestionnaireStorage: NewQuestionnaireStorage,
     private formBuilder: FormBuilder
   ) {
-    this.emailForm = formBuilder.group({
-      email: ''
+    this.newQuestionnaireForm = formBuilder.group({
+      email: '',
+      agreed: false,
+      patientID: ''
     });
     this.newQuestionnaireStorage.state.subscribe(state => {
       this.currentState = state;
@@ -31,6 +33,8 @@ export class NewQuestionnaireComponent implements OnInit {
 
   onSubmit(formData) {
     this.newQuestionnaireStorage.email = formData.email;
+    this.newQuestionnaireStorage.agreed = formData.agreed;
+    this.newQuestionnaireStorage.patientID = formData.patientID;
   }
 
 }

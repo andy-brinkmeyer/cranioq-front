@@ -13,7 +13,8 @@ export class NewQuestionnaireStorage {
 
   private readonly stateDataSubject = new BehaviorSubject<Map<string, any>>(Map({
     email: '',
-    agreed: false
+    agreed: false,
+    patientID: ''
   }));
 
   readonly state = this.stateDataSubject.asObservable();
@@ -32,5 +33,9 @@ export class NewQuestionnaireStorage {
 
   set agreed(agreed: boolean) {
     this.stateData = this.stateData.set('agreed', agreed);
+  }
+
+  set patientID(patientID: string) {
+    this.stateData = this.stateData.set('patientID', patientID);
   }
 }
