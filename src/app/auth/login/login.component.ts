@@ -10,6 +10,7 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm;
+  displayMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,12 +20,13 @@ export class LoginComponent implements OnInit {
       email: '',
       password: ''
     });
+    this.displayMessage = '';
   }
 
   ngOnInit() {
   }
 
   onSubmit(loginData) {
-    this.loginService.login(loginData);
+    this.loginService.login(loginData).subscribe(message => this.displayMessage = message);
   }
 }

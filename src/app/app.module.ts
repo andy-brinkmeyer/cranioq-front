@@ -12,7 +12,7 @@ import { QuestionnaireModule } from './questionnaire/questionnaire.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
-import {TokenInterceptor} from './auth/interceptor/token.interceptor';
+import {TokenInterceptor} from './auth/interceptors/token.interceptor';
 
 
 @NgModule({
