@@ -11,7 +11,7 @@ import {AuthStorageService} from '../auth/services/auth-storage.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authStorageService: AuthStorageService) { }
+  constructor(public authStorageService: AuthStorageService) { }
 
   ngOnInit() {
   }
