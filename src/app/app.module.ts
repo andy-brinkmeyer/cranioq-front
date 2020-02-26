@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { QuestionnaireModule } from './questionnaire/questionnaire.module';
+import { ProfileModule } from './profile/profile.module';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import {TokenInterceptor} from './auth/interceptors/token.interceptor';
+
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     AuthModule,
     DashboardModule,
     QuestionnaireModule,
+    ProfileModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
