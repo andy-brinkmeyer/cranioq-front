@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
   onSubmit(loginData) {
     if (this.loginForm.valid) {
       this.loginService.login(loginData).subscribe(message => this.displayMessage = message);
+    } else {
+      this.displayMessage = 'One or more fields are empty.';
     }
   }
 }
