@@ -40,7 +40,7 @@ export class LoginService {
       if (error.error instanceof ErrorEvent) {
         return of(error.error.message);
       } else {
-        return of(error.error.errorMessage);
+        return of(error.error.error_message);
       }
     }));
   }
