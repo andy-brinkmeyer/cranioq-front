@@ -40,14 +40,14 @@ export class LoginService {
       if (error.error instanceof ErrorEvent) {
         return of(error.error.message);
       } else {
-        return of(error.error.errorMessage);
+        return of(error.error.error_message);
       }
     }));
   }
 
   logout() {
     this.authStorageService.token = '';
-    this.authStorageService.userID = 0;
+    this.authStorageService.userID = -1;
     this.authStorageService.role = 'anon';
   }
 }
