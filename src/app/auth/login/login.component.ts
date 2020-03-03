@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { LoginService } from '../services/login.service';
 
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.loginForm = this.formBuilder.group({
-      email: '',
-      password: ''
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
     this.displayMessage = '';
   }
@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginData) {
-    this.loginService.login(loginData).subscribe(message => this.displayMessage = message);
+    if (this.loginForm.valid) {
+      this.loginService.login(loginData).subscribe(message => this.displayMessage = message);
+    } else {
+      this.displayMessage = 'One or more fields are empty.';
+    }
   }
 }

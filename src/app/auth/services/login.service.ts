@@ -48,7 +48,7 @@ export class LoginService {
 
   logout() {
     this.authStorageService.token = '';
-    this.authStorageService.userID = 0;
+    this.authStorageService.userID = -1;
     this.authStorageService.role = 'anon';
     this.authStorageService.isLoggedIn = false;
   }
