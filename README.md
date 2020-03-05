@@ -4,9 +4,7 @@ CranioQ is a web application for improving the diagnostic and referral process o
 
 # Development prerequisites
 
-You need to install the bootstrap and jquery node modules.
-
-Run `npm install --save jasmine @popperjs/core jquery bootstrap`.
+Make sure to run `npm install` to install the dependencies.
 
 ## Development server
 

@@ -9,15 +9,13 @@ export class AuthStorageService  {
   token: string;
   userID: number;
   role: string;
+  isLoggedIn: boolean;
 
   constructor() {
     this.token = '';
     this.userID = -1;
     this.role = 'anon';
-  }
-
-  get isLoggedIn() {
-    return this.token !== '';
+    this.isLoggedIn = false;
   }
 
 }

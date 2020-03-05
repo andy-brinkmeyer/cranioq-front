@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { QuestionnaireRoutingModule } from './questionnaire-routing.module';
 import { NewQuestionnaireComponent } from './new-questionnaire/new-questionnaire.component';
 
@@ -9,7 +11,8 @@ import { NewQuestionnaireComponent } from './new-questionnaire/new-questionnaire
   declarations: [NewQuestionnaireComponent],
   imports: [
     CommonModule,
-    QuestionnaireRoutingModule
+    QuestionnaireRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class QuestionnaireModule { }
