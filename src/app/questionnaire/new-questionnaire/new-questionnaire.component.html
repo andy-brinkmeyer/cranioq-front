@@ -4,14 +4,14 @@
       <h1>Issue a new Questionnaire</h1>
       <div class="form-group">
         <label for="InputPatientID">Patient NHS Number</label>
-        <input formControlName="patientID" type="text" class="form-control" id="InputPatientID" aria-describedby="patientID" [value]="currentState.get('patientID')">
+        <input formControlName="patient_id" type="text" class="form-control" id="InputPatientID" aria-describedby="patientID">
       </div>
       <div class="form-group">
         <label for="InputEmail">Parent/Guardian email</label>
-        <input formControlName="email" type="email" class="form-control" id="InputEmail" aria-describedby="email" [value]="currentState.get('email')">
+        <input formControlName="email" type="email" class="form-control" id="InputEmail" aria-describedby="email">
       </div>
       <div class="form-group form-check">
-        <input formControlName="agreed" type="checkbox" class="form-check-input" id="InputAgreed" aria-describedby="agreed" [value]="currentState.get('agreed')">
+        <input formControlName="agreed" type="checkbox" class="form-check-input" id="InputAgreed" aria-describedby="agreed">
         <label for="InputAgreed" class="form-check-label">Agree to tbd</label>
       </div>
       <div *ngIf="displayMessage != ''" class="alert alert-danger" role="alert">

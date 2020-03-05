@@ -1,31 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
-import {NewQuestionnaireStorage} from '../../stores/new-questionnaire-storage.service';
+import { NewQuestionnaireService } from '../services/new-questionnaire.service';
 
 
 @Component({
   selector: 'app-new-questionnaire',
   templateUrl: './new-questionnaire.component.html',
-  styleUrls: ['./new-questionnaire.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./new-questionnaire.component.css']
 })
 export class NewQuestionnaireComponent implements OnInit {
   newQuestionnaireForm;
-  currentState;
   displayMessage: string;
 
   constructor(
-    private newQuestionnaireStorage: NewQuestionnaireStorage,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private newQuestionnaireService: NewQuestionnaireService
   ) {
-    this.newQuestionnaireStorage.state.subscribe(state => {
-      this.currentState = state;
-    });
     this.newQuestionnaireForm = formBuilder.group({
-      email: [this.currentState.email, Validators.required],
-      agreed: [this.currentState.agreed, Validators.requiredTrue],
-      patientID: [this.currentState.patientID, Validators.required]
+      email: ['', Validators.required],
+      agreed: [false, Validators.requiredTrue],
+      patient_id: ['', Validators.required]
     });
     this.displayMessage = '';
   }
@@ -34,11 +29,8 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    this.newQuestionnaireStorage.email = formData.email;
-    this.newQuestionnaireStorage.agreed = formData.agreed;
-    this.newQuestionnaireStorage.patientID = formData.patientID;
     if (this.newQuestionnaireForm.valid) {
-      this.displayMessage = '';
+      this.newQuestionnaireService.create(formData).subscribe(message => this.displayMessage = message);
     } else {
       this.displayMessage = 'One or more fields were left empty.';
     }
