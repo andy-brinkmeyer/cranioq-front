@@ -35,7 +35,7 @@ export class LoginService {
         this.authStorageService.role = res.role;
         this.authStorageService.isLoggedIn = true;
         this.router.navigate([this.redirectUrl]);
-        return of('');
+        return '';
       }),
       catchError( error => {
       if (error.error instanceof ErrorEvent) {
