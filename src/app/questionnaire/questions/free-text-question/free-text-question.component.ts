@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-free-text-question',
+  templateUrl: './free-text-question.component.html',
+  styleUrls: ['./free-text-question.component.css']
+})
+export class FreeTextQuestionComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
