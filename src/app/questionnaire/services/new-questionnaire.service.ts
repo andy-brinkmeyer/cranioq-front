@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
-import { NewQuestionnaireResponse201 } from '../models/models';
+import { NewQuestionnaireResponse201 } from '../models/responses';
 
 
 @Injectable({
