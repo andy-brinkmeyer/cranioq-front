@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Observable, of, EMPTY } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
+import {catchError, mergeMap, take} from 'rxjs/operators';
 
 import { QuestionnaireTemplate } from '../models/templates';
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
@@ -32,6 +32,14 @@ export class TemplateResolverService implements Resolve<QuestionnaireTemplate> {
         } else {
           this.router.navigate(['/dashboard']);
           return EMPTY;
+        }
+      }),
+      catchError(error => {
+        this.router.navigate(['/dashboard']);
+        if (error.error instanceof ErrorEvent) {
+          return of(error.error.message);
+        } else {
+          return of(error.error.error_message);
         }
       })
     );
