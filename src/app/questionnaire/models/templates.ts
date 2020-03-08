@@ -1,4 +1,5 @@
-interface QuestionTemplate {
+export interface QuestionTemplate {
+  id: number;
   type: string;
   question: string;
   description: string;

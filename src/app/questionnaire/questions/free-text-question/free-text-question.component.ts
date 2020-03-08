@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+
+import { QuestionTemplate } from '../../models/templates';
 
 @Component({
   selector: 'app-free-text-question',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./free-text-question.component.css']
 })
 export class FreeTextQuestionComponent implements OnInit {
+  @Input() question: QuestionTemplate;
 
   constructor() { }
 
