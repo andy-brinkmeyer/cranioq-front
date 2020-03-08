@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
+import { mergeMap, take } from 'rxjs/operators';
 
 import { QuestionnaireTemplate } from '../models/templates';
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
@@ -16,13 +17,23 @@ export class TemplateResolverService implements Resolve<QuestionnaireTemplate> {
 
   constructor(
     private questionnaireStore: QuestionnaireStore,
-    private templateService: TemplateService) { }
+    private templateService: TemplateService,
+    private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<QuestionnaireTemplate> | Promise<QuestionnaireTemplate> | QuestionnaireTemplate {
-    let templateID: number;
-    this.questionnaireStore.state.subscribe(currentState => templateID = currentState.get('templateID'));
 
-    return this.templateService.getTemplate(1);
+    const templateID = this.questionnaireStore.stateSnapshot.get('templateID');
+    return this.templateService.getTemplate(templateID).pipe(
+      take(1),
+      mergeMap(template => {
+        if (template) {
+          return of(template);
+        } else {
+          this.router.navigate(['/dashboard']);
+          return EMPTY;
+        }
+      })
+    );
   }
 }

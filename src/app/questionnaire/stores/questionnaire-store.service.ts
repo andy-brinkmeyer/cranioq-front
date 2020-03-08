@@ -9,13 +9,16 @@ import { Map } from 'immutable';
   providedIn: 'root'
 })
 export class QuestionnaireStore {
-
   private readonly stateSubject = new BehaviorSubject(Map({
     questionnaireID: -1,
     templateID: 1
   }));
 
   readonly state = this.stateSubject.asObservable();
+
+  get stateSnapshot() {
+    return this.currentState;
+  }
 
   private get currentState() {
     return this.stateSubject.getValue();
