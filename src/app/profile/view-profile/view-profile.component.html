@@ -1,0 +1,26 @@
+<div class="container-fluid px-0 full-height">
+  <div class="row mx-0 w-100 h-100">
+    <div class="col-lg bg-white d-flex align-items-center">
+      <div class="container mx-auto">
+        <div *ngFor="let info of details">
+        <h2>{{ info }}</h2>
+        </div>
+        <br>
+        <div *ngIf="details">
+            <button (click)="goToPage('/edit-profile')" class="btn btn-primary">Edit</button>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg custom-blue text-white d-flex align-items-center">
+      <div class="container mx-auto text-center">
+        <h1>
+          Craniofacial condition
+        </h1>
+        <h2>
+          detection made easier
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
