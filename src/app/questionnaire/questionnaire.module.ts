@@ -9,6 +9,7 @@ import { FillOutQuestionnaireComponent } from './fill-out-questionnaire/fill-out
 import { FreeTextQuestionComponent } from './questions/free-text-question/free-text-question.component';
 import { RadioQuestionComponent } from './questions/radio-question/radio-question.component';
 import { CheckboxQuestionComponent } from './questions/checkbox-question/checkbox-question.component';
+import { CategoryComponent } from './questions/category/category.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CheckboxQuestionComponent } from './questions/checkbox-question/checkbo
     FillOutQuestionnaireComponent,
     FreeTextQuestionComponent,
     RadioQuestionComponent,
-    CheckboxQuestionComponent],
+    CheckboxQuestionComponent,
+    CategoryComponent],
   imports: [
     CommonModule,
     QuestionnaireRoutingModule,
