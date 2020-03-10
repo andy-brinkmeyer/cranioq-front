@@ -33,8 +33,9 @@ export class LoginService {
       map(res => {
         this.authStorageService.token = res.token;
         this.authStorageService.role = res.role;
+        this.authStorageService.isLoggedIn = true;
         this.router.navigate([this.redirectUrl]);
-        return of('');
+        return '';
       }),
       catchError( error => {
       if (error.error instanceof ErrorEvent) {
@@ -49,5 +50,6 @@ export class LoginService {
     this.authStorageService.token = '';
     this.authStorageService.userID = -1;
     this.authStorageService.role = 'anon';
+    this.authStorageService.isLoggedIn = false;
   }
 }
