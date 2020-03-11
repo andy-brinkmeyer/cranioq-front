@@ -13,13 +13,13 @@ import {QuestionnaireTemplate, QuestionTemplate} from '../models/templates';
   styleUrls: ['./fill-out-questionnaire.component.css']
 })
 export class FillOutQuestionnaireComponent implements OnInit {
-  categories: object;
+  categories: Map<string, string>;
   categoryKeys: Array<string>;
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
 
   constructor(private route: ActivatedRoute) {
-    this.categories = {};
+    this.categories = new Map();
     this.categoryKeys = [];
     this.currentPage = 0;
     this.route.data.subscribe((data: {template: QuestionnaireTemplate}) => {
