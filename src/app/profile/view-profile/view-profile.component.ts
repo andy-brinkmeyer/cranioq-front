@@ -23,7 +23,7 @@ export class ViewProfileComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('userid');
     
       this.getDetailsService.getDetails(this.id).subscribe(data =>
-      this.details = data);
+        this.details = data);
       /*add observable and error catching!! Resolve guard*/
 
      }
