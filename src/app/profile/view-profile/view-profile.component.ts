@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
@@ -13,11 +13,16 @@ import { GetDetailsService} from '../get-details.service';
 export class ViewProfileComponent implements OnInit {
   auth_userid = this.authStorageService.userID; /*if userid = auth_userid, show edit button*/
   details;
+  id;
 
-  constructor(private router: Router, 
+  constructor( private route: ActivatedRoute,
+    private router: Router,
     private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService,) {  
-    this.getDetailsService.getDetails().subscribe(data =>
+    private authStorageService: AuthStorageService,) {
+      
+      this.id = this.route.snapshot.paramMap.get('userid');
+    
+      this.getDetailsService.getDetails(this.id).subscribe(data =>
       this.details = data);
       /*add observable and error catching!! Resolve guard*/
 
@@ -27,9 +32,9 @@ export class ViewProfileComponent implements OnInit {
   }
 
 
-  goToPage(pagename:string)
+  goToPage()
   {
-    this.router.navigate([pagename]);
+    this.router.navigate(['/edit-profile']);
   }
 
 }

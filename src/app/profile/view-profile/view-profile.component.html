@@ -2,12 +2,17 @@
   <div class="row mx-0 w-100 h-100">
     <div class="col-lg bg-white d-flex align-items-center">
       <div class="container mx-auto">
-        <h2>{{ details.first_name }}</h2>
-        <h2>{{ details.last_name }}</h2>
-        <h2>{{ details.email }}</h2>
+        <h4>Dr {{ details.first_name }} {{ details.last_name }}</h4>
+        <br>
+        <h6>email: {{ details.email }}</h6>
+        <br>
+        <h6> {{ details.clinic_name }}</h6>
+        <h6> {{ details.clinic_address }}</h6>
+        <h6> {{ details.clinic_postcode }}</h6>
+        <br>
         <br>
         <div *ngIf="details">
-            <button (click)="goToPage('/edit-profile')" class="btn btn-primary">Edit</button>
+            <button (click)="goToPage()" class="btn btn-primary">Edit</button>
         </div>
         </div>
         </div>
