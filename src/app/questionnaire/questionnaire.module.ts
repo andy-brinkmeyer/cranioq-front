@@ -5,10 +5,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { QuestionnaireRoutingModule } from './questionnaire-routing.module';
 import { NewQuestionnaireComponent } from './new-questionnaire/new-questionnaire.component';
+import { FillOutQuestionnaireComponent } from './fill-out-questionnaire/fill-out-questionnaire.component';
+import { FreeTextQuestionComponent } from './questions/free-text-question/free-text-question.component';
+import { RadioQuestionComponent } from './questions/radio-question/radio-question.component';
+import { CheckboxQuestionComponent } from './questions/checkbox-question/checkbox-question.component';
+import { CategoryComponent } from './questions/category/category.component';
 
 
 @NgModule({
-  declarations: [NewQuestionnaireComponent],
+  declarations: [
+    NewQuestionnaireComponent,
+    FillOutQuestionnaireComponent,
+    FreeTextQuestionComponent,
+    RadioQuestionComponent,
+    CheckboxQuestionComponent,
+    CategoryComponent],
   imports: [
     CommonModule,
     QuestionnaireRoutingModule,

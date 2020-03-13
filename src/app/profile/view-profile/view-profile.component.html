@@ -2,9 +2,9 @@
   <div class="row mx-0 w-100 h-100">
     <div class="col-lg bg-white d-flex align-items-center">
       <div class="container mx-auto">
-        <div *ngFor="let info of details">
-        <h2>{{ info }}</h2>
-        </div>
+        <h2>{{ details.first_name }}</h2>
+        <h2>{{ details.last_name }}</h2>
+        <h2>{{ details.email }}</h2>
         <br>
         <div *ngIf="details">
             <button (click)="goToPage('/edit-profile')" class="btn btn-primary">Edit</button>
