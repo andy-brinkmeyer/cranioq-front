@@ -4,8 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 
-const routes: Routes = [{ path: 'edit-profile/:userid', component: EditProfileComponent },
-{ path: 'view-profile/:userid', component: ViewProfileComponent }];
+const routes: Routes = [{ path: 'view-profile/:userid', component: ViewProfileComponent }, 
+{ path: 'edit-profile', component: EditProfileComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

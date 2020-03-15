@@ -34,7 +34,7 @@ export class ViewProfileComponent implements OnInit {
 
   goToPage()
   {
-    this.router.navigate(['/edit-profile', this.auth_userid]);
+    this.router.navigate(['/edit-profile']);
   }
 
 }
