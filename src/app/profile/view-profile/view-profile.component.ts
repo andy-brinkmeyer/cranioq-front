@@ -11,20 +11,20 @@ import { GetDetailsService} from '../get-details.service';
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit {
-  auth_userid = this.authStorageService.userID; /*if userid = auth_userid, show edit button*/
+  auth_userid = this.authStorageService.userID;
   details;
   id;
 
-  constructor( private route: ActivatedRoute,
+  constructor( 
+    private route: ActivatedRoute,
     private router: Router,
     private getDetailsService: GetDetailsService,
     private authStorageService: AuthStorageService,) {
-      
-      this.id = this.route.snapshot.paramMap.get('userid');
-    
+      this.route.paramMap.subscribe(params => {
+        this.id = params.get('userid')});
       this.getDetailsService.getDetails(this.id).subscribe(data =>
         this.details = data);
-      /*add observable and error catching!! Resolve guard*/
+         /*add observable and error catching!! Resolve guard*/
 
      }
 

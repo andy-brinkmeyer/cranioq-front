@@ -9,15 +9,13 @@ import { environment } from '../../environments/environment';
 })
 export class GetDetailsService {
   profileUrl;
-   /*put user id in angular route*/
 
   constructor(private http: HttpClient,
     private router: Router) {
-      this.profileUrl = environment.apiBaseUrl + '/user/';
      }
 
   getDetails(id){
-    this.profileUrl = this.profileUrl + id
+    this.profileUrl = environment.apiBaseUrl + '/user/'+id;
     return this.http.get(this.profileUrl)
 
   }

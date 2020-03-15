@@ -12,7 +12,7 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
 })
 export class EditProfileComponent implements OnInit {
   profileForm;
-  auth_userid = this.authStorageService.userID;
+  auth_userid;
   details;
 
   constructor(
@@ -22,7 +22,7 @@ export class EditProfileComponent implements OnInit {
     private getDetailsService: GetDetailsService,
     private authStorageService: AuthStorageService
     ) {
-
+      this.auth_userid = this.authStorageService.userID;
       this.profileForm = this.formBuilder.group({
         first_name: ['', Validators.compose([Validators.required])],
         last_name: ['',  Validators.compose([Validators.required])],
@@ -31,14 +31,13 @@ export class EditProfileComponent implements OnInit {
         clinic_address: ['',  Validators.compose([Validators.required])],
         clinic_postcode: ['',  Validators.compose([Validators.required])]
         });
-
+      this.getDetailsService.getDetails(this.auth_userid).subscribe(data => {
+        this.details = data;
+        this.patchValues()
+      });
    }
 
   ngOnInit(){
-    this.getDetailsService.getDetails(2).subscribe(data => {
-      this.details = data;
-      this.patchValues()
-    })
   }
 
 
