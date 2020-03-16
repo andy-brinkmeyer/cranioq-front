@@ -20,15 +20,14 @@ export class ViewProfileComponent implements OnInit {
     private router: Router,
     private getDetailsService: GetDetailsService,
     private authStorageService: AuthStorageService,) {
-      this.route.paramMap.subscribe(params => {
-        this.id = params.get('userid')});
-      this.getDetailsService.getDetails(this.id).subscribe(data =>
-        this.details = data);
-         /*add observable and error catching!! Resolve guard*/
-
      }
 
   ngOnInit(){
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('userid')});
+    this.getDetailsService.getDetails(this.id).subscribe(data =>
+      this.details = data);
+       /*add observable and error catching!! Resolve guard*/
   }
 
 

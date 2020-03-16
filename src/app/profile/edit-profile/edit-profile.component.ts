@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { GetDetailsService} from '../get-details.service';
 import { AuthStorageService } from '../../auth/services/auth-storage.service';
+import { EditProfileService } from '../edit-profile.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,13 +15,15 @@ export class EditProfileComponent implements OnInit {
   profileForm;
   auth_userid;
   details;
+  displayMessage;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService
+    private authStorageService: AuthStorageService,
+    private editProfileService: EditProfileService
     ) {
       this.auth_userid = this.authStorageService.userID;
       this.profileForm = this.formBuilder.group({
@@ -31,13 +34,14 @@ export class EditProfileComponent implements OnInit {
         clinic_address: ['',  Validators.compose([Validators.required])],
         clinic_postcode: ['',  Validators.compose([Validators.required])]
         });
-      this.getDetailsService.getDetails(this.auth_userid).subscribe(data => {
-        this.details = data;
-        this.patchValues()
-      });
+      this.displayMessage = ''
    }
 
   ngOnInit(){
+    this.getDetailsService.getDetails(this.auth_userid).subscribe(data => {
+      this.details = data;
+      this.patchValues()
+    });
   }
 
 
@@ -53,6 +57,11 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit(profileData) {
-    this.profileForm.reset();
+    if (this.profileForm.valid) {
+      this.editProfileService.editProfile(this.auth_userid, profileData).subscribe(message => {
+        this.displayMessage = message;
+        this.router.navigate(['/edit-profile']);
+      });
+    }
   }
 }

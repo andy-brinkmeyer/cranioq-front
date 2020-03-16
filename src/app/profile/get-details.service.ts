@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class GetDetailsService {
-  profileUrl;
+  profileUrl: string;
 
   constructor(private http: HttpClient,
     private router: Router) {
