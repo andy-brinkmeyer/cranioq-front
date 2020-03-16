@@ -59,7 +59,7 @@ export class EditProfileComponent implements OnInit {
   onSubmit(profileData) {
     if (this.profileForm.valid) {
       this.editProfileService.editProfile(this.auth_userid, profileData).subscribe(message => {
-        this.displayMessage = message;
+        this.displayMessage = message['displayable_message'];
         this.router.navigate(['/edit-profile']);
       });
     }
