@@ -27,12 +27,12 @@ export class EditProfileComponent implements OnInit {
     ) {
       this.auth_userid = this.authStorageService.userID;
       this.profileForm = this.formBuilder.group({
-        first_name: ['', Validators.compose([Validators.required])],
-        last_name: ['',  Validators.compose([Validators.required])],
-        email: ['',  Validators.compose([Validators.required])],
-        clinic_name: ['',  Validators.compose([Validators.required])],
-        clinic_address: ['',  Validators.compose([Validators.required])],
-        clinic_postcode: ['',  Validators.compose([Validators.required])]
+        first_name: ['', [Validators.required]],
+        last_name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+        clinic_name: ['', [Validators.required]],
+        clinic_address: ['', [Validators.required]],
+        clinic_postcode: ['', [Validators.required]]
         });
       this.displayMessage = ''
    }
@@ -59,9 +59,11 @@ export class EditProfileComponent implements OnInit {
   onSubmit(profileData) {
     if (this.profileForm.valid) {
       this.editProfileService.editProfile(this.auth_userid, profileData).subscribe(message => {
-        this.displayMessage = message['displayable_message'];
+        this.displayMessage = message;
         this.router.navigate(['/edit-profile']);
       });
+    } else {
+      this.displayMessage = 'One or more fields are empty.';
     }
   }
 }
