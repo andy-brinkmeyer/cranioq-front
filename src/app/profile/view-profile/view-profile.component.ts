@@ -24,10 +24,13 @@ export class ViewProfileComponent implements OnInit {
      }
 
   ngOnInit(){
+    this.route.data.subscribe((data) => {
+      this.details = data['profile'];
+    });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('userid')});
-    this.getDetailsService.getDetails(this.id).subscribe(data =>
-      this.details = data);
+    /*this.getDetailsService.getDetails(this.id).subscribe(data =>
+      this.details = data);*/
     }
        /*add observable and error catching!! Resolve guard*/
 
