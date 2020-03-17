@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { QuestionTemplate } from '../../models/templates';
+import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 
 
 @Component({
@@ -11,9 +12,17 @@ import { QuestionTemplate } from '../../models/templates';
 export class RadioQuestionComponent implements OnInit {
   @Input() question: QuestionTemplate;
 
-  constructor() { }
+  constructor(
+    private questionnaireStore: QuestionnaireStore
+  ) { }
 
   ngOnInit() {
   }
 
+  onChange(event) {
+    const questionID = event.target.getAttribute('questionID');
+    const parent = event.target.parentNode;
+    const answer = parent.innerText;
+    this.questionnaireStore.setAnswer(questionID, [answer]);
+  }
 }

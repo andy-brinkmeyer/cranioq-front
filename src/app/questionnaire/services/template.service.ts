@@ -19,7 +19,7 @@ export class TemplateService {
     this.templatesURL = environment.apiBaseUrl + '/quests/templates/';
   }
 
-  getTemplate(templateID: number): Observable<QuestionnaireTemplate> {
+    getTemplate(templateID: number | {}): Observable<QuestionnaireTemplate> {
     return this.http.get<QuestionnaireTemplate>(this.templatesURL + templateID);
   }
 }
