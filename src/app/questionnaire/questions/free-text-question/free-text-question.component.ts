@@ -17,7 +17,7 @@ export class FreeTextQuestionComponent implements OnInit {
   }
 
   onChange(event) {
-    const questionID = event.target.getAttribute('questionID');
+    const questionID = parseInt(event.target.getAttribute('questionID'), 10);
     const answer = event.target.value;
     this.questionnaireStore.setAnswer(questionID, [answer]);
   }

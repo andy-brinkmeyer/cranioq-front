@@ -23,7 +23,7 @@ export class CheckboxQuestionComponent implements OnInit {
   }
 
   onChange(event) {
-    const questionID = event.target.getAttribute('questionID');
+    const questionID = parseInt(event.target.getAttribute('questionID'), 10);
     const checked = event.target.checked;
     const parent = event.target.parentNode;
     let currentAnswer = this.currentAnswers[questionID];

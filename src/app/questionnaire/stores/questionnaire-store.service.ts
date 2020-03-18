@@ -10,7 +10,7 @@ import { Map } from 'immutable';
 })
 export class QuestionnaireStore {
   private readonly stateSubject = new BehaviorSubject(Map({
-    questionnaireID: -1,
+    questionnaireID: 1,
     templateID: 1,
     answers: {}
   }));
