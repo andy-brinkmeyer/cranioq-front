@@ -19,6 +19,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   categoryKeys: Array<string>;
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,6 @@ export class FillOutQuestionnaireComponent implements OnInit {
 
   onSubmit() {
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state);
+    this.questionnaireService.save(state).subscribe(res => this.errorMessage = res);
   }
 }
