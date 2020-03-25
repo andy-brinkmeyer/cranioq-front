@@ -1,3 +1,10 @@
+export interface TemplateInformation {
+  name: string;
+  version: string;
+  description: string;
+}
+
+
 export interface QuestionTemplate {
   id: number;
   type: string;
