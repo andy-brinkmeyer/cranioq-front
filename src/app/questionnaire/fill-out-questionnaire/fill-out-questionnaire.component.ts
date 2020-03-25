@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import {QuestionnaireTemplate, QuestionTemplate} from '../models/templates';
+import { QuestionnaireStore } from '../stores/questionnaire-store.service';
+import { QuestionnaireService } from '../services/questionnaire.service';
 
 
 @Component({
@@ -17,8 +19,13 @@ export class FillOutQuestionnaireComponent implements OnInit {
   categoryKeys: Array<string>;
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
+  errorMessage = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private questionnaireStore: QuestionnaireStore,
+    private questionnaireService: QuestionnaireService
+  ) {
     this.categories = new Map();
     this.categoryKeys = [];
     this.currentPage = 0;
@@ -52,5 +59,10 @@ export class FillOutQuestionnaireComponent implements OnInit {
     }
     this.currentPage += 1;
     this.currentQuestions.next(this.categories[this.categoryKeys[this.currentPage]]);
+  }
+
+  onSubmit() {
+    const state = this.questionnaireStore.stateSnapshot;
+    this.questionnaireService.save(state).subscribe(res => this.errorMessage = res);
   }
 }

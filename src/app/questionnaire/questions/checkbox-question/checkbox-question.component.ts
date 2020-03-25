@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { QuestionTemplate } from '../../models/templates';
+import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 
 
 @Component({
@@ -10,10 +11,36 @@ import { QuestionTemplate } from '../../models/templates';
 })
 export class CheckboxQuestionComponent implements OnInit {
   @Input() question: QuestionTemplate;
+  currentAnswers;
 
-  constructor() { }
+  constructor(
+    private questionnaireStore: QuestionnaireStore
+  ) {
+    this.questionnaireStore.state.subscribe(state => this.currentAnswers = state.get('answers'));
+  }
 
   ngOnInit() {
+  }
+
+  onChange(event) {
+    const questionID = parseInt(event.target.getAttribute('questionID'), 10);
+    const checked = event.target.checked;
+    const parent = event.target.parentNode;
+    let currentAnswer = this.currentAnswers[questionID];
+    const answer = parent.innerText;
+    let answerIndex = -1;
+    if (currentAnswer === undefined) {
+      currentAnswer = [];
+    } else {
+      answerIndex = currentAnswer.indexOf(answer);
+    }
+    if (checked && answerIndex < 0) {
+      currentAnswer.push(answer);
+      this.questionnaireStore.setAnswer(questionID, currentAnswer);
+    } else if (!checked && answerIndex > -1) {
+      currentAnswer.splice(answerIndex, 1);
+      this.questionnaireStore.setAnswer(questionID, currentAnswer);
+    }
   }
 
 }

@@ -1,3 +1,8 @@
+<div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
+  {{ errorMessage }}
+</div>
+
 <app-category *ngIf="categoryKeys.length > 0" [questions]="currentQuestions.asObservable()"></app-category>
 <button *ngIf="currentPage > 0" (click)="previousPage()" type="button" class="btn btn-primary">Previous</button>
 <button *ngIf="currentPage < categoryKeys.length - 1" (click)="nextPage()" type="button" class="btn btn-primary">Next</button>
+<button *ngIf="currentPage == categoryKeys.length - 1" (click)="onSubmit()" type="button" class="btn btn-outline-success">Submit</button>
