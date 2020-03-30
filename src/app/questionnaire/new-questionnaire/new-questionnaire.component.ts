@@ -27,7 +27,7 @@ export class NewQuestionnaireComponent implements OnInit {
       email: ['', Validators.required],
       agreed: [false, Validators.requiredTrue],
       patient_id: ['', Validators.required],
-      template_id: ['', Validators.required]
+      template_id: ''
     });
     this.displayMessage = '';
 
@@ -49,7 +49,6 @@ export class NewQuestionnaireComponent implements OnInit {
   onSubmit(formData) {
     if (this.newQuestionnaireForm.valid) {
       formData.template_id = this.selectedTemplateID;
-      formData.template_id = this.newQuestionnaireForm.template_id;
       this.newQuestionnaireService.create(formData).subscribe(message => this.displayMessage = message);
     } else {
       this.displayMessage = 'One or more fields were left empty.';
