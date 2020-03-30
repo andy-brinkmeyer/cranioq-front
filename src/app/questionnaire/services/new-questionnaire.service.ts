@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -19,7 +20,8 @@ export class NewQuestionnaireService {
 
   constructor(
     private http: HttpClient,
-    private questionnaireStore: QuestionnaireStore) {
+    private questionnaireStore: QuestionnaireStore,
+    private router: Router) {
     this.url = environment.apiBaseUrl + '/quests/quest';
   }
 
@@ -28,6 +30,8 @@ export class NewQuestionnaireService {
     return this.http.post<NewQuestionnaireResponse201>(this.url, questData).pipe(
       map(res => {
         this.questionnaireStore.questionnaireID = res.questionnaire_id;
+        this.questionnaireStore.templateID = questData.template_id;
+        this.router.navigate(['/questionnaire/' + res.questionnaire_id]);
         return res.questionnaire_id;
       }),
       catchError(error => {

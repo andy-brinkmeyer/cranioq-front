@@ -15,6 +15,11 @@ const routes: Routes = [
           { path: 'new', component: NewQuestionnaireComponent, resolve: {templates: NewQuestionnaireResolverService} }
         ] }
     ] },
+  { path: 'questionnaire', children : [
+  { path: '', canActivateChild: [AuthGuard], children: [
+      { path: ':questionnaireID', component: FillOutQuestionnaireComponent, resolve: {template: TemplateResolverService} }
+    ] }
+  ]},
   { path: 'q-templates', component: FillOutQuestionnaireComponent, resolve: {template: TemplateResolverService} }
 ];
 
