@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -32,7 +32,7 @@ export class NewQuestionnaireService {
         this.questionnaireStore.questionnaireID = res.questionnaire_id;
         this.questionnaireStore.templateID = questData.template_id;
         this.router.navigate(['/questionnaire/' + res.questionnaire_id]);
-        return res.questionnaire_id;
+        return EMPTY;
       }),
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
