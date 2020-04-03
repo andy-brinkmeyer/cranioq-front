@@ -7,7 +7,6 @@ import { FillOutQuestionnaireComponent } from './fill-out-questionnaire/fill-out
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { TemplateResolverService } from './guards/template-resolver.service';
 import { NewQuestionnaireResolverService } from './guards/new-questionnaire-resolver.service';
-import { GuardianResolverService } from './guards/guardian-resolver.service';
 
 
 const routes: Routes = [
@@ -20,10 +19,7 @@ const routes: Routes = [
   { path: '', canActivateChild: [AuthGuard], children: [
       { path: ':questionnaireID', component: FillOutQuestionnaireComponent, resolve: { template: TemplateResolverService } }
     ] }
-  ]},
-  { path: 'guardian', children: [
-      { path: ':accessID', component: FillOutQuestionnaireComponent, resolve: { template: GuardianResolverService } }
-    ] }
+  ]}
 ];
 
 @NgModule({

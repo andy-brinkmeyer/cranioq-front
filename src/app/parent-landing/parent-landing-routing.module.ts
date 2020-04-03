@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ParentLandingComponent } from './parent-landing.component';
+import {FillOutQuestionnaireComponent} from '../questionnaire/fill-out-questionnaire/fill-out-questionnaire.component';
+import {GuardianResolverService} from '../questionnaire/guards/guardian-resolver.service';
 
 
-const routes: Routes = [{ path: 'parent-landing', component: ParentLandingComponent}];
+const routes: Routes = [
+  { path: 'guardian', children: [
+      { path: ':accessID', component: FillOutQuestionnaireComponent, resolve: { template: GuardianResolverService } },
+      { path: '', component: ParentLandingComponent }
+    ]}
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
