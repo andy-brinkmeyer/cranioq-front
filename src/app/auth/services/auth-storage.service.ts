@@ -28,7 +28,9 @@ export class AuthStorageService  {
     this.http = new HttpClient(handler);
     this.localStore = window.localStorage;
     this.isLoggedIn = this.token !== '';
-    this.verify();
+    if (this.isLoggedIn) {
+      this.verify();
+    }
   }
 
   set token(token: string) {

@@ -28,6 +28,10 @@ export class QuestionnaireService {
     return this.http.get<Questionnaire>(this.url + '/' + questionnaireID);
   }
 
+  getByAccessID(accessID: string) {
+    return this.http.get<Questionnaire>(this.url + '/' + accessID);
+  }
+
   save(questionnaireState: Map<string, any>) {
     return this.http.put(this.url, questionnaireState).pipe(
       map(() => {
