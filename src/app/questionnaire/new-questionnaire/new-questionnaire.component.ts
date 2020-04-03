@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
+import { environment } from '../../../environments/environment';
 
 import { NewQuestionnaireService } from '../services/new-questionnaire.service';
-
 import { TemplateInformation } from '../models/templates';
 
 
@@ -17,11 +19,16 @@ export class NewQuestionnaireComponent implements OnInit {
   displayMessage: string;
   templates: Array<TemplateInformation>;
   selectedTemplateID: number;
+  accessID: string;
+  questionnaireID: number;
+
+  frontEndUrl = environment.frontEndUrl;
 
   constructor(
     private formBuilder: FormBuilder,
     private newQuestionnaireService: NewQuestionnaireService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.newQuestionnaireForm = formBuilder.group({
       email: ['', Validators.required],
@@ -49,10 +56,16 @@ export class NewQuestionnaireComponent implements OnInit {
   onSubmit(formData) {
     if (this.newQuestionnaireForm.valid) {
       formData.template_id = this.selectedTemplateID;
-      this.newQuestionnaireService.create(formData).subscribe(message => this.displayMessage = message);
+      this.newQuestionnaireService.create(formData).subscribe(res => {
+        this.accessID = res.accessID;
+        this.questionnaireID = res.questionnaireID;
+      });
     } else {
       this.displayMessage = 'One or more fields were left empty.';
     }
   }
 
+  onGoToGPQuestionnaireClick() {
+    this.router.navigate(['/questionnaire/' + this.questionnaireID]);
+  }
 }

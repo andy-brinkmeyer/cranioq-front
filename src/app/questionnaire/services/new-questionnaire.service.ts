@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
-import { of, EMPTY } from 'rxjs';
+import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -20,8 +19,7 @@ export class NewQuestionnaireService {
 
   constructor(
     private http: HttpClient,
-    private questionnaireStore: QuestionnaireStore,
-    private router: Router) {
+    private questionnaireStore: QuestionnaireStore) {
     this.url = environment.apiBaseUrl + '/quests/quest';
   }
 
@@ -31,14 +29,16 @@ export class NewQuestionnaireService {
       map(res => {
         this.questionnaireStore.questionnaireID = res.questionnaire_id;
         this.questionnaireStore.templateID = questData.template_id;
-        this.router.navigate(['/questionnaire/' + res.questionnaire_id]);
-        return EMPTY;
+        return {
+          questionnaireID: res.questionnaire_id,
+          accessID: res.access_id
+        };
       }),
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
-          return of(error.error.message);
+          return throwError(new Error(error.error.message));
         } else {
-          return of(error.error.error_message);
+          return throwError(new Error(error.error.error_message));
         }
       })
     );

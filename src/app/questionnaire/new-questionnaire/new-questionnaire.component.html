@@ -23,7 +23,16 @@
       <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
         {{ displayMessage }}
       </div>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <div *ngIf="accessID !== undefined" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Created!</h4>
+        <p>The guardians access code is:</p>
+        <h3>{{ accessID }}</h3>
+        <hr>
+        <p class="mb-0">For the guardian to access the questionnaire, go to:</p>
+        <a href="{{ frontEndUrl + '/guardian/' }}" class="alert-link">{{ frontEndUrl + '/guardian/' }}</a>
+      </div>
+      <button *ngIf="accessID === undefined" type="submit" class="btn btn-primary">Create</button>
+      <button *ngIf="accessID !== undefined" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success">Got to GP questionnaire</button>
     </form>
   </div>
 </div>
