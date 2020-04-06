@@ -3,6 +3,7 @@
     <!--suppress HtmlUnknownTarget -->
     <img src="./assets/images/cranioq_logo.png" height="60" alt="Logo">
     CranioQ 
-  </a>
+      </a>
+    <a [routerLink]="['/view-profile', auth_userid]">Profile</a> <!--user is logged in, access their profile vai authStorage-->
   <a *ngIf="authStorageService.isLoggedIn" routerLink="logout">Logout</a>
 </nav>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import {AuthStorageService} from '../auth/services/auth-storage.service';
 
@@ -10,8 +11,10 @@ import {AuthStorageService} from '../auth/services/auth-storage.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  auth_userid = this.authStorageService.userID;
 
-  constructor(public authStorageService: AuthStorageService) { }
+  constructor(public authStorageService: AuthStorageService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
