@@ -14,10 +14,25 @@
         <input formControlName="agreed" type="checkbox" class="form-check-input" id="InputAgreed" aria-describedby="agreed">
         <label for="InputAgreed" class="form-check-label">Agree to tbd</label>
       </div>
-      <div *ngIf="displayMessage != ''" class="alert alert-danger" role="alert">
+      <div class="form-group">
+        <label for="templateName">Template</label>
+        <select class="form-control" id="templateName" formControlName="template_id" (change)="onSelectChange($event.target)">
+          <option *ngFor="let template of templates" [attr.templateID]="template.id">{{ template.name }}</option>
+        </select>
+      </div>
+      <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
         {{ displayMessage }}
       </div>
-      <button type="submit" class="btn btn-primary">Create</button>
+      <div *ngIf="accessID !== undefined" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Created!</h4>
+        <p>The guardians access code is:</p>
+        <h3>{{ accessID }}</h3>
+        <hr>
+        <p class="mb-0">For the guardian to access the questionnaire, go to:</p>
+        <a href="{{ frontEndUrl + '/guardian/' }}" class="alert-link">{{ frontEndUrl + '/guardian/' }}</a>
+      </div>
+      <button *ngIf="accessID === undefined" type="submit" class="btn btn-primary">Create</button>
+      <button *ngIf="accessID !== undefined" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success">Got to GP questionnaire</button>
     </form>
   </div>
 </div>

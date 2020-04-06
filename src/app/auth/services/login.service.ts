@@ -18,6 +18,7 @@ import { LoginResponse200, LoginData } from '../models/models';
 export class LoginService {
   loginUrl: string;
   redirectUrl: string;
+  verifyUrl;
 
   constructor(
     private http: HttpClient,
@@ -25,6 +26,7 @@ export class LoginService {
     private router: Router
   ) {
     this.loginUrl = environment.apiBaseUrl + '/auth/login';
+    this.verifyUrl = environment.apiBaseUrl + '/auth/verify';
     this.redirectUrl = '/dashboard';
   }
 
@@ -48,9 +50,6 @@ export class LoginService {
   }
 
   logout() {
-    this.authStorageService.token = '';
-    this.authStorageService.userID = -1;
-    this.authStorageService.role = 'anon';
-    this.authStorageService.isLoggedIn = false;
+    this.authStorageService.logout();
   }
 }

@@ -7,21 +7,29 @@ import { environment } from '../../../environments/environment';
 import { Map } from 'immutable';
 
 import { catchError, map } from 'rxjs/operators';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
+
+import { Questionnaire } from '../models/questionnaire';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionnaireService {
-  url: string;
+  url = environment.apiBaseUrl + '/quests/quest';
   redirectURL = '/dashboard';
 
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {
-    this.url = environment.apiBaseUrl + '/quests/quest';
+  ) { }
+
+  get(questionnaireID: number): Observable<Questionnaire> {
+    return this.http.get<Questionnaire>(this.url + '/' + questionnaireID);
+  }
+
+  getByAccessID(accessID: string) {
+    return this.http.get<Questionnaire>(this.url + '/' + accessID);
   }
 
   save(questionnaireState: Map<string, any>) {

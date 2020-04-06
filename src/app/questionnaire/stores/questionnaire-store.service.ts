@@ -33,6 +33,10 @@ export class QuestionnaireStore {
     this.currentState = this.currentState.set('questionnaireID', id);
   }
 
+  set templateID(id: number) {
+    this.currentState = this.currentState.set('templateID', id);
+  }
+
   setAnswer(questionID: number, answers: Array<string>) {
     const currentAnswers = this.currentState.get('answers');
     currentAnswers[questionID] = answers;
