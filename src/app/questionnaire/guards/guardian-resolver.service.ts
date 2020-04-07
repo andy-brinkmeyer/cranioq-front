@@ -2,28 +2,27 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 
 import {Observable, of} from 'rxjs';
-import {catchError, mergeMap, take} from 'rxjs/operators';
+import {catchError, take} from 'rxjs/operators';
 
-import { QuestionnaireTemplate } from '../models/templates';
+import { Questionnaire } from '../models/questionnaire';
 import { QuestionnaireService } from '../services/questionnaire.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardianResolverService implements Resolve<QuestionnaireTemplate> {
+export class GuardianResolverService implements Resolve<Questionnaire> {
 
   constructor(
     private questionnaireService: QuestionnaireService,
     private router: Router
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<QuestionnaireTemplate>
-    | Promise<QuestionnaireTemplate> | QuestionnaireTemplate {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Questionnaire>
+    | Promise<Questionnaire> | Questionnaire {
     const accessID = route.paramMap.get('accessID');
     return this.questionnaireService.getByAccessID(accessID).pipe(
       take(1),
-      mergeMap(questionnaire => of(questionnaire.template)),
       catchError(error => {
         this.router.navigate(['/guardian']);
         if (error.error instanceof ErrorEvent) {

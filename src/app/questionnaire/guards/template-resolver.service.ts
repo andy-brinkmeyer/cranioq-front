@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Observable, of} from 'rxjs';
-import {catchError, mergeMap, take} from 'rxjs/operators';
+import {catchError, take} from 'rxjs/operators';
 
-import { QuestionnaireTemplate } from '../models/templates';
+import { Questionnaire } from '../models/questionnaire';
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
 import { QuestionnaireService } from '../services/questionnaire.service';
 
@@ -13,7 +13,7 @@ import { QuestionnaireService } from '../services/questionnaire.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TemplateResolverService implements Resolve<QuestionnaireTemplate> {
+export class TemplateResolverService implements Resolve<Questionnaire> {
 
   constructor(
     private questionnaireStore: QuestionnaireStore,
@@ -21,12 +21,11 @@ export class TemplateResolverService implements Resolve<QuestionnaireTemplate> {
     private questionnaireService: QuestionnaireService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<QuestionnaireTemplate> | Promise<QuestionnaireTemplate> | QuestionnaireTemplate {
+    Observable<Questionnaire> | Promise<Questionnaire> | Questionnaire {
 
     const questionnaireID = parseInt(route.paramMap.get('questionnaireID'), 10);
     return this.questionnaireService.get(questionnaireID).pipe(
       take(1),
-      mergeMap(questionnaire => of(questionnaire.template)),
       catchError(error => {
         this.router.navigate(['/dashboard']);
         if (error.error instanceof ErrorEvent) {

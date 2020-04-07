@@ -7,7 +7,7 @@ import {GuardianResolverService} from '../questionnaire/guards/guardian-resolver
 
 const routes: Routes = [
   { path: 'guardian', children: [
-      { path: ':accessID', component: FillOutQuestionnaireComponent, resolve: { template: GuardianResolverService } },
+      { path: ':accessID', component: FillOutQuestionnaireComponent, resolve: { questionnaire: GuardianResolverService } },
       { path: '', component: ParentLandingComponent }
     ]}
   ];
