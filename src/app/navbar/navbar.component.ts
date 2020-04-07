@@ -27,24 +27,31 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.notificationsService.getQuestionnaires(this.auth_userid).subscribe(data =>{
       this.listQs = data;
-      this.total = this.countQs()
+      if (this.role == 'gp'){
+        this.total = this.countGP();
+      }
+      else {
+        this.total = this.countSP()
+      }
     });
     }
 
-  countQs() {
+  countGP() {
     let count = 0;
     for (let questionnaire of this.listQs){
-      if (this.role == 'gp'){
         if (questionnaire.id === this.auth_userid){
           count++;
         }
       }
-      else{
-        count++;
-      }
+    return count;
+  }
+
+  countSP() {
+    let count = 0;
+    for (let questionnaire of this.listQs){
+      count++;
     }
     return count;
-
   }
 
 }
