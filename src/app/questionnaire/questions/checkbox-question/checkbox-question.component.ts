@@ -11,35 +11,35 @@ import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 })
 export class CheckboxQuestionComponent implements OnInit {
   @Input() question: QuestionTemplate;
-  currentAnswers;
+  currentAnswer: Array<string>;
 
   constructor(
     private questionnaireStore: QuestionnaireStore
-  ) {
-    this.questionnaireStore.state.subscribe(state => this.currentAnswers = state.get('answers'));
-  }
+  ) { }
 
   ngOnInit() {
+    this.currentAnswer = this.questionnaireStore.stateSnapshot.get('answers')[this.question.id];
+    if ( this.currentAnswer === undefined ) {
+      this.currentAnswer = [];
+    }
+  }
+
+  isChecked(answer: string): boolean {
+    return this.currentAnswer.includes(answer);
   }
 
   onChange(event) {
-    const questionID = parseInt(event.target.getAttribute('questionID'), 10);
+    const questionID = this.question.id;
     const checked = event.target.checked;
     const parent = event.target.parentNode;
-    let currentAnswer = this.currentAnswers[questionID];
     const answer = parent.innerText;
-    let answerIndex = -1;
-    if (currentAnswer === undefined) {
-      currentAnswer = [];
-    } else {
-      answerIndex = currentAnswer.indexOf(answer);
-    }
+    const answerIndex = this.currentAnswer.indexOf(answer);
     if (checked && answerIndex < 0) {
-      currentAnswer.push(answer);
-      this.questionnaireStore.setAnswer(questionID, currentAnswer);
+      this.currentAnswer.push(answer);
+      this.questionnaireStore.setAnswer(questionID, this.currentAnswer);
     } else if (!checked && answerIndex > -1) {
-      currentAnswer.splice(answerIndex, 1);
-      this.questionnaireStore.setAnswer(questionID, currentAnswer);
+      this.currentAnswer.splice(answerIndex, 1);
+      this.questionnaireStore.setAnswer(questionID, this.currentAnswer);
     }
   }
 

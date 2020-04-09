@@ -11,12 +11,23 @@ import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 })
 export class RadioQuestionComponent implements OnInit {
   @Input() question: QuestionTemplate;
+  currentAnswer: string;
 
   constructor(
     private questionnaireStore: QuestionnaireStore
   ) { }
 
   ngOnInit() {
+    const currentAnswers = this.questionnaireStore.stateSnapshot.get('answers')[this.question.id];
+    if ( currentAnswers === undefined || currentAnswers.length < 1 ) {
+      this.currentAnswer = '';
+    } else {
+      this.currentAnswer = currentAnswers[0];
+    }
+  }
+
+  isChecked(answer: string): boolean {
+    return answer === this.currentAnswer;
   }
 
   onChange(event) {

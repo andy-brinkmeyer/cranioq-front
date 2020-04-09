@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import { QuestionTemplate } from '../../models/templates';
+import { Question } from '../../models/questionnaire';
 import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 
 @Component({
@@ -9,11 +9,15 @@ import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
   styleUrls: ['./free-text-question.component.css']
 })
 export class FreeTextQuestionComponent implements OnInit {
-  @Input() question: QuestionTemplate;
+  @Input() question: Question;
+  answer = '';
 
   constructor(private questionnaireStore: QuestionnaireStore) { }
 
   ngOnInit() {
+    if (this.questionnaireStore.stateSnapshot.get('answers')[this.question.id] !== undefined) {
+      this.answer = this.questionnaireStore.stateSnapshot.get('answers')[this.question.id][0];
+    }
   }
 
   onChange(event) {

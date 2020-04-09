@@ -17,7 +17,7 @@ const routes: Routes = [
     ] },
   { path: 'questionnaire', children : [
   { path: '', canActivateChild: [AuthGuard], children: [
-      { path: ':questionnaireID', component: FillOutQuestionnaireComponent, resolve: { template: TemplateResolverService } }
+      { path: ':questionnaireID', component: FillOutQuestionnaireComponent, resolve: { questionnaire: TemplateResolverService } }
     ] }
   ]}
 ];
