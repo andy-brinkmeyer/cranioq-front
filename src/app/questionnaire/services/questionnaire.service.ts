@@ -10,6 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
 import { Questionnaire } from '../models/questionnaire';
+import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
 
 @Injectable({
@@ -21,7 +22,8 @@ export class QuestionnaireService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authStorageService: AuthStorageService
   ) { }
 
   get(questionnaireID: number): Observable<Questionnaire> {
@@ -33,7 +35,13 @@ export class QuestionnaireService {
   }
 
   save(questionnaireState: Map<string, any>) {
-    return this.http.put(this.url, questionnaireState).pipe(
+    let url: string;
+    if ( this.authStorageService.role === 'anon' ) {
+      url = this.url + '/' + questionnaireState.get('accessID');
+    } else {
+      url = this.url;
+    }
+    return this.http.put(url, questionnaireState).pipe(
       map(() => {
         this.router.navigate([this.redirectURL]);
         return of('');

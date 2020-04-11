@@ -13,6 +13,7 @@ export interface QuestionTemplate {
   question: string;
   description: string;
   answers: Array<string>;
+  role: string;
 }
 
 

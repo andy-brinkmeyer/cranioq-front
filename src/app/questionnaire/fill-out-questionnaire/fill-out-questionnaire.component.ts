@@ -8,6 +8,7 @@ import { QuestionTemplate } from '../models/templates';
 import { Questionnaire, Question } from '../models/questionnaire';
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
 import { QuestionnaireService } from '../services/questionnaire.service';
+import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
 
 @Component({
@@ -25,16 +26,25 @@ export class FillOutQuestionnaireComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private questionnaireStore: QuestionnaireStore,
-    private questionnaireService: QuestionnaireService
+    private questionnaireService: QuestionnaireService,
+    private authStorageService: AuthStorageService
   ) {
     this.categories = new Map();
     this.categoryKeys = [];
     this.currentPage = 0;
 
+    this.questionnaireStore.reset();
+
+    const role = this.authStorageService.role;
+
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
+      this.questionnaireStore.accessID = data.questionnaire.access_id;
       data.questionnaire.answers.forEach(answer => this.questionnaireStore.setAnswer(answer.question_id, answer.answer));
       data.questionnaire.template.questions.forEach(question => {
+        if ( role !== question.role ) {
+          return;
+        }
         if (question.category in this.categories) {
           this.categories[question.category].push(question);
         } else {

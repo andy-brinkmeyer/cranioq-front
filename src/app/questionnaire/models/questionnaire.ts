@@ -15,9 +15,13 @@ export interface Question extends QuestionTemplate {
 export interface Questionnaire {
   id: number;
   patient_id: string;
+  gp_id: number;
   email: string;
-  completed: boolean;
+  access_id: string;
+  completed_gp: boolean;
+  completed_guardian: boolean;
   template: QuestionnaireTemplate;
   answers: Array<Answer>;
+  created: string;
 
 }
