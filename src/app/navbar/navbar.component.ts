@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   role = this.authStorageService.role;
   total: number = 0;
   listQs;
+  notify;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -25,33 +26,45 @@ export class NavbarComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.notificationsService.getQuestionnaires(this.auth_userid).subscribe(data =>{
+    this.notificationsService.getQuestionnaires().subscribe(data =>{
       this.listQs = data;
-      if (this.role == 'gp'){
-        this.total = this.countGP();
+      if (this.role == 'gp' && Array.isArray(this.listQs) && this.listQs.length){
+        this.notify = this.notifyGP();
+        this.total = this.notify.length;
       }
-      else {
-        this.total = this.countSP()
+      if (this.role == 'specialist' && Array.isArray(this.listQs) && this.listQs.length) {
+        this.notify = this.notifySpecialist();
+        this.total = this.notify.length;
+      }
+      if (Array.isArray(this.listQs) && !this.listQs.length) {
+        this.total = 0;
+      }
+      if (!Array.isArray(this.listQs)){
+        this.total = 0;
       }
     });
-    }
+  }
 
-  countGP() {
-    let count = 0;
-    for (let questionnaire of this.listQs){
-        if (questionnaire.id === this.auth_userid){
-          count++;
-        }
+  notifyGP() {
+    let questionnaires = [];
+    for (let questionnaire of this.listQs) {
+      if (questionnaire.completed_gp && questionnaire.completed_guardian && questionnaire.review.length) {
+        questionnaires.push(questionnaire)
       }
-    return count;
+    }
+    return questionnaires
   }
 
-  countSP() {
-    let count = 0;
-    for (let questionnaire of this.listQs){
-      count++;
+  notifySpecialist() {
+    let questionnaires = [];
+    for (let questionnaire of this.listQs) {
+      if (questionnaire.completed_gp && questionnaire.completed_guardian && !questionnaire.review.length) {
+        questionnaires.push(questionnaire)
+      }
     }
-    return count;
+    return questionnaires
   }
+
+
 
 }

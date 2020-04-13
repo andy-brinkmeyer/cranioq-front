@@ -17,14 +17,11 @@ export class NotificationsService {
   constructor(private http: HttpClient,
     private router: Router) { }
 
-  getQuestionnaires(id) {
-    this.questionnairesUrl = environment.apiBaseUrl + '/user/'+id;
+  getQuestionnaires() {
+    this.questionnairesUrl = environment.apiBaseUrl + '/quests';
     return this.http.get(this.questionnairesUrl).pipe(
       map(res => {
-        this.listQs = res
-        if(!Array.isArray(this.listQs)) {
-          return [this.listQs]    /* if one object/questionaire returned, convert to array for ngFor*/
-       }  
+        this.listQs = res;
         return this.listQs;}),
       catchError( error => {
         if (error.error instanceof ErrorEvent) {
@@ -32,7 +29,7 @@ export class NotificationsService {
         } else {
           return of(error.error.error_message);
         }
-      })); /*add observable*/
+      })); /*add observable and check proper error catching*/
   }
   
 }
