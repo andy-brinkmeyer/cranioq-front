@@ -10,6 +10,7 @@ import { catchError, map } from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
 import { Questionnaire } from '../models/questionnaire';
+import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
 
 @Injectable({
@@ -17,11 +18,13 @@ import { Questionnaire } from '../models/questionnaire';
 })
 export class QuestionnaireService {
   url = environment.apiBaseUrl + '/quests/quest';
+  redirectURLGuardian = '/guardian';
   redirectURL = '/dashboard';
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authStorageService: AuthStorageService
   ) { }
 
   get(questionnaireID: number): Observable<Questionnaire> {
@@ -32,10 +35,22 @@ export class QuestionnaireService {
     return this.http.get<Questionnaire>(this.url + '/' + accessID);
   }
 
-  save(questionnaireState: Map<string, any>) {
-    return this.http.put(this.url, questionnaireState).pipe(
+  save(questionnaireState: Map<string, any>, completed: boolean) {
+    questionnaireState = questionnaireState.set('completed', completed);
+
+    let url: string;
+    if ( this.authStorageService.role === 'anon' ) {
+      url = this.url + '/' + questionnaireState.get('accessID');
+    } else {
+      url = this.url;
+    }
+    return this.http.put(url, questionnaireState).pipe(
       map(() => {
-        this.router.navigate([this.redirectURL]);
+        if (this.authStorageService.role === 'anon') {
+          this.router.navigate([this.redirectURLGuardian]);
+        } else {
+          this.router.navigate([this.redirectURL]);
+        }
         return of('');
       }),
       catchError(error => {

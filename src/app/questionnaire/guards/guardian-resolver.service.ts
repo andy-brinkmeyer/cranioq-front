@@ -6,6 +6,7 @@ import {catchError, take} from 'rxjs/operators';
 
 import { Questionnaire } from '../models/questionnaire';
 import { QuestionnaireService } from '../services/questionnaire.service';
+import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
 
 @Injectable({
@@ -15,12 +16,14 @@ export class GuardianResolverService implements Resolve<Questionnaire> {
 
   constructor(
     private questionnaireService: QuestionnaireService,
-    private router: Router
+    private router: Router,
+    private authStorageService: AuthStorageService
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Questionnaire>
     | Promise<Questionnaire> | Questionnaire {
     const accessID = route.paramMap.get('accessID');
+    this.authStorageService.logout();
     return this.questionnaireService.getByAccessID(accessID).pipe(
       take(1),
       catchError(error => {

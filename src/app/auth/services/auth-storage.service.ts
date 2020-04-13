@@ -66,7 +66,7 @@ export class AuthStorageService  {
   get role() {
     const role = this.localStore.getItem('role');
     if (role === null) {
-      return '';
+      return 'anon';
     } else {
       return role;
     }

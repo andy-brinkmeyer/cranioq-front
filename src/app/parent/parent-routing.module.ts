@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ParentLandingComponent } from './parent-landing.component';
+import { ParentLandingComponent } from './parent-landing/parent-landing.component';
 import {FillOutQuestionnaireComponent} from '../questionnaire/fill-out-questionnaire/fill-out-questionnaire.component';
 import {GuardianResolverService} from '../questionnaire/guards/guardian-resolver.service';
 
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ParentLandingRoutingModule { }
+export class ParentRoutingModule { }

@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,8 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { QuestionnaireModule } from './questionnaire/questionnaire.module';
-import { ProfileModule } from './profile/profile.module';
-import { ParentLandingModule } from './parent-landing/parent-landing.module';
+import { ParentModule } from './parent/parent.module';
 import { PrivacyPolicyModule } from './privacy-policy/privacy-policy.module';
 
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -31,10 +29,8 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     AuthModule,
     DashboardModule,
     QuestionnaireModule,
-    ProfileModule,
-    ParentLandingModule,
+    ParentModule,
     PrivacyPolicyModule,
-    RouterModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
