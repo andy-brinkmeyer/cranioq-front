@@ -18,6 +18,7 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
 })
 export class QuestionnaireService {
   url = environment.apiBaseUrl + '/quests/quest';
+  redirectURLGuardian = '/guardian';
   redirectURL = '/dashboard';
 
   constructor(
@@ -36,6 +37,7 @@ export class QuestionnaireService {
 
   save(questionnaireState: Map<string, any>, completed: boolean) {
     questionnaireState = questionnaireState.set('completed', completed);
+
     let url: string;
     if ( this.authStorageService.role === 'anon' ) {
       url = this.url + '/' + questionnaireState.get('accessID');
@@ -44,7 +46,11 @@ export class QuestionnaireService {
     }
     return this.http.put(url, questionnaireState).pipe(
       map(() => {
-        this.router.navigate([this.redirectURL]);
+        if (this.authStorageService.role === 'anon') {
+          this.router.navigate([this.redirectURLGuardian]);
+        } else {
+          this.router.navigate([this.redirectURL]);
+        }
         return of('');
       }),
       catchError(error => {
