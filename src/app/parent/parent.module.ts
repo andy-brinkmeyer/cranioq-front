@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ParentLandingRoutingModule } from './parent-landing-routing.module';
+import { ParentRoutingModule } from './parent-routing.module';
 import { ParentLandingComponent } from './parent-landing.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -10,8 +10,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   declarations: [ParentLandingComponent],
     imports: [
         CommonModule,
-        ParentLandingRoutingModule,
+        ParentRoutingModule,
         ReactiveFormsModule
     ]
 })
-export class ParentLandingModule { }
+export class ParentModule { }

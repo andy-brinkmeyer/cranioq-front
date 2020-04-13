@@ -34,7 +34,8 @@ export class QuestionnaireService {
     return this.http.get<Questionnaire>(this.url + '/' + accessID);
   }
 
-  save(questionnaireState: Map<string, any>) {
+  save(questionnaireState: Map<string, any>, completed: boolean) {
+    questionnaireState = questionnaireState.set('completed', completed);
     let url: string;
     if ( this.authStorageService.role === 'anon' ) {
       url = this.url + '/' + questionnaireState.get('accessID');

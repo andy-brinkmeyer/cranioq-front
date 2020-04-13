@@ -77,6 +77,11 @@ export class FillOutQuestionnaireComponent implements OnInit {
 
   onSubmit() {
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state).subscribe(res => this.errorMessage = res);
+    this.questionnaireService.save(state, true).subscribe(res => this.errorMessage = res);
+  }
+
+  onSave() {
+    const state = this.questionnaireStore.stateSnapshot;
+    this.questionnaireService.save(state, false).subscribe(res => this.errorMessage = res);
   }
 }

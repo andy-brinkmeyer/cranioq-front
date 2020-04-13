@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { QuestionnaireModule } from './questionnaire/questionnaire.module';
-import { ParentLandingModule } from './parent-landing/parent-landing.module';
+import { ParentModule } from './parent/parent.module';
 import { PrivacyPolicyModule } from './privacy-policy/privacy-policy.module';
 
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -29,7 +29,7 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     AuthModule,
     DashboardModule,
     QuestionnaireModule,
-    ParentLandingModule,
+    ParentModule,
     PrivacyPolicyModule,
     AppRoutingModule,
     HttpClientModule,
