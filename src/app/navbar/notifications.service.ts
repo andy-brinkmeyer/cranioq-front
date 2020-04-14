@@ -17,9 +17,9 @@ export class NotificationsService {
   constructor(private http: HttpClient,
     private router: Router) { }
 
-  getQuestionnaires() {
+  getQuestionnaires(): Observable<any> {
     this.questionnairesUrl = environment.apiBaseUrl + '/quests';
-    return this.http.get(this.questionnairesUrl).pipe(
+    return this.http.get<any>(this.questionnairesUrl).pipe(
       map(res => {
         this.listQs = res;
         return this.listQs;}),
