@@ -12,7 +12,7 @@
             <label for="InputPassword">Password</label>
             <input type="password" class="form-control" id="InputPassword" formControlName="password">
           </div>
-          <div *ngIf="displayMessage != ''" class="alert alert-danger" role="alert">
+          <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
             {{ displayMessage }}
           </div>
           <button type="submit" class="btn btn-primary">Log in</button>

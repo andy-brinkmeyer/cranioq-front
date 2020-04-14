@@ -28,6 +28,9 @@
           <label for="accessID">Access ID</label>
           <input formControlName="accessID" type="text" class="form-control" id="accessID">
         </div>
+        <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
+          {{ displayMessage }}
+        </div>
         <button type="submit" class="btn btn-primary">Start</button>
       </form>
     </div>
