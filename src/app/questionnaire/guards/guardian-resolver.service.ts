@@ -27,7 +27,7 @@ export class GuardianResolverService implements Resolve<Questionnaire> {
     return this.questionnaireService.getByAccessID(accessID).pipe(
       take(1),
       catchError(error => {
-        this.router.navigate(['/guardian']);
+        this.router.navigate(['/guardian', {error: true}]);
         if (error.error instanceof ErrorEvent) {
           return of(error.error.message);
         } else {
