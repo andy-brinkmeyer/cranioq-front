@@ -42,7 +42,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
       this.questionnaireStore.accessID = data.questionnaire.access_id;
       data.questionnaire.answers.forEach(answer => this.questionnaireStore.setAnswer(answer.question_id, answer.answer));
       data.questionnaire.template.questions.forEach(question => {
-        if ( role !== question.role ) {
+        if ( role !== 'specialist' && role !== question.role ) {
           return;
         }
         if (question.category in this.categories) {
