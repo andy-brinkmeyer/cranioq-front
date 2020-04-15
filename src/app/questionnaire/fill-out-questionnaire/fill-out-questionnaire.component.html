@@ -1,12 +1,38 @@
 <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
   {{ errorMessage }}
 </div>
-
-<app-category *ngIf="categoryKeys.length > 0" [questions]="currentQuestions.asObservable()"></app-category>
-<button *ngIf="currentPage > 0" (click)="previousPage()" type="button" class="btn btn-primary">Previous</button>
-<button *ngIf="currentPage < categoryKeys.length - 1" (click)="nextPage()" type="button" class="btn btn-primary">Next</button>
-<button *ngIf="currentPage == categoryKeys.length - 1" (click)="onSave()" type="button" class="btn btn-outline-success">Save</button>
-<button *ngIf="currentPage == categoryKeys.length - 1" data-toggle="modal" data-target="#submitModal" type="button" class="btn btn-success">Submit</button>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <app-category *ngIf="categoryKeys.length > 0" [questions]="currentQuestions.asObservable()"></app-category>
+      <button *ngIf="currentPage > 0" (click)="previousPage()" type="button" class="btn btn-primary">Previous</button>
+      <button *ngIf="currentPage < categoryKeys.length - 1" (click)="nextPage()" type="button" class="btn btn-primary">Next</button>
+      <button *ngIf="currentPage == categoryKeys.length - 1" (click)="onSave()" type="button" class="btn btn-outline-success">Save</button>
+      <button *ngIf="currentPage == categoryKeys.length - 1" data-toggle="modal" data-target="#submitModal" type="button" class="btn btn-success">Submit</button>
+    </div>
+    <div class="col-4" *ngIf="authStorageService.role === 'specialist'">
+      <form [formGroup]="reviewForm" (ngSubmit)="onReviewSubmit(reviewForm.value)">
+        <div class="form-group">
+          <input type="checkbox" class="form-check-input" id="WHOChart" aria-describedby="WHOChart" formControlName="WHOChart">
+          <label class="form-check-label" for="WHOChart">WHO head circumference chart</label>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" class="form-check-input" id="XRay" aria-describedby="XRay" formControlName="XRay">
+          <label class="form-check-label" for="XRay">X-Ray images</label>
+        </div>
+        <div class="form-group">
+          <input type="checkbox" class="form-check-input" id="photos" aria-describedby="photos" formControlName="photos">
+          <label class="form-check-label" for="photos">Photos</label>
+        </div>
+        <div class="form-group">
+          <label for="otherRequest">Other requests</label>
+          <input type="text" class="form-control" id="otherRequest" aria-describedby="otherRequest" formControlName="other">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 <div class="modal fade" id="submitModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel" aria-hidden="true">

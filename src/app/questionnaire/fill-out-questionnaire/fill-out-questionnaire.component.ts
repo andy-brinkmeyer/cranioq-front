@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 import { BehaviorSubject } from 'rxjs';
 
@@ -22,12 +22,14 @@ export class FillOutQuestionnaireComponent implements OnInit {
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
   errorMessage = '';
+  reviewForm;
 
   constructor(
     private route: ActivatedRoute,
     private questionnaireStore: QuestionnaireStore,
     private questionnaireService: QuestionnaireService,
-    private authStorageService: AuthStorageService
+    public authStorageService: AuthStorageService,
+    private formBuilder: FormBuilder
   ) {
     this.categories = new Map();
     this.categoryKeys = [];
@@ -53,6 +55,13 @@ export class FillOutQuestionnaireComponent implements OnInit {
       });
       this.categoryKeys = Object.keys(this.categories);
       this.currentQuestions = new BehaviorSubject<Array<Question>>(this.categories[this.categoryKeys[this.currentPage]]);
+    });
+
+    this.reviewForm = this.formBuilder.group({
+      WHOChart: '',
+      XRay: '',
+      photos: '',
+      other: '',
     });
   }
 
@@ -83,5 +92,9 @@ export class FillOutQuestionnaireComponent implements OnInit {
   onSave() {
     const state = this.questionnaireStore.stateSnapshot;
     this.questionnaireService.save(state, false).subscribe(res => this.errorMessage = res);
+  }
+
+  onReviewSubmit(formData) {
+    return;
   }
 }
