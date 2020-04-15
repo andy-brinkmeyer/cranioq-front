@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import {Observable, Subject, of, from} from 'rxjs';
+import { map, tap, takeUntil} from 'rxjs/operators';
 
 import {AuthStorageService} from '../auth/services/auth-storage.service';
 
@@ -12,12 +15,13 @@ import { NotificationsService } from './notifications.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
+  private unsubscribe: Subject<any> = new Subject();
   auth_userid = this.authStorageService.userID;
   role = this.authStorageService.role;
   total: number = 0;
-  listQs;
-  notify;
+  listQs: any;
+  interval: any;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -26,45 +30,56 @@ export class NavbarComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.notificationsService.getQuestionnaires().subscribe(data =>{
-      this.listQs = data;
-      if (this.role == 'gp' && Array.isArray(this.listQs) && this.listQs.length){
-        this.notify = this.notifyGP();
-        this.total = this.notify.length;
-      }
-      if (this.role == 'specialist' && Array.isArray(this.listQs) && this.listQs.length) {
-        this.notify = this.notifySpecialist();
-        this.total = this.notify.length;
-      }
-      if (Array.isArray(this.listQs) && !this.listQs.length) {
-        this.total = 0;
-      }
-      if (!Array.isArray(this.listQs)){
-        this.total = 0;
-      }
+    if (this.authStorageService.isLoggedIn) {
+    this.refreshData();
+    if(this.interval){
+        clearInterval(this.interval);
+    }
+    this.interval = setInterval(() => {
+        this.refreshData();
+    }, 10000);
+
+    this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
+    .subscribe(data => {
+        this.listQs = data;
+        if (Array.isArray(this.listQs) && this.listQs.length){
+          this.total = this.listQs.length;
+        }
+        if (Array.isArray(this.listQs) && !this.listQs.length) {
+          this.total = 0;
+        }
+        if (!Array.isArray(this.listQs)){
+          this.total = 0;
+        }
     });
   }
 
-  notifyGP() {
-    let questionnaires = [];
-    for (let questionnaire of this.listQs) {
-      if (questionnaire.completed_gp && questionnaire.completed_guardian && questionnaire.review.length) {
-        questionnaires.push(questionnaire)
-      }
-    }
-    return questionnaires
+    /*if (this.authStorageService.isLoggedIn) {
+      this.notificationsService.getQuestionnaires().subscribe(data =>{
+        this.listQs = data;
+        if (Array.isArray(this.listQs) && this.listQs.length){
+          this.total = this.listQs.length;
+        }
+        if (Array.isArray(this.listQs) && !this.listQs.length) {
+          this.total = 0;
+        }
+        if (!Array.isArray(this.listQs)){
+          this.total = 0;
+        }
+      });
+    }*/
   }
 
-  notifySpecialist() {
-    let questionnaires = [];
-    for (let questionnaire of this.listQs) {
-      if (questionnaire.completed_gp && questionnaire.completed_guardian && !questionnaire.review.length) {
-        questionnaires.push(questionnaire)
-      }
-    }
-    return questionnaires
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+    clearInterval(this.interval);
   }
 
-
+  refreshData(){
+    this.notificationsService.updateData()
+        .pipe(takeUntil(this.unsubscribe))
+          .subscribe();
+  }
 
 }

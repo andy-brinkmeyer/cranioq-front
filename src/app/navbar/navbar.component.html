@@ -17,7 +17,7 @@
             <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
               <h6 *ngIf="role == 'gp'" class="dropdown-header">Questionnaires to follow up:</h6>
               <h6 *ngIf="role == 'specialist'" class="dropdown-header">Questionnaires to be reviewed:</h6>
-              <a *ngFor="let questionnaire of notify" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}</a>
+              <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}</a>
             </div>
           </li>
           <li class="nav-item"><a *ngIf="authStorageService.isLoggedIn" class="nav-link" [routerLink]="['/view-profile', auth_userid]">

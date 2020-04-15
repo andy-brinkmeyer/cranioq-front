@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
+import {tap} from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -12,17 +14,24 @@ import { environment } from '../../environments/environment';
 })
 export class NotificationsService {
   questionnairesUrl: string;
-  listQs;
+  private notify: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  data$: Observable<any[]> = this.notify.asObservable(); /*data model for observable is any - change to model if possible*/
 
   constructor(private http: HttpClient,
     private router: Router) { }
 
-  getQuestionnaires(): Observable<any> {
-    this.questionnairesUrl = environment.apiBaseUrl + '/quests';
-    return this.http.get<any>(this.questionnairesUrl).pipe(
-      map(res => {
-        this.listQs = res;
-        return this.listQs;}),
+  updateData(): Observable<any[]>  {
+      return this.getQuestionnaires().pipe(tap((data: any[]) => {
+          this.notify.next(data);
+      }));
+  }
+
+  getQuestionnaires(): Observable<any[]> {
+    this.questionnairesUrl = environment.apiBaseUrl + '/quests/notify';
+    return this.http.get<any[]>(this.questionnairesUrl).pipe(
+      map((response) => {
+        let data = response;
+        return data;}),
       catchError( error => {
         if (error.error instanceof ErrorEvent) {
           return of(error.error.message);
@@ -33,3 +42,6 @@ export class NotificationsService {
   }
   
 }
+
+
+/* Used the following to develop notifications: https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */
