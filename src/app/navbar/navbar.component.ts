@@ -31,55 +31,40 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.authStorageService.isLoggedIn) {
-    this.refreshData();
-    if(this.interval){
-        clearInterval(this.interval);
+      this.refreshData();
+      if(this.interval){
+          clearInterval(this.interval);
+      }
+      this.interval = setInterval(() => {
+          this.refreshData();
+      }, 10000);
+
+      this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
+      .subscribe(data => {
+          this.listQs = data;
+          if (Array.isArray(this.listQs) && this.listQs.length){
+            this.total = this.listQs.length;
+          }
+          if (Array.isArray(this.listQs) && !this.listQs.length) {
+            this.total = 0;
+          }
+          if (!Array.isArray(this.listQs)){
+            this.total = 0;
+          }
+        });
+      }
     }
-    this.interval = setInterval(() => {
-        this.refreshData();
-    }, 10000);
-
-    this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
-    .subscribe(data => {
-        this.listQs = data;
-        if (Array.isArray(this.listQs) && this.listQs.length){
-          this.total = this.listQs.length;
-        }
-        if (Array.isArray(this.listQs) && !this.listQs.length) {
-          this.total = 0;
-        }
-        if (!Array.isArray(this.listQs)){
-          this.total = 0;
-        }
-    });
-  }
-
-    /*if (this.authStorageService.isLoggedIn) {
-      this.notificationsService.getQuestionnaires().subscribe(data =>{
-        this.listQs = data;
-        if (Array.isArray(this.listQs) && this.listQs.length){
-          this.total = this.listQs.length;
-        }
-        if (Array.isArray(this.listQs) && !this.listQs.length) {
-          this.total = 0;
-        }
-        if (!Array.isArray(this.listQs)){
-          this.total = 0;
-        }
-      });
-    }*/
-  }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
     clearInterval(this.interval);
-  }
+    }
 
   refreshData(){
     this.notificationsService.updateData()
         .pipe(takeUntil(this.unsubscribe))
           .subscribe();
-  }
+    }
 
 }

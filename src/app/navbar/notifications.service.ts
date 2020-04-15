@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { NotificationsResponse200 } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { environment } from '../../environments/environment';
 export class NotificationsService {
   questionnairesUrl: string;
   private notify: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  data$: Observable<any[]> = this.notify.asObservable(); /*data model for observable is any - change to model if possible*/
+  data$: Observable<any[]> = this.notify.asObservable();
 
   constructor(private http: HttpClient,
     private router: Router) { }
@@ -28,7 +29,7 @@ export class NotificationsService {
 
   getQuestionnaires(): Observable<any[]> {
     this.questionnairesUrl = environment.apiBaseUrl + '/quests/notify';
-    return this.http.get<any[]>(this.questionnairesUrl).pipe(
+    return this.http.get<NotificationsResponse200>(this.questionnairesUrl).pipe(
       map((response) => {
         let data = response;
         return data;}),
@@ -38,10 +39,11 @@ export class NotificationsService {
         } else {
           return of(error.error.error_message);
         }
-      })); /*add observable and check proper error catching*/
+      })); /*check proper error catching*/
   }
   
 }
 
 
-/* Used the following to develop notifications: https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */
+/* Used the following to develop notifications: 
+https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */
