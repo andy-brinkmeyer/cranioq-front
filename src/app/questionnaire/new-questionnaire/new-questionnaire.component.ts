@@ -28,7 +28,7 @@ export class NewQuestionnaireComponent implements OnInit {
     private formBuilder: FormBuilder,
     private newQuestionnaireService: NewQuestionnaireService,
     private route: ActivatedRoute,
-    private router: Router
+    public router: Router
   ) {
     this.newQuestionnaireForm = formBuilder.group({
       email: ['', Validators.required],
@@ -46,8 +46,7 @@ export class NewQuestionnaireComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSelectChange(element) {
     this.selectedTemplateID = element.options[element.selectedIndex].getAttribute('templateID');
