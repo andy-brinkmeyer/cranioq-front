@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   total: number = 0;
   listQs: any;
   interval: any;
+  errorMessage = ''
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -37,7 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
       this.interval = setInterval(() => {
           this.refreshData();
-      }, 10000);
+      }, 5000); /*change to 1s??*/
 
       this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
@@ -66,5 +67,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe))
           .subscribe();
     }
+
+  dismiss($event, id){
+    $event.stopPropagation();
+    $event.preventDefault();
+    this.notificationsService.remove(id).subscribe(res => this.errorMessage = res);
+    this.refreshData();
+    console.log("Dismiss is clicked!"); /*remove this*/
+  }
+
 
 }

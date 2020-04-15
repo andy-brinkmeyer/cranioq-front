@@ -14,12 +14,14 @@ import { NotificationsResponse200 } from './model';
   providedIn: 'root'
 })
 export class NotificationsService {
-  questionnairesUrl: string;
+  notificationsUrl: string;
   private notify: BehaviorSubject<any[]> = new BehaviorSubject([]);
   data$: Observable<any[]> = this.notify.asObservable();
 
   constructor(private http: HttpClient,
-    private router: Router) { }
+    private router: Router) {
+      this.notificationsUrl = environment.apiBaseUrl + '/quests/notify';
+     }
 
   updateData(): Observable<any[]>  {
       return this.getQuestionnaires().pipe(tap((data: any[]) => {
@@ -28,8 +30,7 @@ export class NotificationsService {
   }
 
   getQuestionnaires(): Observable<any[]> {
-    this.questionnairesUrl = environment.apiBaseUrl + '/quests/notify';
-    return this.http.get<NotificationsResponse200>(this.questionnairesUrl).pipe(
+    return this.http.get<NotificationsResponse200>(this.notificationsUrl).pipe(
       map((response) => {
         let data = response;
         return data;}),
@@ -40,6 +41,23 @@ export class NotificationsService {
           return of(error.error.error_message);
         }
       })); /*check proper error catching*/
+  }
+
+  remove(id) {
+    let dismissNotification = {'dismiss': true};
+    let url = this.notificationsUrl + '/' + id
+    return this.http.put(url, dismissNotification).pipe(
+      map(() => {
+        return of('');
+      }),
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+          return of(error.error.message);
+        } else {
+          return of(error.error.error_message); /*check error catching and if doing put request correctly!! Might not need map etc, just catchError*/
+        }
+      })
+    );
   }
   
 }
