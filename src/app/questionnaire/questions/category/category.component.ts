@@ -12,6 +12,7 @@ import { Question } from '../../models/questionnaire';
 })
 export class CategoryComponent implements OnInit {
   @Input() questions: Observable<Array<Question>>;
+  @Input() completed: boolean;
   freeTextQuestions: Array<Question>;
   checkboxQuestions: Array<Question>;
   radioQuestions: Array<Question>;

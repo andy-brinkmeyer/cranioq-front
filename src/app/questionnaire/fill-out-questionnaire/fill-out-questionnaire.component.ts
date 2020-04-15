@@ -23,6 +23,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
   errorMessage = '';
   reviewForm;
+  completed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,11 +47,16 @@ export class FillOutQuestionnaireComponent implements OnInit {
       other: '',
     });
 
-    console.log(this.reviewForm);
-
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
+      if ( role === 'gp' && data.questionnaire.completed_gp ) {
+        this.completed = true;
+      } else if ( role === 'anon' && data.questionnaire.completed_guardian ) {
+        this.completed = true;
+      } else if ( role === 'specialist' ) {
+        this.completed = true;
+      }
       data.questionnaire.answers.forEach(answer => this.questionnaireStore.setAnswer(answer.question_id, answer.answer));
       data.questionnaire.template.questions.forEach(question => {
         if ( role !== 'specialist' && role !== question.role ) {
@@ -75,7 +81,6 @@ export class FillOutQuestionnaireComponent implements OnInit {
           otherFieldValues.push(item);
         }
       });
-      console.log(otherFieldValues.toString());
       this.reviewForm.patchValue({other: otherFieldValues.toString()});
     });
   }
