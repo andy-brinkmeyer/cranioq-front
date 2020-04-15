@@ -23,5 +23,6 @@ export interface Questionnaire {
   template: QuestionnaireTemplate;
   answers: Array<Answer>;
   created: string;
+  review: Array<string>;
 
 }

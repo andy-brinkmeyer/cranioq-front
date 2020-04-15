@@ -39,6 +39,15 @@ export class FillOutQuestionnaireComponent implements OnInit {
 
     const role = this.authStorageService.role;
 
+    this.reviewForm = this.formBuilder.group({
+      WHOChart: '',
+      XRay: '',
+      photos: '',
+      other: '',
+    });
+
+    console.log(this.reviewForm);
+
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
@@ -55,13 +64,19 @@ export class FillOutQuestionnaireComponent implements OnInit {
       });
       this.categoryKeys = Object.keys(this.categories);
       this.currentQuestions = new BehaviorSubject<Array<Question>>(this.categories[this.categoryKeys[this.currentPage]]);
-    });
 
-    this.reviewForm = this.formBuilder.group({
-      WHOChart: '',
-      XRay: '',
-      photos: '',
-      other: '',
+      const otherFieldValues = [];
+      data.questionnaire.review.forEach( item => {
+        if (item in this.reviewForm.controls) {
+          const newValues = {};
+          newValues[item] = true;
+          this.reviewForm.patchValue(newValues);
+        } else {
+          otherFieldValues.push(item);
+        }
+      });
+      console.log(otherFieldValues.toString());
+      this.reviewForm.patchValue({other: otherFieldValues.toString()});
     });
   }
 
@@ -95,6 +110,14 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   onReviewSubmit(formData) {
-    return;
+    const review = [];
+    Object.keys(formData).forEach( key => {
+      if (formData[key] && key !== 'other') {
+        review.push(key);
+      }
+    });
+    review.push(formData.other);
+    const questionnaireID = this.questionnaireStore.stateSnapshot.get('questionnaireID');
+    this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => this.errorMessage = message);
   }
 }

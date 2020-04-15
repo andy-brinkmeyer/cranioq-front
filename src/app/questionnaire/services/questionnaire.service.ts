@@ -62,4 +62,21 @@ export class QuestionnaireService {
       })
     );
   }
+
+  saveReview(review: Array<string>, questionnaireID) {
+    const url = this.url + '/' + questionnaireID + '/review';
+    return this.http.post(url, {review}).pipe(
+      map(() => {
+        this.router.navigate(['/dashboard']);
+        return of('');
+      }),
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+          return of(error.error.message);
+        } else {
+          return of(error.error.error_message);
+        }
+      })
+    );
+  }
 }
