@@ -2,7 +2,7 @@
   <h3>{{ question.question }}</h3>
   <p>{{ question.description }}</p>
   <div class="form-check" *ngFor="let answer of question.answers; let i = index">
-    <input class="form-check-input" type="checkbox" name="{{ 'checkbox_' + question.id + '_' + i }}" id="{{ 'checkbox_' + question.id + '_' + i }}" [attr.questionID]="question.id" (change)="onChange($event)" [checked]="isChecked(answer)" value="">
+    <input class="form-check-input" type="checkbox" name="{{ 'checkbox_' + question.id + '_' + i }}" id="{{ 'checkbox_' + question.id + '_' + i }}" [attr.questionID]="question.id" (change)="onChange($event)" [checked]="isChecked(answer)" [disabled]="completed" value="">
     <label class="form-check-label" for="{{ 'checkbox_' + question.id + '_' + i }}">
       {{ answer }}
     </label>

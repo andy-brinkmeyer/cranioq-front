@@ -11,6 +11,7 @@ import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 })
 export class CheckboxQuestionComponent implements OnInit {
   @Input() question: QuestionTemplate;
+  @Input() completed: boolean;
   currentAnswer: Array<string>;
 
   constructor(

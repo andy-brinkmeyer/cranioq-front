@@ -1,3 +1,3 @@
-<app-free-text-question *ngFor="let question of freeTextQuestions" [question]="question"></app-free-text-question>
-<app-radio-question *ngFor="let question of radioQuestions" [question]="question"></app-radio-question>
-<app-checkbox-question *ngFor="let question of checkboxQuestions" [question]="question"></app-checkbox-question>
+<app-free-text-question *ngFor="let question of freeTextQuestions" [question]="question" [completed]="completed"></app-free-text-question>
+<app-radio-question *ngFor="let question of radioQuestions" [question]="question" [completed]="completed"></app-radio-question>
+<app-checkbox-question *ngFor="let question of checkboxQuestions" [question]="question" [completed]="completed"></app-checkbox-question>

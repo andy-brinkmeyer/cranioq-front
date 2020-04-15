@@ -10,6 +10,7 @@ import { QuestionnaireStore } from '../../stores/questionnaire-store.service';
 })
 export class FreeTextQuestionComponent implements OnInit {
   @Input() question: Question;
+  @Input() completed: boolean;
   answer = '';
 
   constructor(private questionnaireStore: QuestionnaireStore) { }
