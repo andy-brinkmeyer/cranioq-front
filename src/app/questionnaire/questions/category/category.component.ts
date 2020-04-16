@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import {QuestionTemplate} from '../../models/templates';
+import { Question } from '../../models/questionnaire';
 
 
 @Component({
@@ -11,10 +11,11 @@ import {QuestionTemplate} from '../../models/templates';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  @Input() questions: Observable<Array<QuestionTemplate>>;
-  freeTextQuestions: Array<QuestionTemplate>;
-  checkboxQuestions: Array<QuestionTemplate>;
-  radioQuestions: Array<QuestionTemplate>;
+  @Input() questions: Observable<Array<Question>>;
+  @Input() completed: boolean;
+  freeTextQuestions: Array<Question>;
+  checkboxQuestions: Array<Question>;
+  radioQuestions: Array<Question>;
 
   constructor() {
     this.freeTextQuestions = [];

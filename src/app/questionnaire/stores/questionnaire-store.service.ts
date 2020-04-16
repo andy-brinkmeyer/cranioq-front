@@ -11,7 +11,9 @@ import { Map } from 'immutable';
 export class QuestionnaireStore {
   private readonly stateSubject = new BehaviorSubject(Map({
     questionnaireID: -1,
-    templateID: 1
+    templateID: -1,
+    accessID: '',
+    answers: {}
   }));
 
   readonly state = this.stateSubject.asObservable();
@@ -30,5 +32,28 @@ export class QuestionnaireStore {
 
   set questionnaireID(id: number) {
     this.currentState = this.currentState.set('questionnaireID', id);
+  }
+
+  set accessID(id: string) {
+    this.currentState = this.currentState.set('accessID', id);
+  }
+
+  set templateID(id: number) {
+    this.currentState = this.currentState.set('templateID', id);
+  }
+
+  setAnswer(questionID: number, answers: Array<string>) {
+    const currentAnswers = this.currentState.get('answers');
+    currentAnswers[questionID] = answers;
+    this.currentState = this.currentState.set('answers', currentAnswers);
+  }
+
+  reset() {
+    this.currentState = Map({
+      questionnaireID: -1,
+      templateID: -1,
+      accessID: '',
+      answers: {}
+    });
   }
 }

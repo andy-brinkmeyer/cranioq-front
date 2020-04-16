@@ -2,38 +2,30 @@ import { Injectable } from '@angular/core';
 
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { Observable, of, EMPTY } from 'rxjs';
-import {catchError, mergeMap, take} from 'rxjs/operators';
+import { Observable, of} from 'rxjs';
+import {catchError, take} from 'rxjs/operators';
 
-import { QuestionnaireTemplate } from '../models/templates';
+import { Questionnaire } from '../models/questionnaire';
 import { QuestionnaireStore } from '../stores/questionnaire-store.service';
-import { TemplateService } from '../services/template.service';
+import { QuestionnaireService } from '../services/questionnaire.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TemplateResolverService implements Resolve<QuestionnaireTemplate> {
+export class TemplateResolverService implements Resolve<Questionnaire> {
 
   constructor(
     private questionnaireStore: QuestionnaireStore,
-    private templateService: TemplateService,
-    private router: Router) { }
+    private router: Router,
+    private questionnaireService: QuestionnaireService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<QuestionnaireTemplate> | Promise<QuestionnaireTemplate> | QuestionnaireTemplate {
+    Observable<Questionnaire> | Promise<Questionnaire> | Questionnaire {
 
-    const templateID = this.questionnaireStore.stateSnapshot.get('templateID');
-    return this.templateService.getTemplate(templateID).pipe(
+    const questionnaireID = parseInt(route.paramMap.get('questionnaireID'), 10);
+    return this.questionnaireService.get(questionnaireID).pipe(
       take(1),
-      mergeMap(template => {
-        if (template) {
-          return of(template);
-        } else {
-          this.router.navigate(['/dashboard']);
-          return EMPTY;
-        }
-      }),
       catchError(error => {
         this.router.navigate(['/dashboard']);
         if (error.error instanceof ErrorEvent) {

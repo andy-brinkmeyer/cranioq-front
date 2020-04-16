@@ -1,9 +1,9 @@
 <div class="container m-3">
   <h3>{{ question.question }}</h3>
   <p>{{ question.description }}</p>
-  <div class="form-check" *ngFor="let answer of question.answers">
-    <input class="form-check-input" type="radio" name="{{ 'radio' + question.id }}" id="exampleRadios1" value="">
-    <label class="form-check-label" for="exampleRadios1">
+  <div class="form-check" *ngFor="let answer of question.answers; let i = index">
+    <input class="form-check-input" type="radio" name="{{ 'radio_' + question.id }}" id="{{ 'radio_' + question.id + '_' + i }}" value="" [attr.questionID]="question.id" (change)="onChange($event)" [checked]="isChecked(answer)" [disabled]="completed">
+    <label class="form-check-label" for="{{ 'radio_' + question.id + '_' + i }}">
       {{ answer }}
     </label>
   </div>
