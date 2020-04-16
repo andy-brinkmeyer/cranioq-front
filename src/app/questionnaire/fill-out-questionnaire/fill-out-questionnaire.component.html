@@ -31,6 +31,15 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <div class="col-4" *ngIf="authStorageService.role === 'gp' && completed">
+      <h3>Specialist Review</h3>
+      <h5 *ngIf="review.length === 0">No review available.</h5>
+      <ul>
+        <li *ngFor="let item of review">
+          {{ item }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
