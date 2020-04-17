@@ -17,7 +17,7 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
   styleUrls: ['./fill-out-questionnaire.component.css']
 })
 export class FillOutQuestionnaireComponent implements OnInit {
-  categories: Map<string, string>;
+  categories: Map<string, Array<Question>>;
   categoryKeys: Array<string>;
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
@@ -25,6 +25,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   reviewForm;
   completed = false;
   review: Array<string>;
+  printView = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -88,6 +89,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.categories);
   }
 
   previousPage() {
