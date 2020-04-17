@@ -2,6 +2,8 @@
   {{ errorMessage }}
 </div>
 <div class="container">
+  <h3 *ngIf="patient !== ''">Questionnaire for patient {{ patient }} </h3>
+  <h3 *ngIf="patient === ''">Your questionnaire</h3>
   <div *ngIf="!printView" class="row">
     <div class="col-8">
       <app-category *ngIf="categoryKeys.length > 0" [questions]="currentQuestions.asObservable()" [completed]="completed"></app-category>
@@ -43,7 +45,7 @@
     </div>
   </div>
   <app-print-view *ngIf="printView" [categoryKeys]="categoryKeys" [categories]="categories"></app-print-view>
-  <button *ngIf="printView" type="button" class="btn btn-outline-secondary d-print-none" (click)="printView = !printView">Return</button>
+  <button *ngIf="printView" type="button" class="btn btn-outline-secondary d-print-none" (click)="printView = !printView">Normal View</button>
 </div>
 
 

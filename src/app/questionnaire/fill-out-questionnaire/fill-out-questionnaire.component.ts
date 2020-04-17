@@ -26,6 +26,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   completed = false;
   review: Array<string>;
   printView = false;
+  patient: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,6 +53,11 @@ export class FillOutQuestionnaireComponent implements OnInit {
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
+      if ( role === 'anon' ) {
+        this.patient = '';
+      } else {
+        this.patient = data.questionnaire.patient_id;
+      }
       this.review = data.questionnaire.review;
       if ( role === 'gp' && data.questionnaire.completed_gp ) {
         this.completed = true;
@@ -89,7 +95,6 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.categories);
   }
 
   previousPage() {
