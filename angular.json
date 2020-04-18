@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "cranioq-front"
+  "defaultProject": "cranioq-front",
+  "cli": {
+    "analytics": "b85a32d1-5922-4e02-a270-c18343e123de"
+  }
 }
