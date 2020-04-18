@@ -35,7 +35,7 @@
       </form>
     </div>
     <div class="col-4" *ngIf="authStorageService.role === 'gp' && completed">
-      <h3>Specialist Review</h3>
+      <h5>Specialist Review</h5>
       <h5 *ngIf="review.length === 0">No review available.</h5>
       <ul>
         <li *ngFor="let item of review">
@@ -44,8 +44,16 @@
       </ul>
     </div>
   </div>
-  <app-print-view *ngIf="printView" [categoryKeys]="categoryKeys" [categories]="categories"></app-print-view>
-  <button *ngIf="printView" type="button" class="btn btn-outline-secondary d-print-none" (click)="printView = !printView">Normal View</button>
+  <div *ngIf="printView">
+    <div *ngIf="review.length > 0">
+      <h3>Specialist Review</h3>
+      <ul>
+        <li *ngFor="let item of review">{{ item }}</li>
+      </ul>
+    </div>
+    <app-print-view [categoryKeys]="categoryKeys" [categories]="categories"></app-print-view>
+    <button type="button" class="btn btn-outline-secondary d-print-none" (click)="printView = !printView">Normal View</button>
+  </div>
 </div>
 
 
