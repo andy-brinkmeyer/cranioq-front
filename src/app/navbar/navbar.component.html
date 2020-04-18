@@ -2,7 +2,8 @@
   <a class="navbar-brand" routerLink="dashboard">
     <!--suppress HtmlUnknownTarget -->
     <img src="./assets/images/cranioq_logo.png" height="60" alt="Logo">
-    CranioQ 
+    CranioQ
   </a>
-  <a *ngIf="authStorageService.isLoggedIn" routerLink="logout">Logout</a>
+  <a *ngIf="authStorageService.isLoggedIn" routerLink="/change-password">Change password</a>
+  <a *ngIf="authStorageService.isLoggedIn" routerLink="/logout">Logout</a>
 </nav>
