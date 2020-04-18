@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators, AbstractControl } from '@angular/forms';
 
+import { LoginService } from '../services/login.service';
+
 
 @Component({
   selector: 'app-change-password',
@@ -9,10 +11,12 @@ import { FormBuilder, FormGroup, ValidationErrors, Validators, AbstractControl }
 })
 export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
-  displayMessage: string;
+  errorMessage: string;
+  success: boolean;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private loginService: LoginService
   ) {
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: ['', [Validators.required]],
@@ -20,7 +24,8 @@ export class ChangePasswordComponent implements OnInit {
       repeatNewPassword: ['', [Validators.required]]
     }, { validators: [ChangePasswordComponent.sameNewPasswords, ChangePasswordComponent.samePasswords] });
 
-    this.displayMessage = '';
+    this.errorMessage = '';
+    this.success = false;
   }
 
   private static sameNewPasswords(control: FormGroup): ValidationErrors | null {
@@ -45,6 +50,13 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(formData) {
-    console.log(this.changePasswordForm.controls.newPassword.errors);
+    this.changePasswordForm.reset();
+    this.loginService.changePassword(formData).subscribe(() => {
+      this.success = true;
+      this.errorMessage = '';
+    }, error => {
+      this.success = false;
+      this.errorMessage = error;
+    });
   }
 }

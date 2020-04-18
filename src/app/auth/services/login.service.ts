@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
@@ -18,7 +18,8 @@ import { LoginResponse200, LoginData } from '../models/models';
 export class LoginService {
   loginUrl: string;
   redirectUrl: string;
-  verifyUrl;
+  verifyUrl: string;
+  changePasswordURL: string;
 
   constructor(
     private http: HttpClient,
@@ -27,6 +28,7 @@ export class LoginService {
   ) {
     this.loginUrl = environment.apiBaseUrl + '/auth/login';
     this.verifyUrl = environment.apiBaseUrl + '/auth/verify';
+    this.changePasswordURL = environment.apiBaseUrl + '/auth/change-password';
     this.redirectUrl = '/dashboard';
   }
 
@@ -50,5 +52,19 @@ export class LoginService {
 
   logout() {
     this.authStorageService.logout();
+  }
+
+  changePassword(data) {
+    return this.http.post(this.changePasswordURL, data).pipe(
+      map(() => {
+        return '';
+      }),
+      catchError( error => {
+        if (error.error instanceof ErrorEvent) {
+          return throwError('An error occurred. Please try again later.');
+        } else {
+          return throwError(error.error.error_message);
+        }
+      }));
   }
 }
