@@ -1,5 +1,5 @@
 <div class="container m-3">
-  <h3>{{ question.question }}</h3>
+  <h5>{{ question.question }}</h5>
   <p>{{ question.description }}</p>
   <div class="input-group">
     <textarea class="form-control" aria-label="Question" [attr.questionID]="question.id" (change)="onChange($event)" [value]="answer" [disabled]="completed"></textarea>
