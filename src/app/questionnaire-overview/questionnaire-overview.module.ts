@@ -5,7 +5,7 @@ import { QuestionnaireOverviewRoutingModule } from './questionnaire-overview-rou
 import { QuestionnaireOverviewComponent } from './questionnaire-overview.component';
 
 // test questionnaire data 
-import {questionnaires} from '../questionnaires';
+// import {questionnaires} from '../questionnaires';
 
 
 

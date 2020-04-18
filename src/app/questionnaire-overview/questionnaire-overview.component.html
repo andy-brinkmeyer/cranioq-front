@@ -15,29 +15,106 @@
             </ul>
             
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="all-q" role="tabpanel" aria-labelledby="all-q-tab">
-                    Display all questionnaires here 
+                <div class="tab-pane fade show active" id="all-q" role="tabpanel" aria-labelledby="all-q-tab">                    
                     
-                    <div *ngFor='let questionnaire of questionnaires'>
-                        <h3>
-                            <a [title]="questionnaires.patient_id">
-                              {{ questionnaires.patient_id }}
-                            </a>
-                          </h3>
-                    </div>
+                    <h1>Questionnaire data: {{ QDetails }} </h1>
+                    <p>Questionnaire id: {{ QDetails[0]['id'] }}</p>
+                    <p>Questionnaire id: {{ QDetails | json }}</p>
 
+                    <table class="table">
+                        <ng-container *ngFor="let i of QDetails">
+                            <tr>
+                                <!-- can i do let x in range len(Qdetails)? -->
+                                <th> {{ QDetails[0]['gp_id']}}</th>
+                            </tr>
+                        </ng-container>
+                    </table>
+
+                    <div *ngFor="let q of objectKeys(QDetails)">
+                        {{ QDetails[q] }}
+                    </div>
+                    
+
+                    
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Patient ID</th>
+                            <th scope="col">GP doing assessment</th>
+                            <th scope="col">Date submitted</th>
+                            <th scope="col">Review status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">123</th>
+                            <td>Mark</td>
+                            <td>01/02/20</td>
+                            <td>Reviewed</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">234</th>
+                            <td>Jacob</td>
+                            <td>01/02/20</td>
+                            <td>Pending review</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">345</th>
+                            <td>Leah</td>
+                            <td>01/02/20</td>
+                            <td>Reviewed</td>
+                          </tr>
+                        </tbody>
+                      </table>
 
                 </div>
                 
                 <div class="tab-pane fade" id="reviewed-q" role="tabpanel" aria-labelledby="reviewed-q-tab">
                     Display reviewed questionnaires
+                    <!-- Do logic - if pending review = reviewed, show -->
                 </div>
                 
                 <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     Display questionnaires pending review
                 </div>
             </div>
-
         </div>
     </div>
+
 </div>
+
+
+<!-- 
+    look at edit-profile.component.ts files 
+    look at get-details.service to knowhow to format the service file after i do ng generate service getquestionnaireinfo
+
+ -->
+
+<!-- 
+    ng for loop in html - row and columns. then each cell, render data 
+    then put in the data from backend - access it like arrays/dictionary 
+
+    
+    does GP name come  through in API? no - need to use gp id to get gp name. but do the gp id first. can we add it into the sql request and change the api... talk to andy 
+
+    to make it a link so click on questionnare it takes you to it, need to do routing:
+    <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}</a>
+    could turn gp name into link to profile 
+
+    will need to sort out pages - add pages to get next 100 questionnaires (need next & prev pages) -- look this up
+
+-->
+
+
+<!-- 
+    search, sort, filtering in angular - look up tutorial. do it in component.ts file 
+    need to write a function in typescript - if length of array is 0 (i.e. hasn't been reviewed), push onto pending list. if not 0, push it on reviewed list. look up typescript push onto list. 
+    
+    for the tabs...
+    loop through master list: 
+        let q of list:
+            if questionnaire.review.length > 0, push on review 
+            else push on pending list 
+    call these functions in the nginit bit 
+
+ -->

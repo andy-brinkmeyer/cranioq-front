@@ -3,8 +3,12 @@ import {FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { GetDetailsService} from '../get-details.service';
-import { AuthStorageService } from '../../auth/services/auth-storage.service';
+// the get details service has the http request that will get the data from the backend
+
+import { AuthStorageService } from '../../auth/services/auth-storage.service'; 
+// above stores roles and id 
 import { EditProfileService } from '../edit-profile.service';
+// above are services that will do http request - need to do this separately (ng generate service).. google angular generate service, cd into the folder 
 
 @Component({
   selector: 'app-edit-profile',
