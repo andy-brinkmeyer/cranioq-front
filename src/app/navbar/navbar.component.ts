@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
       this.interval = setInterval(() => {
           this.refreshData();
-      }, 5000); /*change to 1s??*/
+      }, 5000);
 
       this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {
@@ -71,9 +71,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   dismiss($event, id){
     $event.stopPropagation();
     $event.preventDefault();
-    this.notificationsService.remove(id).subscribe(res => this.errorMessage = res);
+    this.notificationsService.remove(id).subscribe();
     this.refreshData();
-    console.log("Dismiss is clicked!"); /*remove this*/
   }
 
 

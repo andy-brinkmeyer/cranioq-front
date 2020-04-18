@@ -23,41 +23,23 @@ export class NotificationsService {
       this.notificationsUrl = environment.apiBaseUrl + '/quests/notify';
      }
 
-  updateData(): Observable<any[]>  {
+  updateData(): Observable<any>  {
       return this.getQuestionnaires().pipe(tap((data: any[]) => {
           this.notify.next(data);
       }));
   }
 
-  getQuestionnaires(): Observable<any[]> {
+  getQuestionnaires(): Observable<any> {
     return this.http.get<NotificationsResponse200>(this.notificationsUrl).pipe(
       map((response) => {
         let data = response;
-        return data;}),
-      catchError( error => {
-        if (error.error instanceof ErrorEvent) {
-          return of(error.error.message);
-        } else {
-          return of(error.error.error_message);
-        }
-      })); /*check proper error catching*/
+        return data;}));
   }
 
   remove(id) {
     let dismissNotification = {'dismiss': true};
     let url = this.notificationsUrl + '/' + id
-    return this.http.put(url, dismissNotification).pipe(
-      map(() => {
-        return of('');
-      }),
-      catchError(error => {
-        if (error.error instanceof ErrorEvent) {
-          return of(error.error.message);
-        } else {
-          return of(error.error.error_message); /*check error catching and if doing put request correctly!! Might not need map etc, just catchError*/
-        }
-      })
-    );
+    return this.http.put(url, dismissNotification);
   }
   
 }
