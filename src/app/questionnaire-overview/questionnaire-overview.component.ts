@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 // import important services i create e.g. getqdetailsservice
 import { GetQDetailsService } from '../questionnaire-overview/get-q-details.service'
+import { range } from 'rxjs';
+import {NgForm} from '@angular/forms';
+
 
 @Component({
   selector: 'app-questionnaire-overview',
@@ -12,7 +15,7 @@ import { GetQDetailsService } from '../questionnaire-overview/get-q-details.serv
 
 export class QuestionnaireOverviewComponent implements OnInit {
 // declare variables here 
-  QDetails; 
+  QDetails;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,14 +28,18 @@ export class QuestionnaireOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.GetQDetailsService.getQDetails().subscribe((data) => {
-      this.QDetails = data;
-      console.log("it works");
-      console.log("data: ", this.QDetails);
-
+    this.QDetails = data;
+    console.log("data: ", this.QDetails);
     })
   }
 
+getDetails(data) : void {
+  if (JSON.stringify(data) === '[]') {
+    alert("Awaiting for review by specialist")
+  }
+  else {
+    alert(data);
+  }
 }
 
-
-// put logic here 
+}
