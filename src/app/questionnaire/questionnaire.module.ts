@@ -10,6 +10,7 @@ import { FreeTextQuestionComponent } from './questions/free-text-question/free-t
 import { RadioQuestionComponent } from './questions/radio-question/radio-question.component';
 import { CheckboxQuestionComponent } from './questions/checkbox-question/checkbox-question.component';
 import { CategoryComponent } from './questions/category/category.component';
+import { PrintViewComponent } from './print-view/print-view.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CategoryComponent } from './questions/category/category.component';
     FreeTextQuestionComponent,
     RadioQuestionComponent,
     CheckboxQuestionComponent,
-    CategoryComponent],
+    CategoryComponent,
+    PrintViewComponent],
   imports: [
     CommonModule,
     QuestionnaireRoutingModule,
