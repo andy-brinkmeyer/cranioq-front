@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   total: number = 0;
   listQs: any;
   interval: any;
-  errorMessage = ''
 
   constructor(private route: ActivatedRoute,
     private router: Router,
