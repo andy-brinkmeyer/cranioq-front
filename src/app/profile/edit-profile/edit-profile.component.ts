@@ -22,7 +22,7 @@ export class EditProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService,
+    public authStorageService: AuthStorageService,
     private editProfileService: EditProfileService
     ) {
       this.auth_userid = this.authStorageService.userID;
