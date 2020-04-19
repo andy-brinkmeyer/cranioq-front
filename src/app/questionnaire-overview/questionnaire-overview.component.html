@@ -33,7 +33,6 @@
                 </div>
             </div> -->
 
-
             <form>
                 <div class="form-group">
                   <div class="input-group">
@@ -51,14 +50,14 @@
                 </div>
               </form>
 
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="sel1">Filter by review staus...</label>
                 <select class="form-control" id="sel1">
                   <option>View All</option>
                   <option>Reviewed</option>
                   <option>Pending</option>
                 </select>
-              </div>
+              </div> -->
 
             <table class="table">
                 <thead>
@@ -71,7 +70,7 @@
                 </thead>
 
                 <tbody>
-                     <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
+                    <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
                          <td>{{data.patient_id}}</td>
                          <td>Dr {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
                          <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>

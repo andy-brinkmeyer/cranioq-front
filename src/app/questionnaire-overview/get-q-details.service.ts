@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
-import { GetQResponse200 } from './models/models'
+import { GetQResponse200 } from './models/models';
 
 @Injectable({
   providedIn: 'root'
