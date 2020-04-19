@@ -4,7 +4,10 @@
     <img src="./assets/images/cranioq_logo.png" height="60" alt="Logo">
     CranioQ
       </a>
-      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbar1">
       <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a *ngIf="authStorageService.isLoggedIn" class="nav-link" routerLink="dashboard">
             <svg class="bi bi-house" width="1.2em" height="1.2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
