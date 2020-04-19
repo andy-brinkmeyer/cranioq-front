@@ -27,6 +27,11 @@ export class FillOutQuestionnaireComponent implements OnInit {
   review: Array<string>;
   printView = false;
   patient: string;
+  reviewedBy: {
+    id: number;
+    first_name: string;
+    last_name: string;
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +58,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
+      this.reviewedBy = data.questionnaire.reviewed_by;
       if ( role === 'anon' ) {
         this.patient = '';
       } else {
