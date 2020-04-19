@@ -42,7 +42,7 @@
     </div>
     <div class="col-lg-4 p-3 bg-primary text-white reviewContainer" *ngIf="authStorageService.role === 'gp' && completed">
       <h5>Specialist Review</h5>
-      <p>Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.first_name }} {{ reviewedBy.last_name }}</a></strong></p>
+      <p>Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.title }} {{ reviewedBy.last_name }}</a></strong></p>
       <h5 *ngIf="review.length === 0">No review available.</h5>
       <ul>
         <li *ngFor="let item of review">

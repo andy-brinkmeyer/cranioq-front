@@ -31,6 +31,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
     id: number;
     first_name: string;
     last_name: string;
+    title: string;
   };
 
   constructor(
