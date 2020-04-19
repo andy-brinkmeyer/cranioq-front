@@ -31,7 +31,8 @@ export class EditProfileComponent implements OnInit {
         last_name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         clinic_name: ['', [Validators.required]],
-        clinic_address: ['', [Validators.required]],
+        clinic_street: ['', [Validators.required]],
+        clinic_city: ['', [Validators.required]],
         clinic_postcode: ['', [Validators.required]]
         });
       this.displayMessage = ''
@@ -51,7 +52,8 @@ export class EditProfileComponent implements OnInit {
       last_name: this.details.last_name,
       email: this.details.email,
       clinic_name: this.details.clinic_name,
-      clinic_address: this.details.clinic_address,
+      clinic_street: this.details.clinic_street,
+      clinic_city: this.details.clinic_city,
       clinic_postcode: this.details.clinic_postcode
   });
   }
