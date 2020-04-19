@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 // import important services i create e.g. getqdetailsservice
 import { GetQDetailsService } from '../questionnaire-overview/get-q-details.service'
 import { range } from 'rxjs';
 import {NgForm} from '@angular/forms';
+
 
 
 @Component({
@@ -16,6 +17,7 @@ import {NgForm} from '@angular/forms';
 export class QuestionnaireOverviewComponent implements OnInit {
 // declare variables here 
   QDetails;
+  searchString: string;
 
   constructor(
     private route: ActivatedRoute,
