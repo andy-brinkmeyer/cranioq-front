@@ -11,33 +11,31 @@ import { GetDetailsService} from '../get-details.service';
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit {
-  auth_userid = this.authStorageService.userID;
+  authUserID = this.authStorageService.userID;
   details;
   id;
 
 
-  constructor( 
+  constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService,) {
-     }
+    private authStorageService: AuthStorageService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.data.subscribe((data) => {
-      this.details = data['profile'];
+      this.details = data.profile;
     });
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('userid')});
+      this.id = params.get('userid'); });
     /*this.getDetailsService.getDetails(this.id).subscribe(data =>
       this.details = data);*/
     }
        /*add observable and error catching!! Resolve guard*/
 
 
-  goToPage()
-  {
-    this.router.navigate(['/edit-profile']);
+  goToPage() {
+    this.router.navigate(['/edit-profile']).then();
   }
 
 }
