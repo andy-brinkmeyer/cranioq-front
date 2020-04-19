@@ -13,7 +13,7 @@ import { EditProfileService } from '../edit-profile.service';
 })
 export class EditProfileComponent implements OnInit {
   profileForm;
-  auth_userid;
+  authUserID;
   details;
   displayMessage;
 
@@ -25,7 +25,7 @@ export class EditProfileComponent implements OnInit {
     public authStorageService: AuthStorageService,
     private editProfileService: EditProfileService
     ) {
-      this.auth_userid = this.authStorageService.userID;
+      this.authUserID = this.authStorageService.userID;
       this.profileForm = this.formBuilder.group({
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
@@ -39,7 +39,7 @@ export class EditProfileComponent implements OnInit {
    }
 
   ngOnInit(){
-    this.getDetailsService.getDetails(this.auth_userid).subscribe(data => {
+    this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
       this.details = data;
       this.patchValues()
     });
@@ -60,7 +60,7 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit(profileData) {
     if (this.profileForm.valid) {
-      this.editProfileService.editProfile(this.auth_userid, profileData).subscribe(message => {
+      this.editProfileService.editProfile(this.authUserID, profileData).subscribe(message => {
         this.displayMessage = message;
         this.router.navigate(['/edit-profile']);
       });

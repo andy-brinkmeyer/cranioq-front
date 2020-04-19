@@ -28,10 +28,7 @@ export class ViewProfileComponent implements OnInit {
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('userid'); });
-    /*this.getDetailsService.getDetails(this.id).subscribe(data =>
-      this.details = data);*/
     }
-       /*add observable and error catching!! Resolve guard*/
 
 
   goToPage() {
