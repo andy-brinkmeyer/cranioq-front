@@ -4,6 +4,7 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -35,6 +36,7 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     PrivacyPolicyModule,
     ProfileModule,
     QuestionnaireOverviewModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })

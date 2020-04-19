@@ -1,20 +1,8 @@
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hello, Bootstrap Table!</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
-    <link href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css" rel="stylesheet">
-
-  </head>
-
 <div class="container-fluid px-0 full-height">
     <div class="row p-3"> 
         <div class="col text-left m-4">
 
+        <!-- <div>
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="all-q-tab" data-toggle="pill" href="#all-q" role="tab" aria-controls="all-q" aria-selected="true">All questionnaires</a>
@@ -26,74 +14,80 @@
                   <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pending" role="tab" aria-controls="pending" aria-selected="false">Pending review</a>
                 </li>
             </ul>
-            
-            <div class="md-form">
-                <input type="text"> 
-                <label for="search">Search</label>
-            </div>
+        </div>
 
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="all-q" role="tabpanel" aria-labelledby="all-q-tab">                    
-                    
-                    <!-- <p>Questionnaire id: {{ QDetails[0]['id'] }}</p>
-                    <p>Questionnaire id: {{ QDetails[1].id }}</p> -->
-                    <!-- <p>Questionnaire data retrieved: {{ QDetails | json }}</p> -->
 
-                    <table class="table">
-                        
-                        <thead>
-                            <tr>
-                                <th data-field="patient_id" data-sortable="">Patient ID</th>
-                                <th data-field="gp_id" data-sortable="">GP ID</th>
-                                <th data-field="date_created" data-sortable="">Date created</th>
-                                <th data-field="review_status" data-sortable="">Review status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                             <tr *ngFor="let data of QDetails">
-                                 <td>{{data.patient_id}}</td>
-                                 <td>{{data.gp_id}}</td>
-                                 <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
-                                 <td>                                     
-                                    <button classclass="btn btn-primary" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
-                                </td>
-                             </tr>
-                        </tbody>
-
-                    </table>
+                   Display all 
 
                 </div>
                 
                 <div class="tab-pane fade" id="reviewed-q" role="tabpanel" aria-labelledby="reviewed-q-tab">
                     Display reviewed questionnaires
-                    <!-- Do logic - if pending review = reviewed, show -->
+                    Do logic - if pending review = reviewed, show
                 </div>
                 
                 <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     Display questionnaires pending review
                 </div>
-            </div>
+            </div> -->
 
 
-            
-                <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-                <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+            <form>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="searchString"
+                        placeholder="Search by Patient ID..."
+                        [(ngModel)]="searchString"
+                    />
+                  </div>
+                </div>
+              </form>
 
+              <div class="form-group">
+                <label for="sel1">Filter by review staus...</label>
+                <select class="form-control" id="sel1">
+                  <option>View All</option>
+                  <option>Reviewed</option>
+                  <option>Pending</option>
+                </select>
+              </div>
 
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Patient ID </th>
+                        <th>GP name</th>
+                        <th>Date created</th>
+                        <th>Review status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                     <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
+                         <td>{{data.patient_id}}</td>
+                         <td>Dr {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
+                         <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                         <td>                                     
+                            <button classclass="btn btn-primary" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
+                        </td>
+                     </tr>
+                </tbody>
+            </table>
         </div>
     </div>    
 </div>
 
 
 <!-- 
-
-
-    
-    does GP name come  through in API? no - need to use gp id to get gp name. but do the gp id first. can we add it into the sql request and change the api... talk to andy 
-
+   
     to make it a link so click on questionnare it takes you to it, need to do routing:
     <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}</a>
     could turn gp name into link to profile 
