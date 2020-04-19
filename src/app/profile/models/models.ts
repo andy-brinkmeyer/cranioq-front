@@ -7,7 +7,8 @@ export interface ProfileData {
     first_name: string;
     last_name: string;
     clinic_name: string;
-    clinic_address: string;
+    clinic_street: string;
+    clinic_city: string;
     clinic_postcode: string;
   }
   
@@ -18,6 +19,7 @@ export interface GetUserResponse200 {
     last_name: string;
     role: string;
     clinic_name: string;
-    clinic_address: string;
+    clinic_street: string;
+    clinic_city: string;
     clinic_postcode: string;
 }

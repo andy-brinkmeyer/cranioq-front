@@ -13,7 +13,7 @@ import { EditProfileService } from '../edit-profile.service';
 })
 export class EditProfileComponent implements OnInit {
   profileForm;
-  auth_userid;
+  authUserID;
   details;
   displayMessage;
 
@@ -22,23 +22,24 @@ export class EditProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService,
+    public authStorageService: AuthStorageService,
     private editProfileService: EditProfileService
     ) {
-      this.auth_userid = this.authStorageService.userID;
+      this.authUserID = this.authStorageService.userID;
       this.profileForm = this.formBuilder.group({
         first_name: ['', [Validators.required]],
         last_name: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
         clinic_name: ['', [Validators.required]],
-        clinic_address: ['', [Validators.required]],
+        clinic_street: ['', [Validators.required]],
+        clinic_city: ['', [Validators.required]],
         clinic_postcode: ['', [Validators.required]]
         });
       this.displayMessage = ''
    }
 
   ngOnInit(){
-    this.getDetailsService.getDetails(this.auth_userid).subscribe(data => {
+    this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
       this.details = data;
       this.patchValues()
     });
@@ -51,14 +52,15 @@ export class EditProfileComponent implements OnInit {
       last_name: this.details.last_name,
       email: this.details.email,
       clinic_name: this.details.clinic_name,
-      clinic_address: this.details.clinic_address,
+      clinic_street: this.details.clinic_street,
+      clinic_city: this.details.clinic_city,
       clinic_postcode: this.details.clinic_postcode
   });
   }
 
   onSubmit(profileData) {
     if (this.profileForm.valid) {
-      this.editProfileService.editProfile(this.auth_userid, profileData).subscribe(message => {
+      this.editProfileService.editProfile(this.authUserID, profileData).subscribe(message => {
         this.displayMessage = message;
         this.router.navigate(['/edit-profile']);
       });

@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { AuthStorageService } from '../auth/services/auth-storage.service';
 import { EditProfileResponse200, ProfileData } from './models/models'
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
@@ -16,12 +15,10 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 export class EditProfileService {
   editProfileUrl: string;
   redirectUrl: string;
-  auth_userid = this.authStorageService.userID;
   message: string;
 
   constructor(private http: HttpClient,
-    private router: Router,
-    private authStorageService: AuthStorageService) {
+    private router: Router) {
       this.redirectUrl = '/view-profile';
      }
 
