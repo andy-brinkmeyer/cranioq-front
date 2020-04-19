@@ -8,8 +8,7 @@ export class ReviewstatusPipe implements PipeTransform {
   transform(value: object): any {
     if (JSON.stringify(value) === '[]') {
       return 'Pending';
-    }
-    else { return 'Reviewed'; }
+    } else { return 'Reviewed'; }
   }
 
 }
