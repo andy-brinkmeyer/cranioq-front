@@ -37,6 +37,7 @@ export class LoginService {
       map(res => {
         this.authStorageService.token = res.token;
         this.authStorageService.role = res.role;
+        this.authStorageService.userID = res.id;
         this.authStorageService.isLoggedIn = true;
         this.router.navigate([this.redirectUrl]);
         return '';
