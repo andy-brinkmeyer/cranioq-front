@@ -1,22 +1,22 @@
 <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
   {{ errorMessage }}
 </div>
-<div class="container mr-0 pr-0 mt-3">
+<div class="container mt-3">
   <h3 *ngIf="patient !== ''">Questionnaire for patient {{ patient }} </h3>
   <h3 *ngIf="patient === ''">Your questionnaire</h3>
   <div *ngIf="!printView" class="row">
     <div class="col-lg-8 mb-3">
       <app-category *ngIf="categoryKeys.length > 0" [questions]="currentQuestions.asObservable()" [completed]="completed"></app-category>
       <hr/>
-      <div class="mb-1 d-flex justify-content-between">
+      <div class="mb-1 d-flex justify-content-between align-items-center">
         <button *ngIf="currentPage > 0" (click)="previousPage()" type="button" class="btn btn-primary mx-1">Previous</button>
         <button *ngIf="currentPage < categoryKeys.length - 1" (click)="nextPage()" type="button" class="btn btn-primary mx-1">Next</button>
+        <div *ngIf="currentPage == categoryKeys.length - 1 && !completed" class="d-flex flex-column">
+          <button (click)="onSave()" type="button" class="btn btn-outline-success mb-1">Save</button>
+          <button data-toggle="modal" data-target="#submitModal" type="button" class="btn btn-success">Submit</button>
+        </div>
+        <button type="button" class="btn btn-outline-secondary d-print-none mx-1" (click)="printView = !printView">Print  View</button>
       </div>
-      <div class="mb-1 d-flex justify-content-center">
-        <button *ngIf="currentPage == categoryKeys.length - 1 && !completed" (click)="onSave()" type="button" class="btn btn-outline-success mx-1">Save</button>
-        <button *ngIf="currentPage == categoryKeys.length - 1 && !completed" data-toggle="modal" data-target="#submitModal" type="button" class="btn btn-success mx-1">Submit</button>
-      </div>
-      <button type="button" class="btn btn-outline-secondary d-print-none mx-1" (click)="printView = !printView">Print  View</button>
     </div>
     <div class="col-lg-4 p-3 bg-primary text-white reviewContainer" *ngIf="authStorageService.role === 'specialist'">
       <h5>Specialist Review</h5>
