@@ -11,8 +11,9 @@
         <h6> {{ details.clinic_postcode }}</h6>
         <br>
         <br>
-        <div *ngIf="id == auth_userid">
-            <button (click)="goToPage()" class="btn btn-primary">Edit</button>
+        <div *ngIf="id == authUserID">
+          <button (click)="goToPage()" class="btn btn-primary m-1">Edit</button>
+          <button class="btn btn-primary m-1" (click)="router.navigate(['/change-password'])">Change Password</button>
         </div>
         </div>
         </div>

@@ -10,6 +10,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { QuestionnaireModule } from './questionnaire/questionnaire.module';
 import { ParentModule } from './parent/parent.module';
 import { PrivacyPolicyModule } from './privacy-policy/privacy-policy.module';
+import { ProfileModule } from './profile/profile.module';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -31,6 +32,7 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     QuestionnaireModule,
     ParentModule,
     PrivacyPolicyModule,
+    ProfileModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
