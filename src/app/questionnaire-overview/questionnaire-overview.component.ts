@@ -1,10 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-// import important services i create e.g. getqdetailsservice
-import { GetQDetailsService } from '../questionnaire-overview/get-q-details.service';
-import { range } from 'rxjs';
-import {NgForm} from '@angular/forms';
+import { GetQDetailsService } from './get-q-details.service';
 
 
 @Component({
@@ -24,12 +21,12 @@ export class QuestionnaireOverviewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private GetQDetailsService: GetQDetailsService,
+    private getQDetailsService: GetQDetailsService,
   ) {
   }
 
   ngOnInit() {
-    this.GetQDetailsService.getQDetails().subscribe((data) => {
+    this.getQDetailsService.getQDetails().subscribe((data) => {
     this.QDetails = data;
     console.log('data: ', this.QDetails);
     });
