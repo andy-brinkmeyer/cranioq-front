@@ -16,4 +16,8 @@ export class DashboardComponent implements OnInit {
   newQuestionnaire() {
     this.router.navigate(['questionnaires/new']).then();
   }
+
+  manageQuestionnaire() {
+    this.router.navigate(['questionnaire-overview']).then();
+  }
 }
