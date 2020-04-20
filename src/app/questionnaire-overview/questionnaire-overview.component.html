@@ -1,38 +1,7 @@
 <div class="container-fluid px-0 full-height">
     <div class="row p-3"> 
         <div class="col text-left m-4">
-
-        <!-- <div>
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" id="all-q-tab" data-toggle="pill" href="#all-q" role="tab" aria-controls="all-q" aria-selected="true">All questionnaires</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="reviewed-q-tab" data-toggle="pill" href="#reviewed-q" role="tab" aria-controls="reviewed-q" aria-selected="false">Reviewed</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pending" role="tab" aria-controls="pending" aria-selected="false">Pending review</a>
-                </li>
-            </ul>
-        </div>
-
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="all-q" role="tabpanel" aria-labelledby="all-q-tab">                    
-
-                   Display all 
-
-                </div>
-                
-                <div class="tab-pane fade" id="reviewed-q" role="tabpanel" aria-labelledby="reviewed-q-tab">
-                    Display reviewed questionnaires
-                    Do logic - if pending review = reviewed, show
-                </div>
-                
-                <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                    Display questionnaires pending review
-                </div>
-            </div> -->
-
+          
             <form>
                 <div class="form-group">
                   <div class="input-group">
@@ -49,15 +18,6 @@
                   </div>
                 </div>
               </form>
-
-              <!-- <div class="form-group">
-                <label for="sel1">Filter by review staus...</label>
-                <select class="form-control" id="sel1">
-                  <option>View All</option>
-                  <option>Reviewed</option>
-                  <option>Pending</option>
-                </select>
-              </div> -->
 
             <table class="table">
                 <thead>
@@ -87,28 +47,3 @@
         </div>
     </div>    
 </div>
-
-
-<!-- 
-   
-    to make it a link so click on questionnare it takes you to it, need to do routing:
-    <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}</a>
-    could turn gp name into link to profile 
-
-    will need to sort out pages - add pages to get next 100 questionnaires (need next & prev pages) -- look this up
-
--->
-
-
-<!-- 
-    search, sort, filtering in angular - look up tutorial. do it in component.ts file 
-    need to write a function in typescript - if length of array is 0 (i.e. hasn't been reviewed), push onto pending list. if not 0, push it on reviewed list. look up typescript push onto list. 
-    
-    for the tabs...
-    loop through master list: 
-        let q of list:
-            if questionnaire.review.length > 0, push on review 
-            else push on pending list 
-    call these functions in the nginit bit 
-
- -->
