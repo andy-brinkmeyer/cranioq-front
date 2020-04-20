@@ -34,6 +34,8 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     QuestionnaireModule,
     ParentModule,
     PrivacyPolicyModule,
+    QuestionnaireOverviewModule,
+    FormsModule,
     ProfileModule,
     QuestionnaireOverviewModule,
     FormsModule,
