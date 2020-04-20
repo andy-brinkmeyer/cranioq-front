@@ -11,11 +11,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { QuestionnaireModule } from './questionnaire/questionnaire.module';
 import { ParentModule } from './parent/parent.module';
 import { PrivacyPolicyModule } from './privacy-policy/privacy-policy.module';
-<<<<<<< HEAD
 import { QuestionnaireOverviewModule } from './questionnaire-overview/questionnaire-overview.module';
-=======
 import { ProfileModule } from './profile/profile.module';
->>>>>>> 1ac996a2c0a3946f3a11ad3ea430eb661dea280a
 
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -37,12 +34,9 @@ import {TokenInterceptor} from './auth/interceptors/token.interceptor';
     QuestionnaireModule,
     ParentModule,
     PrivacyPolicyModule,
-<<<<<<< HEAD
     QuestionnaireOverviewModule,
     FormsModule,
-=======
     ProfileModule,
->>>>>>> 1ac996a2c0a3946f3a11ad3ea430eb661dea280a
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({ cookieName: 'csrftoken', headerName: 'X-CSRFToken' })
