@@ -66,6 +66,7 @@
                         <th>GP name</th>
                         <th>Date created</th>
                         <th>Review status</th>
+                        <th> </th>
                     </tr>
                 </thead>
 
@@ -75,7 +76,10 @@
                          <td>Dr {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
                          <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
                          <td>                                     
-                            <button classclass="btn btn-primary" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
+                            <button class="btn btn-primary m-1" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
+                        </td>
+                        <td>
+                          <button class="btn btn-link" (click)='goToPage(data)'>View details</button>
                         </td>
                      </tr>
                 </tbody>
