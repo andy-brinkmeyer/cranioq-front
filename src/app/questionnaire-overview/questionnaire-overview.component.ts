@@ -25,9 +25,9 @@ export class QuestionnaireOverviewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private GetQDetailsService: GetQDetailsService,
-    // need to put routing and services here 
-  ) { 
-    // instatitate variables here 
+    // need to put routing and services here
+  ) {
+    // instatitate variables here
   }
 
   ngOnInit() {
@@ -44,5 +44,9 @@ getDetails(data): void {
     alert(data);
   }
 }
+
+  goToPage(data) {
+    this.router.navigate(['/questionnaire', data.id]).then();
+  }
 
 }

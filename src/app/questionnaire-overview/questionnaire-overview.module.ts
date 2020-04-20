@@ -6,6 +6,7 @@ import { QuestionnaireOverviewComponent } from './questionnaire-overview.compone
 import { ReviewstatusPipe } from './reviewstatus.pipe';
 import { FilterPipe } from './filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { QuestionnaireDetailsComponent } from './questionnaire-details/questionnaire-details.component';
 
 
 // test questionnaire data 
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [QuestionnaireOverviewComponent, ReviewstatusPipe, FilterPipe],
+  declarations: [QuestionnaireOverviewComponent, ReviewstatusPipe, FilterPipe, QuestionnaireDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
