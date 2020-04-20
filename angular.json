@@ -138,6 +138,10 @@
   },
   "defaultProject": "cranioq-front",
   "cli": {
+<<<<<<< HEAD
     "analytics": "b85a32d1-5922-4e02-a270-c18343e123de"
+=======
+    "analytics": "a13ef7b2-8905-444f-9306-3bfaeea0911f"
+>>>>>>> 1ac996a2c0a3946f3a11ad3ea430eb661dea280a
   }
 }

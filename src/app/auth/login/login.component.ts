@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
     this.displayMessage = '';

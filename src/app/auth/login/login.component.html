@@ -5,8 +5,8 @@
         <h3>Log in</h3>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
           <div class="form-group">
-            <label for="InputEmail">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" aria-describedby="email" formControlName="email">
+            <label for="InputEmail">Username</label>
+            <input type="email" class="form-control" id="InputEmail" aria-describedby="email" formControlName="username">
           </div>
           <div class="form-group">
             <label for="InputPassword">Password</label>
@@ -17,7 +17,6 @@
           </div>
           <button type="submit" class="btn btn-primary">Log in</button>
         </form>
-        <p class="text-dark mt-2">Or <a routerLink="/register">register</a> now.</p>
       </div>
     </div>
     <div class="col-lg custom-blue text-white d-flex align-items-center">

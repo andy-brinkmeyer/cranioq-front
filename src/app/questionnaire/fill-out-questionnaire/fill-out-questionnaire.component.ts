@@ -17,7 +17,7 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
   styleUrls: ['./fill-out-questionnaire.component.css']
 })
 export class FillOutQuestionnaireComponent implements OnInit {
-  categories: Map<string, string>;
+  categories: Map<string, Array<Question>>;
   categoryKeys: Array<string>;
   currentPage: number;
   currentQuestions: BehaviorSubject<Array<QuestionTemplate>>;
@@ -25,6 +25,14 @@ export class FillOutQuestionnaireComponent implements OnInit {
   reviewForm;
   completed = false;
   review: Array<string>;
+  printView = false;
+  patient: string;
+  reviewedBy: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    title: string;
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +59,12 @@ export class FillOutQuestionnaireComponent implements OnInit {
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
+      this.reviewedBy = data.questionnaire.reviewed_by;
+      if ( role === 'anon' ) {
+        this.patient = '';
+      } else {
+        this.patient = data.questionnaire.patient_id;
+      }
       this.review = data.questionnaire.review;
       if ( role === 'gp' && data.questionnaire.completed_gp ) {
         this.completed = true;

@@ -16,7 +16,6 @@ import { GetUserResponse200 } from './models/models'
 })
 export class GetDetailsService {
   profileUrl: string;
-  details;
 
   // copy past constructor bit below 
   constructor(private http: HttpClient,
@@ -28,9 +27,7 @@ export class GetDetailsService {
   getDetails(id): Observable<object>{
     this.profileUrl = environment.apiBaseUrl + '/user/'+id;
     return this.http.get<GetUserResponse200>(this.profileUrl).pipe(
-      map(res => {
-        this.details = res
-        return this.details;}),
+      map((response) => response),
       catchError( error => {
         if (error.error instanceof ErrorEvent) {
           return of(error.error.message);

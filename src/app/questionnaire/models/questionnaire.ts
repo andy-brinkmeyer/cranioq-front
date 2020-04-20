@@ -24,5 +24,10 @@ export interface Questionnaire {
   answers: Array<Answer>;
   created: string;
   review: Array<string>;
-
-}
+  reviewed_by: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    title: string;
+  };
+  }

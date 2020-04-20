@@ -1,0 +1,9 @@
+.reviewContainer {
+  border-radius: 10px 10px 10px 10px;
+}
+
+@media (max-width: 576px) {
+  .reviewContainer {
+    border-radius: 0;
+  }
+}
