@@ -47,7 +47,7 @@
     </div>
     <div class="col-lg-4 p-3 bg-primary text-white reviewContainer" *ngIf="authStorageService.role === 'gp' && completed">
       <h5>Specialist Review</h5>
-      <p>Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.title }} {{ reviewedBy.last_name }}</a></strong></p>
+      <p *ngIf="reviewedBy !== null">Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.title }} {{ reviewedBy.last_name }}</a></strong></p>
       <h5 *ngIf="review.length === 0">No review available.</h5>
       <ul>
         <li *ngFor="let item of review">
@@ -73,7 +73,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="submitModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="submitModalLabel">Submit Questionnaire</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
