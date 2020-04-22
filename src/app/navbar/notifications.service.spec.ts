@@ -93,7 +93,7 @@ describe('NotificationsService', () => {
     req.flush(emsg, { status: 400, statusText: 'Bad Request' });
   });
 
-  it('updateData() should emitt updated list of questionnaire ids', () => {
+  it('updateData() should emitt list of questionnaire ids', () => {
     const listQs: NotificationsResponse200[] = [{id: 1}, {id: 2}, {id: 7}];
     // subscribe, but skip the first as this is a BehaviorSubject and emits a default first value.
     service.updateData().subscribe((data: NotificationsResponse200) => {
