@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuestionnaireOverviewComponent } from './questionnaire-overview.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FilterPipe } from './filter.pipe';
+
 
 describe('QuestionnaireOverviewComponent', () => {
   let component: QuestionnaireOverviewComponent;
@@ -8,7 +12,8 @@ describe('QuestionnaireOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionnaireOverviewComponent ]
+      imports: [HttpClientModule, RouterTestingModule],
+      declarations: [ QuestionnaireOverviewComponent, FilterPipe ]
     })
     .compileComponents();
   }));
@@ -23,3 +28,6 @@ describe('QuestionnaireOverviewComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+// Arrange
+// Act
+// Assert

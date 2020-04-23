@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { GetQDetailsService } from './get-q-details.service';
 
-
 @Component({
   selector: 'app-questionnaire-overview',
   templateUrl: './questionnaire-overview.component.html',
