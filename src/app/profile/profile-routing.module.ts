@@ -7,7 +7,7 @@ import { ProfileResolveService } from './profile-resolve.service';
 import {AuthGuard} from '../auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'view-profile/:userid', component: ViewProfileComponent, resolve: {profile: ProfileResolveService}, canActivate: [AuthGuard],
+  { path: 'view-profile/:userid', component: ViewProfileComponent, canActivate: [AuthGuard], resolve: {profile: ProfileResolveService},
   runGuardsAndResolvers: 'always' },
   { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]}
   ];

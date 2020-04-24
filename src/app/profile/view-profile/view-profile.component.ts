@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Event, NavigationStart, NavigationEnd, NavigationError, RouterEvent } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service';
-
-import { GetDetailsService} from '../get-details.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -26,7 +22,6 @@ export class ViewProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    private getDetailsService: GetDetailsService,
     private authStorageService: AuthStorageService
     ) { }
 

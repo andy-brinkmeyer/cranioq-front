@@ -42,21 +42,7 @@ export class EditProfileComponent implements OnInit {
       this.details = data;
       this.patchValues();
     });
-    /*this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });*/
   }
-
-  /*initialiseInvites() {
-    // Set default values and re-fetch any data you need.
-    this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
-      this.details = data;
-      this.patchValues();
-    });
-  }*/
 
   patchValues() {
     this.profileForm.patchValue({
@@ -74,7 +60,8 @@ export class EditProfileComponent implements OnInit {
   onSubmit(profileData) {
     if (this.profileForm.valid) {
       this.editProfileService.editProfile(this.authUserID, profileData).subscribe();
-      this.router.navigate(['/view-profile/', this.authUserID]).then();
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      this.router.navigate(['/view-profile/', this.authUserID]));
       }
     }
   }

@@ -13,8 +13,6 @@ import { GetDetailsService} from './get-details.service';
 })
 export class ProfileResolveService implements Resolve<any> {
 
-  private previousUrl: string;
-
   constructor(private getDetailsService: GetDetailsService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
