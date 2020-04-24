@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loading = true;
       this.loginService.login(loginData).subscribe(message => {
+        this.loading = false;
         this.displayMessage = message;
         this.loginForm.reset({
           email: loginData.email,
