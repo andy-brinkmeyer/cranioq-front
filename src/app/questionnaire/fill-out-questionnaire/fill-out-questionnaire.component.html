@@ -4,6 +4,7 @@
 <div class="container mt-3">
   <h3 *ngIf="patient !== ''">Questionnaire for patient {{ patient }} </h3>
   <h3 *ngIf="patient === ''">Your questionnaire</h3>
+  <p class="mb-0">Access Code: <strong>{{ accessID }}</strong></p>
   <div *ngIf="!printView" class="row">
     <div class="col-lg-8 mb-3">
       <hr/>
@@ -23,18 +24,20 @@
         <button type="button" class="btn btn-outline-secondary d-print-none mx-1" (click)="printView = !printView">Print  View</button>
       </div>
     </div>
-    <div class="col-lg-4 p-3 bg-primary text-white reviewContainer" *ngIf="authStorageService.role === 'specialist'">
-      <h5>Specialist Review</h5>
-      <form class="ml-3" [formGroup]="reviewForm" (ngSubmit)="onReviewSubmit(reviewForm.value)">
-        <div class="form-group form-check">
+    <div class="col-lg-4 px-0 pb-3 pt-0 bg-primary text-white rounded" *ngIf="authStorageService.role === 'specialist'">
+      <div class="pt-3 pb-3 rounded shadow-sm dark-blue">
+        <h5 class="text-center">Specialist Review</h5>
+      </div>
+      <form class="ml-3 p-3" [formGroup]="reviewForm" (ngSubmit)="onReviewSubmit(reviewForm.value)">
+        <div class="form-check">
           <input type="checkbox" class="form-check-input" id="WHOChart" aria-describedby="WHOChart" formControlName="WHOChart">
           <label class="form-check-label" for="WHOChart">WHO head circumference chart</label>
         </div>
-        <div class="form-group form-check">
+        <div class="form-check">
           <input type="checkbox" class="form-check-input" id="XRay" aria-describedby="XRay" formControlName="XRay">
           <label class="form-check-label" for="XRay">X-Ray images</label>
         </div>
-        <div class="form-group form-check">
+        <div class="form-check">
           <input type="checkbox" class="form-check-input" id="photos" aria-describedby="photos" formControlName="photos">
           <label class="form-check-label" for="photos">Photos</label>
         </div>
@@ -42,29 +45,41 @@
           <label for="otherRequest">Other requests</label>
           <input type="text" class="form-control" id="otherRequest" aria-describedby="otherRequest" formControlName="other">
         </div>
+        <hr class="border-white"/>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="noInfo" aria-describedby="photos" formControlName="noInfo">
+          <label class="form-check-label" for="noInfo">Nothing further information required</label>
+        </div>
+        <hr class="border-white"/>
         <button type="submit" class="btn btn-outline-light">Submit</button>
       </form>
     </div>
-    <div class="col-lg-4 p-3 bg-primary text-white reviewContainer" *ngIf="authStorageService.role === 'gp' && completed">
-      <h5>Specialist Review</h5>
-      <p *ngIf="reviewedBy !== null">Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.title }} {{ reviewedBy.last_name }}</a></strong></p>
-      <h5 *ngIf="review.length === 0">No review available.</h5>
-      <ul>
-        <li *ngFor="let item of review">
-          {{ item }}
-        </li>
-      </ul>
+    <div class="col-lg-4 px-0 pb-3 pt-0 bg-primary text-white rounded" *ngIf="authStorageService.role === 'gp' && completed">
+      <div class="pt-3 pb-3 rounded shadow-sm dark-blue">
+        <h5 class="text-center">Specialist Review</h5>
+      </div>
+      <div class="p-3">
+        <p *ngIf="reviewedBy !== null">Reviewed by <strong><a class="text-white" [routerLink]="['/view-profile', reviewedBy.id]">{{ reviewedBy.title }} {{ reviewedBy.last_name }}</a></strong></p>
+        <h5 *ngIf="review.length === 0">No review available.</h5>
+        <ul>
+          <li *ngFor="let item of review">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div *ngIf="printView">
     <div *ngIf="review.length > 0">
       <h3>Specialist Review</h3>
+      <p *ngIf="reviewedBy !== null">Reviewed by <strong>{{ reviewedBy.title }} {{ reviewedBy.last_name }}</strong></p>
       <ul>
         <li *ngFor="let item of review">{{ item }}</li>
       </ul>
     </div>
+    <hr/>
     <app-print-view [categoryKeys]="categoryKeys" [categories]="categories"></app-print-view>
-    <button type="button" class="btn btn-outline-secondary d-print-none" (click)="printView = !printView">Normal View</button>
+    <button type="button" class="btn btn-outline-secondary d-print-none mb-3" (click)="printView = !printView">Normal View</button>
   </div>
 </div>
 

@@ -30,10 +30,10 @@
           <h3>{{ accessID }}</h3>
           <hr>
           <p class="mb-0">For the guardian to access the questionnaire, go to:</p>
-          <a routerLink="/guardian" class="alert-link">{{ frontEndUrl + '/guardian/' }}</a>
+          <a routerLink="/guardian" class="alert-link no-wrap">{{ frontEndUrl + '/guardian/' }}</a>
         </div>
         <button *ngIf="accessID === undefined" type="submit" class="btn btn-primary">Create</button>
-        <button *ngIf="accessID !== undefined" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success">Got to GP questionnaire</button>
+        <button *ngIf="accessID !== undefined" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success mb-3">Got to GP questionnaire</button>
       </form>
     </div>
   </div>

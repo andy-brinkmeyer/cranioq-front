@@ -33,6 +33,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
     last_name: string;
     title: string;
   };
+  accessID: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,12 +55,14 @@ export class FillOutQuestionnaireComponent implements OnInit {
       XRay: '',
       photos: '',
       other: '',
+      noInfo: ''
     });
 
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
       this.reviewedBy = data.questionnaire.reviewed_by;
+      this.accessID = data.questionnaire.access_id;
       if ( role === 'anon' ) {
         this.patient = '';
       } else {

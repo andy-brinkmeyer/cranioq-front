@@ -1,3 +1,7 @@
 .form-container {
   max-width: 540px;
 }
+
+.no-wrap {
+  word-break: break-all;
+}
