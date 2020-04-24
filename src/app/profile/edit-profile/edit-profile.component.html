@@ -1,7 +1,7 @@
-<div class="container-fluid px-0 mt-3">
-  <div class="row mx-0 w-100 h-100">
+<div class="container-sm px-0 mt-3">
+  <div class="row mx-0 h-100">
     <div class="col-lg bg-white d-flex align-items-center">
-      <div class="container mx-auto">
+      <div class="container-sm mx-auto">
         <h3>Edit Your Profile</h3>
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
           <div class="form-group">
@@ -36,7 +36,7 @@
             <label for="InputPostcode">Postcode</label>
             <input type="text" class="form-control" id="InputPostcode" formControlName="clinic_postcode">
           </div>
-          <button *ngIf="authStorageService.isLoggedIn" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary mb-3">Save</button>
+          <button *ngIf="authStorageService.isLoggedIn && id==authUserID" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary mb-3">Save</button>
         </form>
       </div>
     </div>

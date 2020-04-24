@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { GetDetailsService} from '../get-details.service';
+/*import { GetDetailsService} from '../get-details.service';*/
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service'; 
 import { EditProfileService } from '../edit-profile.service';
@@ -15,12 +15,13 @@ export class EditProfileComponent implements OnInit {
   profileForm;
   authUserID;
   details;
+  id;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private getDetailsService: GetDetailsService,
+    /*private getDetailsService: GetDetailsService,*/
     public authStorageService: AuthStorageService,
     private editProfileService: EditProfileService
     ) {
@@ -38,11 +39,17 @@ export class EditProfileComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
-      this.details = data;
+    this.route.data.subscribe(data => {
+      this.details = data.profile;
       this.patchValues();
     });
-  }
+    this.route.paramMap.subscribe(params => {
+      this.id = params.get('userid'); });
+    }
+    /*this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
+      this.details = data;
+      this.patchValues();
+    });*/
 
   patchValues() {
     this.profileForm.patchValue({

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { Subject } from 'rxjs';
-
 import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
 @Component({
@@ -12,11 +10,9 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
 })
 export class ViewProfileComponent implements OnInit {
 
-  public destroyed = new Subject<any>();
   authUserID = this.authStorageService.userID;
   details;
   id;
-  navigationSubscription;
 
 
   constructor(
@@ -35,7 +31,7 @@ export class ViewProfileComponent implements OnInit {
 
 
   goToPage() {
-    this.router.navigate(['/edit-profile']).then();
+    this.router.navigate(['/edit-profile', this.authUserID]).then();
   }
 
 }
