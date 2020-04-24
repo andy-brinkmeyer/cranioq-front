@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
       this.interval = setInterval(() => {
           this.refreshData();
-      }, 5000);
+      }, 1000);
 
       this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {

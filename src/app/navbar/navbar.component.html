@@ -4,6 +4,7 @@
     CranioQ
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
+            <span *ngIf="total !=0" class="badge badge-danger ml-2">{{total}}</span>
             <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbar1">
@@ -25,7 +26,6 @@
             </a>
             <div *ngIf="role == 'gp'" class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
               <h6 class="dropdown-header">Questionnaires to follow up:</h6>
-              <h6 class="dropdown-header">(click the x to dismiss)</h6>
               <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Questionnaire ID: {{ questionnaire.id }}
                 <button type="button" class="close" aria-label="Close" (click)="dismiss($event, questionnaire.id)"><span aria-hidden="true">&times;</span></button>
               </a>
