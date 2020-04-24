@@ -13,6 +13,7 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm: FormGroup;
   errorMessage: string;
   success: boolean;
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,6 +27,7 @@ export class ChangePasswordComponent implements OnInit {
 
     this.errorMessage = '';
     this.success = false;
+    this.loading = false;
   }
 
   private static sameNewPasswords(control: FormGroup): ValidationErrors | null {
@@ -50,13 +52,16 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onSubmit(formData) {
+    this.loading = true;
     this.changePasswordForm.reset();
     this.loginService.changePassword(formData).subscribe(() => {
       this.success = true;
       this.errorMessage = '';
+      this.loading = false;
     }, error => {
       this.success = false;
       this.errorMessage = error;
+      this.loading = false;
     });
   }
 }
