@@ -2,9 +2,14 @@
   <div class="row mx-0 h-100">
     <div class="col-lg bg-white d-flex align-items-center">
       <div class="container-sm mx-auto">
+      <div *ngIf="authStorageService.isLoggedIn && id!=authUserID" >
+        <h4>You cannot edit someone else's profile</h4>
+      </div>
+      <div *ngIf="authStorageService.isLoggedIn && id==authUserID" >
         <h3>Edit Your Profile</h3>
+      </div>
         <br>
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
+        <form *ngIf="authStorageService.isLoggedIn && id==authUserID" [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
           <div class="form-row">
           <div class="form-group col">
             <label for="InputTitle">Title</label>
@@ -47,7 +52,13 @@
             <input type="text" class="form-control" id="InputPostcode" formControlName="clinic_postcode">
           </div>
           </div>
-          <button *ngIf="authStorageService.isLoggedIn && id==authUserID" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary mb-3">Save</button>
+          <div *ngIf="authStorageService.isLoggedIn && id==authUserID">
+          <button *ngIf="!loading" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary mb-3">Save</button>
+          <button *ngIf="loading" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+          </button>
+          </div>
         </form>
       </div>
     </div>

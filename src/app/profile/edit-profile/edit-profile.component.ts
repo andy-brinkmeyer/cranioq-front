@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
-/*import { GetDetailsService} from '../get-details.service';*/
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service'; 
 import { EditProfileService } from '../edit-profile.service';
@@ -16,12 +14,12 @@ export class EditProfileComponent implements OnInit {
   authUserID;
   details;
   id;
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    /*private getDetailsService: GetDetailsService,*/
     public authStorageService: AuthStorageService,
     private editProfileService: EditProfileService
     ) {
@@ -36,6 +34,7 @@ export class EditProfileComponent implements OnInit {
         clinic_city: ['', [Validators.required]],
         clinic_postcode: ['', [Validators.required]]
         });
+      this.loading = false;
    }
 
   ngOnInit() {
@@ -45,11 +44,7 @@ export class EditProfileComponent implements OnInit {
     });
     this.route.paramMap.subscribe(params => {
       this.id = params.get('userid'); });
-    }
-    /*this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
-      this.details = data;
-      this.patchValues();
-    });*/
+  }
 
   patchValues() {
     this.profileForm.patchValue({
@@ -61,14 +56,17 @@ export class EditProfileComponent implements OnInit {
       clinic_street: this.details.clinic_street,
       clinic_city: this.details.clinic_city,
       clinic_postcode: this.details.clinic_postcode
-  });
+    });
   }
 
   onSubmit(profileData) {
     if (this.profileForm.valid) {
+      this.loading = true;
       this.editProfileService.editProfile(this.authUserID, profileData).subscribe();
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       this.router.navigate(['/view-profile/', this.authUserID]));
+      } else {
+        this.loading = false;
       }
     }
   }

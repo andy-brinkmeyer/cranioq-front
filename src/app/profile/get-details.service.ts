@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 
-import { GetUserResponse200 } from './models/models'
+import { GetUserResponse200 } from './models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,7 @@ import { GetUserResponse200 } from './models/models'
 export class GetDetailsService {
   profileUrl: string;
 
-  constructor(private http: HttpClient,
-    private router: Router) {
-     }
+  constructor(private http: HttpClient) {}
 
   getDetails(id): Observable<object> {
     this.profileUrl = environment.apiBaseUrl + '/user/' + id;

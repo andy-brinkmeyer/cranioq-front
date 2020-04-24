@@ -5,14 +5,13 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { EditProfileResponse200, ProfileData } from './models/models'
+import { EditProfileResponse200, ProfileData } from './models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditProfileService {
   editProfileUrl: string;
-  redirectUrl: string;
 
   constructor(private http: HttpClient) {
      }

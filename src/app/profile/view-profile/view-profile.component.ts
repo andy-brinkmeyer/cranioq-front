@@ -10,16 +10,20 @@ import { AuthStorageService } from '../../auth/services/auth-storage.service';
 })
 export class ViewProfileComponent implements OnInit {
 
-  authUserID = this.authStorageService.userID;
+  authUserID;
   details;
   id;
+  loading: boolean;
 
 
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    private authStorageService: AuthStorageService
-    ) { }
+    public authStorageService: AuthStorageService
+    ) {
+      this.loading = false;
+      this.authUserID = this.authStorageService.userID;
+    }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
@@ -30,8 +34,9 @@ export class ViewProfileComponent implements OnInit {
     }
 
 
-  goToPage() {
-    this.router.navigate(['/edit-profile', this.authUserID]).then();
+  goToEdit() {
+    this.loading = true;
+    this.router.navigate(['/edit-profile', this.authUserID]).catch(() => this.loading = false);
   }
 
 }
