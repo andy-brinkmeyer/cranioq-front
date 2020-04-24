@@ -7,8 +7,9 @@ import { ProfileResolveService } from './profile-resolve.service';
 import {AuthGuard} from '../auth/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'view-profile/:userid', component: ViewProfileComponent, resolve: {profile: ProfileResolveService}, canActivate: [AuthGuard] },
-  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] }
+  { path: 'view-profile/:userid', component: ViewProfileComponent, resolve: {profile: ProfileResolveService}, canActivate: [AuthGuard],
+  runGuardsAndResolvers: 'always' },
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({

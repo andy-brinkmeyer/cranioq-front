@@ -3,13 +3,9 @@ import {FormBuilder, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { GetDetailsService} from '../get-details.service';
-// the get details service has the http request that will get the data from the backend
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service'; 
-// above stores roles and id 
 import { EditProfileService } from '../edit-profile.service';
-// above are services that will do http request - need to do this separately (ng generate service).. google angular generate service, cd into the folder 
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -19,7 +15,6 @@ export class EditProfileComponent implements OnInit {
   profileForm;
   authUserID;
   details;
-  displayMessage;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,7 +35,6 @@ export class EditProfileComponent implements OnInit {
         clinic_city: ['', [Validators.required]],
         clinic_postcode: ['', [Validators.required]]
         });
-      this.displayMessage = '';
    }
 
   ngOnInit() {
@@ -48,8 +42,21 @@ export class EditProfileComponent implements OnInit {
       this.details = data;
       this.patchValues();
     });
+    /*this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.initialiseInvites();
+      }
+    });*/
   }
 
+  /*initialiseInvites() {
+    // Set default values and re-fetch any data you need.
+    this.getDetailsService.getDetails(this.authUserID).subscribe(data => {
+      this.details = data;
+      this.patchValues();
+    });
+  }*/
 
   patchValues() {
     this.profileForm.patchValue({
@@ -66,12 +73,8 @@ export class EditProfileComponent implements OnInit {
 
   onSubmit(profileData) {
     if (this.profileForm.valid) {
-      this.editProfileService.editProfile(this.authUserID, profileData).subscribe(message => {
-        this.displayMessage = message;
-        this.router.navigate(['/edit-profile']);
-      });
-    } else {
-      this.displayMessage = 'One or more fields are empty.';
+      this.editProfileService.editProfile(this.authUserID, profileData).subscribe();
+      this.router.navigate(['/view-profile/', this.authUserID]).then();
+      }
     }
   }
-}

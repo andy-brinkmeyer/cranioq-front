@@ -15,18 +15,16 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 export class EditProfileService {
   editProfileUrl: string;
   redirectUrl: string;
-  message: string;
 
   constructor(private http: HttpClient,
     private router: Router) {
       this.redirectUrl = '/view-profile';
      }
 
-  editProfile(id, profileData: ProfileData): Observable<string>{
-    this.editProfileUrl = environment.apiBaseUrl + '/user/'+id;
+  editProfile(id, profileData: ProfileData): Observable<string> {
+    this.editProfileUrl = environment.apiBaseUrl + '/user/' + id;
     return this.http.put<EditProfileResponse200>(this.editProfileUrl, profileData).pipe(
-      map(res => {this.message = res.displayable_message;
-      return this.message}),
+      map((response) => response),
       catchError( error => {
         if (error.error instanceof ErrorEvent) {
           return of(error.error.message);
@@ -34,7 +32,5 @@ export class EditProfileService {
           return of(error.error.error_message);
         }
       }));
-
   }
-  
 }
