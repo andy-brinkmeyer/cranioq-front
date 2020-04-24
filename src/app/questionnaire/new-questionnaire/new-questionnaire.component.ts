@@ -21,6 +21,8 @@ export class NewQuestionnaireComponent implements OnInit {
   selectedTemplateID: number;
   accessID: string;
   questionnaireID: number;
+  createLoading: boolean;
+  questLoading: boolean;
 
   frontEndUrl = environment.frontEndUrl;
 
@@ -44,6 +46,9 @@ export class NewQuestionnaireComponent implements OnInit {
         this.selectedTemplateID = this.templates[0].id;
       }
     });
+
+    this.createLoading = false;
+    this.questLoading = false;
   }
 
   ngOnInit() { }
@@ -54,10 +59,15 @@ export class NewQuestionnaireComponent implements OnInit {
 
   onSubmit(formData) {
     if (this.newQuestionnaireForm.valid) {
+      this.createLoading = true;
       formData.template_id = this.selectedTemplateID;
       this.newQuestionnaireService.create(formData).subscribe(res => {
         this.accessID = res.accessID;
         this.questionnaireID = res.questionnaireID;
+        this.createLoading = false;
+      }, error => {
+        this.displayMessage = error.message;
+        this.createLoading = false;
       });
     } else {
       this.displayMessage = 'One or more fields were left empty.';
@@ -65,6 +75,10 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   onGoToGPQuestionnaireClick() {
-    this.router.navigate(['/questionnaire/' + this.questionnaireID]);
+    this.questLoading = true;
+    this.router.navigate(['/questionnaire/' + this.questionnaireID]).catch(() => {
+      this.questLoading = false;
+      this.displayMessage = 'Could not load the questionnaire.';
+    });
   }
 }
