@@ -7,14 +7,18 @@ import {Router} from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  loading: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.loading = false;
+  }
 
   ngOnInit() {
   }
 
   newQuestionnaire() {
-    this.router.navigate(['questionnaires/new']).then();
+    this.loading = true;
+    this.router.navigate(['questionnaires/new']).catch(() => this.loading = false);
   }
 
   manageQuestionnaire() {

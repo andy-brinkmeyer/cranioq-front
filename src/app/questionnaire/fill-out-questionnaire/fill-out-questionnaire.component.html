@@ -4,7 +4,7 @@
 <div class="container mt-3">
   <h3 *ngIf="patient !== ''">Questionnaire for patient {{ patient }} </h3>
   <h3 *ngIf="patient === ''">Your questionnaire</h3>
-  <p class="mb-0">Access Code: <strong>{{ accessID }}</strong></p>
+  <p class="mb-0">Guardian access code: <strong>{{ accessID }}</strong></p>
   <div *ngIf="!printView" class="row">
     <div class="col-lg-8 mb-3">
       <hr/>
@@ -18,7 +18,11 @@
         <button *ngIf="currentPage > 0" (click)="previousPage()" type="button" class="btn btn-primary mx-1">Previous</button>
         <button *ngIf="currentPage < categoryKeys.length - 1" (click)="nextPage()" type="button" class="btn btn-primary mx-1">Next</button>
         <div *ngIf="currentPage == categoryKeys.length - 1 && !completed" class="d-flex flex-column">
-          <button (click)="onSave()" type="button" class="btn btn-outline-success mb-1">Save</button>
+          <button *ngIf="!saving" (click)="onSave()" type="button" class="btn btn-outline-success mb-1">Save</button>
+          <button *ngIf="saving" class="btn btn-outline-success mb-1" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Saving...
+          </button>
           <button data-toggle="modal" data-target="#submitModal" type="button" class="btn btn-success">Submit</button>
         </div>
         <button type="button" class="btn btn-outline-secondary d-print-none mx-1" (click)="printView = !printView">Print  View</button>
@@ -98,7 +102,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button *ngIf="currentPage == categoryKeys.length - 1" data-dismiss="modal" (click)="onSubmit()" type="button" class="btn btn-success">Submit</button>
+        <button data-dismiss="modal" (click)="onSubmit()" type="button" class="btn btn-success">
+          <span *ngIf="submitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Submit</button>
       </div>
     </div>
   </div>

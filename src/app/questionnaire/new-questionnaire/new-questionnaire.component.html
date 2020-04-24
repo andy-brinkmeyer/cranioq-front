@@ -32,8 +32,16 @@
           <p class="mb-0">For the guardian to access the questionnaire, go to:</p>
           <a routerLink="/guardian" class="alert-link no-wrap">{{ frontEndUrl + '/guardian/' }}</a>
         </div>
-        <button *ngIf="accessID === undefined" type="submit" class="btn btn-primary">Create</button>
-        <button *ngIf="accessID !== undefined" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success mb-3">Got to GP questionnaire</button>
+        <button *ngIf="accessID === undefined && !createLoading" type="submit" class="btn btn-primary mb-3">Create</button>
+        <button *ngIf="createLoading" class="btn btn-primary mb-3" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Creating...
+        </button>
+        <button *ngIf="accessID !== undefined && !questLoading" (click)="onGoToGPQuestionnaireClick()" type="button" class="btn btn-success mb-3">Got to GP questionnaire</button>
+        <button *ngIf="questLoading" class="btn btn-success mb-3" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading questionnaire...
+        </button>
       </form>
     </div>
   </div>

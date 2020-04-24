@@ -34,6 +34,8 @@ export class FillOutQuestionnaireComponent implements OnInit {
     title: string;
   };
   accessID: string;
+  saving: boolean;
+  submitting: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +44,9 @@ export class FillOutQuestionnaireComponent implements OnInit {
     public authStorageService: AuthStorageService,
     private formBuilder: FormBuilder
   ) {
+    this.saving = false;
+    this.submitting = false;
+
     this.categories = new Map();
     this.categoryKeys = [];
     this.currentPage = 0;
@@ -124,13 +129,21 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitting = true;
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state, true).subscribe(res => this.errorMessage = res);
+    this.questionnaireService.save(state, true).subscribe(res => {
+      this.errorMessage = res;
+      this.submitting = false;
+    });
   }
 
   onSave() {
+    this.saving = true;
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state, false).subscribe(res => this.errorMessage = res);
+    this.questionnaireService.save(state, false).subscribe(res => {
+      this.errorMessage = res;
+      this.saving = false;
+    });
   }
 
   onReviewSubmit(formData) {
