@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 
+import { AuthStorageService } from '../auth/services/auth-storage.service';
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,7 +12,10 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
   loading: boolean;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public authStorageService: AuthStorageService
+  ) {
     this.loading = false;
   }
 
