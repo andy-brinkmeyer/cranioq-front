@@ -24,7 +24,7 @@
         <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
           {{ displayMessage }}
         </div>
-        <div *ngIf="accessID == undefined" class="alert alert-success" role="alert">
+        <div *ngIf="accessID !== undefined" class="alert alert-success" role="alert">
           <h4 class="alert-heading">Created!</h4>
           <p>The guardians access code is:</p>
           <h3>{{ accessID }}</h3>
