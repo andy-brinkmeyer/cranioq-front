@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
@@ -35,7 +35,8 @@ export class FillOutQuestionnaireComponent implements OnInit {
   };
   accessID: string;
   saving: boolean;
-  submitting: boolean;
+  submittingQuestionnaire: boolean;
+  submittingReview: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +46,8 @@ export class FillOutQuestionnaireComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.saving = false;
-    this.submitting = false;
+    this.submittingQuestionnaire = false;
+    this.submittingReview = false;
 
     this.categories = new Map();
     this.categoryKeys = [];
@@ -129,11 +131,11 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitting = true;
+    this.submittingQuestionnaire = true;
     const state = this.questionnaireStore.stateSnapshot;
     this.questionnaireService.save(state, true).subscribe(res => {
       this.errorMessage = res;
-      this.submitting = false;
+      this.submittingQuestionnaire = false;
     });
   }
 
@@ -147,6 +149,7 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   onReviewSubmit(formData) {
+    this.submittingReview = true;
     const review = [];
     Object.keys(formData).forEach( key => {
       if (formData[key] && key !== 'other') {
@@ -155,6 +158,9 @@ export class FillOutQuestionnaireComponent implements OnInit {
     });
     review.push(formData.other);
     const questionnaireID = this.questionnaireStore.stateSnapshot.get('questionnaireID');
-    this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => this.errorMessage = message);
+    this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => {
+      this.errorMessage = message;
+      this.submittingReview = false;
+    });
   }
 }

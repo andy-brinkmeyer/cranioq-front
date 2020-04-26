@@ -1,6 +1,9 @@
 <nav class="navbar navbar-light navbar-expand-sm bg-white">
-  <a class="navbar-brand" [routerLink]="homeLink">
-    <img src="../../assets/images/default-monochrome.svg" height="60" alt="Logo">
+  <a *ngIf="authStorageService.role !== 'anon'" class="navbar-brand" routerLink="/dashboard">
+    <img src="../../assets/images/default-monochrome.svg" height="50rem" alt="Logo">
+  </a>
+  <a *ngIf="authStorageService.role === 'anon'" class="navbar-brand" routerLink="/guardian">
+    <img src="../../assets/images/default-monochrome.svg" height="50rem" alt="Logo">
   </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
           <span *ngIf="total !=0" class="badge badge-danger ml-2">{{total}}</span>

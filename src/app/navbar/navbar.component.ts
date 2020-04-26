@@ -27,13 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public authStorageService: AuthStorageService,
-              private notificationsService: NotificationsService) {
-    if ( this.authStorageService.role === 'anon' ) {
-      this.homeLink = '/guardian';
-    } else {
-      this.homeLink = '/dashboard';
-    }
-  }
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     if (this.authStorageService.isLoggedIn) {
