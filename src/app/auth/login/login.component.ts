@@ -11,6 +11,7 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   loginForm;
   displayMessage: string;
+  loading: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]]
     });
     this.displayMessage = '';
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -28,7 +30,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(loginData) {
     if (this.loginForm.valid) {
+      this.loading = true;
       this.loginService.login(loginData).subscribe(message => {
+        this.loading = false;
         this.displayMessage = message;
         this.loginForm.reset({
           email: loginData.email,
@@ -36,6 +40,7 @@ export class LoginComponent implements OnInit {
         });
       });
     } else {
+      this.loading = false;
       this.displayMessage = 'One or more fields are empty.';
     }
   }

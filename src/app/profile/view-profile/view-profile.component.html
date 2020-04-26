@@ -1,7 +1,7 @@
 <div class="container-fluid px-0 height-80">
   <div class="row mx-0 w-100 h-100">
     <div class="col-lg bg-white d-flex align-items-center mx-auto text-center">
-      <div class="container mx-auto border border-primary p-3 rounded">
+      <div class="container-sm mx-auto border border-primary p-3 rounded">
         <h4>{{ details.title}} {{ details.first_name }} {{ details.last_name }}</h4>
         <br>
         <br>
@@ -11,8 +11,12 @@
         <h6> {{ details.clinic_postcode }}</h6>
         <br>
         <br>
-        <div *ngIf="id == authUserID">
-          <button (click)="goToPage()" class="btn btn-primary m-1">Edit</button>
+        <div *ngIf="authStorageService.isLoggedIn && id == authUserID">
+          <button *ngIf="!loading" (click)="goToEdit()" class="btn btn-primary m-1">Edit</button>
+          <button *ngIf="loading" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+          </button>
           <button class="btn btn-primary m-1" (click)="router.navigate(['/change-password'])">Change Password</button>
         </div>
       </div>

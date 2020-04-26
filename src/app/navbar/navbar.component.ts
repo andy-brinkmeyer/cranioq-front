@@ -27,13 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public authStorageService: AuthStorageService,
-              private notificationsService: NotificationsService) {
-    if ( this.authStorageService.role === 'anon' ) {
-      this.homeLink = '/guardian';
-    } else {
-      this.homeLink = '/dashboard';
-    }
-  }
+              private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     if (this.authStorageService.isLoggedIn) {
@@ -43,7 +37,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
       this.interval = setInterval(() => {
           this.refreshData();
-      }, 5000);
+      }, 1000);
 
       this.notificationsService.data$.pipe(takeUntil(this.unsubscribe))
       .subscribe(data => {

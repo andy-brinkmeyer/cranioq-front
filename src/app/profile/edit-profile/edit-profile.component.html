@@ -1,45 +1,64 @@
-<div class="container-fluid px-0 mt-3">
-  <div class="row mx-0 w-100 h-100">
+<div class="container-sm px-0 mt-3">
+  <div class="row mx-0 h-100">
     <div class="col-lg bg-white d-flex align-items-center">
-      <div class="container mx-auto">
+      <div class="container-sm mx-auto">
+      <div *ngIf="authStorageService.isLoggedIn && id!=authUserID" >
+        <h4>You cannot edit someone else's profile</h4>
+      </div>
+      <div *ngIf="authStorageService.isLoggedIn && id==authUserID" >
         <h3>Edit Your Profile</h3>
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
-          <div class="form-group">
+      </div>
+        <br>
+        <form *ngIf="authStorageService.isLoggedIn && id==authUserID" [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm.value)">
+          <div class="form-row">
+          <div class="form-group col">
             <label for="InputTitle">Title</label>
             <input type="text" class="form-control" id="InputTitle" aria-describedby="title" formControlName="title">
           </div>
-          <div class="form-group">
+          <div class="form-group col">
             <label for="InputFirstName">First Name</label>
             <input type="text" class="form-control" id="InputFirstName" aria-describedby="first_name" formControlName="first_name">
           </div>
-          <div class="form-group">
+          <div class="form-group col">
             <label for="InputLastName">Last Name</label>
             <input type="text" class="form-control" id="InputLastName" aria-describedby="last_name" formControlName="last_name">
           </div>
-          <div class="form-group">
+          </div>
+          <div class="form-row">
+          <div class="form-group col">
             <label for="InputEmail">Email</label>
             <input type="email" class="form-control" id="InputEmail" formControlName="email">
           </div>
-          <div class="form-group">
+          </div>
+          <br>
+          <h5>Clinic Address</h5>
+          <div class="form-row">
+          <div class="form-group col">
             <label for="InputClinicName">Clinic Name</label>
             <input type="text" class="form-control" id="InputClinicName" formControlName="clinic_name">
           </div>
-          <div class="form-group">
-            <label for="InputClinicStreet">Clinic Street</label>
+          <div class="form-group col">
+            <label for="InputClinicStreet">Street</label>
             <input type="text" class="form-control" id="InputClinicStreet" formControlName="clinic_street">
           </div>
-          <div class="form-group">
-            <label for="InputClinicCity">Clinic City</label>
+          </div>
+          <div class="form-row">
+          <div class="form-group col">
+            <label for="InputClinicCity">City</label>
             <input type="text" class="form-control" id="InputClinicCity" formControlName="clinic_city">
           </div>
-          <div class="form-group">
+          <div class="form-group col">
             <label for="InputPostcode">Postcode</label>
             <input type="text" class="form-control" id="InputPostcode" formControlName="clinic_postcode">
           </div>
-          <div *ngIf="displayMessage != ''" class="alert alert-danger" role="alert">
-            {{ displayMessage }}
           </div>
-          <button *ngIf="authStorageService.isLoggedIn" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary">Save</button>
+          <div *ngIf="authStorageService.isLoggedIn && id==authUserID">
+          <button *ngIf="!loading" [disabled]="!profileForm.valid" type="submit" class="btn btn-primary mb-3">Save</button>
+          <button *ngIf="loading" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading...
+          </button>
+          </div>
         </form>
       </div>
     </div>

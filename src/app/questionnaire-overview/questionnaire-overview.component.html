@@ -1,6 +1,7 @@
-<div class="container-fluid px-0 full-height">
-    <div class="row p-3"> 
-        <div class="col text-left m-4">
+<div class="container-fluid px-0 mt-3">
+  <div class="row mx-0 w-100 h-100">
+    <div class="col-lg bg-white d-flex align-items-center">
+          <div class="container mx-auto">
           
             <form>
                 <div class="form-group">
@@ -33,8 +34,9 @@
                 <tbody>
                     <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
                          <td>{{data.patient_id}}</td>
-                         <td>Dr {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
+                         <td>{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
                          <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                         <!-- put *ngIf statements below -->
                          <td>                                     
                             <button class="btn btn-primary m-1" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
                         </td>
@@ -43,9 +45,37 @@
                         </td>
                      </tr>
                 </tbody>
-                
+
 
             </table>
+          </div>
         </div> 
     </div>    
 </div>
+
+
+<!-- 
+  
+  need next button to get the next 100 pages 
+
+  if auth storage role is specialist, show gp name column else don't show 
+  
+  another column saying completion status (completed by gp or parent)
+
+  view questionnaire, is reviewed... show green text. if pending, show red text. 
+  other option is incomplete. use booleans completed_gp/completed guardian.
+  if both true, and review is full then it's been reviewed. if true and review empty, 
+  then pending. if either one is true/false, then incomplete.  use ng if statements in html. 
+  get rid of button. use 3 ng if statements. put in which person is being waited for. 
+
+  filtering by status - filter on backend according to reivew status. need to create another service/api. 
+  need 2 classes (1 for reviewed, 1 for pending). need drop down menu for reviewed/pending 
+  use same serialiser. 
+  see siobhan's code: view profile code... via routing, send it to a false page, then route back...
+
+  link gp name to their profile. example router link is [routerLink]="['/view-profile', data.gp.id]" 
+
+  do resolve guard thing 
+
+
+-->

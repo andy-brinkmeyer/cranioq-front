@@ -3,24 +3,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthStorageService } from '../../auth/services/auth-storage.service';
 
-import { GetDetailsService} from '../get-details.service';
-
 @Component({
   selector: 'app-view-profile',
   templateUrl: './view-profile.component.html',
   styleUrls: ['./view-profile.component.css']
 })
 export class ViewProfileComponent implements OnInit {
-  authUserID = this.authStorageService.userID;
+
+  authUserID;
   details;
   id;
+  loading: boolean;
 
 
   constructor(
     private route: ActivatedRoute,
     public router: Router,
-    private getDetailsService: GetDetailsService,
-    private authStorageService: AuthStorageService) { }
+    public authStorageService: AuthStorageService
+    ) {
+      this.loading = false;
+      this.authUserID = this.authStorageService.userID;
+    }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
@@ -31,8 +34,9 @@ export class ViewProfileComponent implements OnInit {
     }
 
 
-  goToPage() {
-    this.router.navigate(['/edit-profile']).then();
+  goToEdit() {
+    this.loading = true;
+    this.router.navigate(['/edit-profile', this.authUserID]).catch(() => this.loading = false);
   }
 
 }

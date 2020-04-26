@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
@@ -33,6 +33,10 @@ export class FillOutQuestionnaireComponent implements OnInit {
     last_name: string;
     title: string;
   };
+  accessID: string;
+  saving: boolean;
+  submittingQuestionnaire: boolean;
+  submittingReview: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +45,10 @@ export class FillOutQuestionnaireComponent implements OnInit {
     public authStorageService: AuthStorageService,
     private formBuilder: FormBuilder
   ) {
+    this.saving = false;
+    this.submittingQuestionnaire = false;
+    this.submittingReview = false;
+
     this.categories = new Map();
     this.categoryKeys = [];
     this.currentPage = 0;
@@ -54,12 +62,14 @@ export class FillOutQuestionnaireComponent implements OnInit {
       XRay: '',
       photos: '',
       other: '',
+      noInfo: ''
     });
 
     this.route.data.subscribe((data: { questionnaire: Questionnaire }) => {
       this.questionnaireStore.questionnaireID = data.questionnaire.id;
       this.questionnaireStore.accessID = data.questionnaire.access_id;
       this.reviewedBy = data.questionnaire.reviewed_by;
+      this.accessID = data.questionnaire.access_id;
       if ( role === 'anon' ) {
         this.patient = '';
       } else {
@@ -121,16 +131,25 @@ export class FillOutQuestionnaireComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submittingQuestionnaire = true;
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state, true).subscribe(res => this.errorMessage = res);
+    this.questionnaireService.save(state, true).subscribe(res => {
+      this.errorMessage = res;
+      this.submittingQuestionnaire = false;
+    });
   }
 
   onSave() {
+    this.saving = true;
     const state = this.questionnaireStore.stateSnapshot;
-    this.questionnaireService.save(state, false).subscribe(res => this.errorMessage = res);
+    this.questionnaireService.save(state, false).subscribe(res => {
+      this.errorMessage = res;
+      this.saving = false;
+    });
   }
 
   onReviewSubmit(formData) {
+    this.submittingReview = true;
     const review = [];
     Object.keys(formData).forEach( key => {
       if (formData[key] && key !== 'other') {
@@ -139,6 +158,9 @@ export class FillOutQuestionnaireComponent implements OnInit {
     });
     review.push(formData.other);
     const questionnaireID = this.questionnaireStore.stateSnapshot.get('questionnaireID');
-    this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => this.errorMessage = message);
+    this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => {
+      this.errorMessage = message;
+      this.submittingReview = false;
+    });
   }
 }

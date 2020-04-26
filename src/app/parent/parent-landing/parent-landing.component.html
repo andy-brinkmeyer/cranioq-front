@@ -31,7 +31,11 @@
         <div *ngIf="displayMessage !== ''" class="alert alert-danger" role="alert">
           {{ displayMessage }}
         </div>
-        <button type="submit" class="btn btn-primary">Start</button>
+        <button *ngIf="!starting" type="submit" class="btn btn-primary">Start</button>
+        <button *ngIf="starting" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Loading questionnaire...
+        </button>
       </form>
     </div>
   </div>
