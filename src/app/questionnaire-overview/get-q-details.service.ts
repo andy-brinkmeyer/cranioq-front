@@ -37,8 +37,6 @@ export class GetQDetailsService {
             reviewedArray.push(this.QDetails[q]);
           }
         }
-        console.log('Reviewed arrays:', reviewedArray);
-        console.log('Pendng arrays:', pendingArray);
         return this.QDetails;
       }),
       catchError( error => {
