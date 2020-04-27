@@ -7,6 +7,10 @@
     </button>
   </div>
   <div class="m-3 dashboardButton">
-    <button (click)="manageQuestionnaire()" type="button" class="btn btn-primary w-100 h-100">Manage Questionnaires</button>
+    <button *ngIf="!loading && authStorageService.role ==='gp'" (click)="manageQuestionnaire()" type="button" class="btn btn-primary w-100 h-100">Manage Questionnaires</button>
+    <button *ngIf="loading" class="btn btn-primary w-100 h-100" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Loading questionnaires...
+    </button>
   </div>
 </div>

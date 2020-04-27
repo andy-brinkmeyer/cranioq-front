@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { GetQDetailsService } from './get-q-details.service';
+// import { GetQDetailsService } from './get-q-details.service';
 import {AuthStorageService} from '../auth/services/auth-storage.service';
 
 
@@ -19,19 +19,20 @@ export class QuestionnaireOverviewComponent implements OnInit {
   reviewedArray: any[];
   pendingArray: any[];
   role = this.authStorageService.role;
+  loading: boolean;
 
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private getQDetailsService: GetQDetailsService,
     public authStorageService: AuthStorageService,
   ) {
+    this.loading = false;
   }
 
   ngOnInit() {
-    this.getQDetailsService.getQDetails().subscribe((data) => {
-    this.QDetails = data;
+    this.route.data.subscribe((data) => {
+    this.QDetails = data.questionnaireOverview;
     });
   }
 

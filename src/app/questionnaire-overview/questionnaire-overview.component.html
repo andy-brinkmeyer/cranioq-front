@@ -40,7 +40,7 @@
                                             <th>Patient ID </th>
                                             <th *ngIf='role == "specialist"'>GP name</th>
                                             <th>Date created</th>
-                                            <th>Completion status</th>
+                                            <th *ngIf='role == "gp"'>Completion status</th>
                                             <th>Review status</th>
                                             <th> </th>
                                         </tr>
@@ -51,7 +51,7 @@
                                             <td>{{data.patient_id}}</td>
                                             <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
                                             <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
-                                            <td> 
+                                            <td *ngIf='role == "gp"'> 
                                               <div *ngIf='data.completed_gp; else notGP'>
                                                 <p style="color: rgb(181, 230, 107);">✓ GP </p>
                                               </div>
