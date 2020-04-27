@@ -16,7 +16,7 @@ export class QuestionnaireOverviewResolveService implements Resolve<any> {
   constructor(private getQDetailsService: GetQDetailsService) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.getQDetailsService.getQDetails();
+    return this.getQDetailsService.getQDetails(route.params.pageNum);
   }
 
 

@@ -85,12 +85,29 @@
                                     </tbody>
                                 </table>
 
-                                <p>Default pagination:</p>
-                                <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
-                                <pre>Current page: {{page}}</pre>
+                                  <button *ngIf="pageNum != 1" class="button" (click)="goToPrev()">Prev</button>
+                                  <button *ngIf="total === 100" class="button" (click)="goToNext()">Next</button>
+                          
 
-                                </div>
+                              <!-- <nav aira-label="Page navigation example">
+                                <ul class="pagination">
+                                  <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                      <span aria-hidden="true" goToPrev()>&raquo;</span>
+                                    </a>
+                                  </li>
+                                   <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                  <!-- <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                      <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </nav> -->
 
+                              </div>
                                 <div class="tab-pane fade" id="nav-reviewed" role="tabpanel" aria-labelledby="nav-reviewed-tab">  
                                   <table class="table table-hover table-bordered" cellspacing="0">
                                     <thead>

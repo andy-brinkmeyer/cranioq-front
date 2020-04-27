@@ -6,7 +6,7 @@ import { AuthGuard } from '../auth/guards/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'questionnaire-overview', component: QuestionnaireOverviewComponent, canActivate: [AuthGuard], resolve: {questionnaireOverview: QuestionnaireOverviewResolveService},  runGuardsAndResolvers: 'always'}
+  { path: 'questionnaire-overview/:pageNum', component: QuestionnaireOverviewComponent, canActivate: [AuthGuard], resolve: {questionnaireOverview: QuestionnaireOverviewResolveService},  runGuardsAndResolvers: 'always'}
 ];
 
 

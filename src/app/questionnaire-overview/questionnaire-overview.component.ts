@@ -20,8 +20,8 @@ export class QuestionnaireOverviewComponent implements OnInit {
   pendingArray: any[];
   role = this.authStorageService.role;
   loading: boolean;
-  page = 1;
-
+  pageNum: number;
+  total: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,11 +29,13 @@ export class QuestionnaireOverviewComponent implements OnInit {
     public authStorageService: AuthStorageService,
   ) {
     this.loading = false;
+    this.pageNum = 1;
   }
 
   ngOnInit() {
     this.route.data.subscribe((data) => {
     this.QDetails = data.questionnaireOverview;
+    this.total = this.QDetails.length();
     });
   }
 
@@ -48,5 +50,17 @@ export class QuestionnaireOverviewComponent implements OnInit {
   goToPage(data) {
     this.router.navigate(['/questionnaire', data.id]).then();
   }
+
+  goToNext() {
+    this.pageNum++;
+    this.router.navigate(['/questionnaire-overview', this.pageNum]).then();
+  }
+
+  goToPrev() {
+// put if statement to prevent it from going <1 
+    this.pageNum--;
+    this.router.navigate(['/questionnaire-overview', this.pageNum]).then() ;
+  }
+
 
 }

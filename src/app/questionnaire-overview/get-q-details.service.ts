@@ -21,8 +21,8 @@ export class GetQDetailsService {
   constructor(private http: HttpClient) { }
 
   // for object, put 'object[]' or 'any[]' to get a dictionary of the questonnare info when i do it
-  getQDetails(): Observable<object[]> {
-    this.questionnaireUrl = environment.apiBaseUrl + '/quests/';
+  getQDetails(pageNum): Observable<object[]> {
+    this.questionnaireUrl = environment.apiBaseUrl + '/quests/' + pageNum;
     return this.http.get<GetQResponse200>(this.questionnaireUrl).pipe(
       map(res => {
         this.QDetails = res;
