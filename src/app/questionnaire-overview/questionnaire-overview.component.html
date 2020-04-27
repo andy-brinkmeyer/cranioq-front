@@ -49,7 +49,7 @@
                                     <tbody>
                                         <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
                                             <td>{{data.patient_id}}</td>
-                                            <td *ngIf='role == "specialist"'><a href="#">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
+                                            <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
                                             <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
                                             <td> 
                                               <div *ngIf='data.completed_gp; else notGP'>
@@ -103,8 +103,7 @@
                                       <ng-container *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
                                         <tr *ngIf='data.completed_gp && data.completed_guardian && data.review !=""'>
                                          <td>{{data.patient_id}}</td>
-                                         <td *ngIf='role == "specialist"'><a href="#">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
-                                         <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                                            <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>                                         <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
                                          <td>
                                            <p style="color: green;"><b>{{ data.review | reviewstatus }}</b></p>
                                           </td>
@@ -133,8 +132,7 @@
                                       <ng-container *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
                                         <tr *ngIf='data.completed_gp && data.completed_guardian && data.review ==""'>
                                          <td>{{data.patient_id}}</td>
-                                         <td *ngIf='role == "specialist"'><a href="#">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
-                                        <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                                         <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>                                        <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
                                         <td>
                                           <p style="color: red;"><b>{{ data.review | reviewstatus }}</b></p>
                                         </td>
