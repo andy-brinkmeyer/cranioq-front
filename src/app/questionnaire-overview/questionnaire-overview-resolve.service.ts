@@ -10,6 +10,7 @@ import { GetQDetailsService } from './get-q-details.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class QuestionnaireOverviewResolveService implements Resolve<any> {
 
   constructor(private getQDetailsService: GetQDetailsService) { }

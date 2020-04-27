@@ -20,6 +20,7 @@ export class QuestionnaireOverviewComponent implements OnInit {
   pendingArray: any[];
   role = this.authStorageService.role;
   loading: boolean;
+  page = 1;
 
 
   constructor(
