@@ -85,8 +85,9 @@
                                     </tbody>
                                 </table>
 
-                                  <button *ngIf="pageNum != 1" class="button" (click)="goToPrev()">Prev</button>
-                                  <button *ngIf="total === 100" class="button" (click)="goToNext()">Next</button>
+                                <!-- Set if statement  -->
+                              <button *ngIf="pageNum != 1" class="button" (click)="goToPrev()">Prev</button>
+                              <button *ngIf="total === 100" class="button" (click)="goToNext()">Next</button>
                           
 
                               <!-- <nav aira-label="Page navigation example">
