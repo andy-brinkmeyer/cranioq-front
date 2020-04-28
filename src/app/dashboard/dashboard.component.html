@@ -1,13 +1,13 @@
 <div class="d-flex flex-column justify-content-center align-items-center height-80">
   <div class="m-3 dashboardButton">
     <button *ngIf="!loading && authStorageService.role ==='gp'" (click)="newQuestionnaire()" type="button" class="btn btn-primary w-100 h-100">New Questionnaire</button>
-    <button *ngIf="loading" class="btn btn-primary w-100 h-100" type="button" disabled>
+    <button *ngIf="loading && authStorageService.role ==='gp'" class="btn btn-primary w-100 h-100" type="button" disabled>
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Loading templates...
     </button>
   </div>
   <div class="m-3 dashboardButton">
-    <button *ngIf="!loading && authStorageService.role ==='gp'" (click)="manageQuestionnaire()" type="button" class="btn btn-primary w-100 h-100">Manage Questionnaires</button>
+    <button *ngIf="!loading" (click)="manageQuestionnaire()" type="button" class="btn btn-primary w-100 h-100">Manage Questionnaires</button>
     <button *ngIf="loading" class="btn btn-primary w-100 h-100" type="button" disabled>
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Loading questionnaires...
