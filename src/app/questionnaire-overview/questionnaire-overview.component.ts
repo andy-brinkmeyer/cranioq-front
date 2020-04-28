@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-// import { GetQDetailsService } from './get-q-details.service';
+import { GetQDetailsService } from './get-q-details.service';
 import {AuthStorageService} from '../auth/services/auth-storage.service';
 
 
@@ -22,14 +22,17 @@ export class QuestionnaireOverviewComponent implements OnInit {
   loading: boolean;
   pageNum: number;
   total: number;
+  pgSize: number;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public authStorageService: AuthStorageService,
+    public getQDetailsService: GetQDetailsService
   ) {
     this.loading = false;
     this.pageNum = 1;
+    this.pgSize = 50;
   }
 
   ngOnInit() {
@@ -53,14 +56,21 @@ export class QuestionnaireOverviewComponent implements OnInit {
 
   goToNext() {
     this.pageNum++;
-    this.router.navigate(['/questionnaire-overview', this.pageNum]).then();
+    return this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
+      this.QDetails = data;
+    });
+
   }
 
   goToPrev() {
-// put if statement to prevent it from going <1 
+// put if statement to prevent it from going <1
+// If list is empty can't click next etc 
     this.pageNum--;
-    this.router.navigate(['/questionnaire-overview', this.pageNum]).then() ;
-  }
+    return this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
+      this.QDetails = data;
+  });
 
+
+}
 
 }
