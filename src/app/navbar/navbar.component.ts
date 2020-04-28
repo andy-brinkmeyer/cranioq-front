@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { takeUntil} from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 import {AuthStorageService} from '../auth/services/auth-storage.service';
 
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
               private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    if (this.authStorageService.isLoggedIn) {
+    if (this.authStorageService.isLoggedIn && this.authStorageService.role !== 'anon') {
       this.refreshData();
       if ( this.interval ) {
           clearInterval(this.interval);
