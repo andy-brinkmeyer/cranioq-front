@@ -36,21 +36,11 @@ export class QuestionnaireOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
-    // this.QDetails = data;
     this.route.data.subscribe((data) => {
     this.QDetails = data.questionnaireOverview;
-    this.total = this.QDetails.length();
+    this.total = this.QDetails.length;
     });
 }
-
-// getDetails(data): void {
-//   if (JSON.stringify(data) === '[]') {
-//     alert('Awaiting for review by specialist');
-//   } else {
-//     alert(data);
-//   }
-// }
 
   goToPage(data) {
     this.router.navigate(['/questionnaire', data.id]).then();
@@ -60,17 +50,16 @@ export class QuestionnaireOverviewComponent implements OnInit {
     this.pageNum++;
     this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
       this.QDetails = data;
+      this.total = this.QDetails.length;
     });
 
   }
 
   goToPrev() {
-// put if statement to prevent it from going < 1
-// If list is empty can't click next etc
     this.pageNum--;
     this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
       this.QDetails = data;
+      this.total = this.QDetails.length;
   });
-
 }
 }

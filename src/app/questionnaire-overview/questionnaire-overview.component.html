@@ -84,8 +84,9 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
+                                <p><em>There are {{total}} questionnaires on page {{pageNum}}</em></p>
                               </div>
+
                                 <div class="tab-pane fade" id="nav-reviewed" role="tabpanel" aria-labelledby="nav-reviewed-tab">  
                                   <table class="table table-hover table-bordered" cellspacing="0">
                                     <thead>
@@ -145,15 +146,11 @@
                               </div>
                             </div>
 
-                        <!-- Set if statements for button navigation  -->
                         <div>
-                          <button class="btn btn-outline-primary mr-1" (click)="goToPrev()">Prev </button> 
-                          <!-- prev page not on pg1 -->
-                          <!-- show prev button if not on pg1 -->
-                          <!-- if total==pgSize, show next btn -->
-                          <button class="btn btn-outline-primary mr-1" (click)="goToNext()">Next</button>
+                          <button *ngIf='pageNum!=1' class="btn btn-outline-primary mr-2" (click)="goToPrev()">Prev </button> 
+                          <button *ngIf='total!=0' class="btn btn-outline-primary mr-1" (click)="goToNext()">Next</button>
+                          <p>Page {{pageNum}}</p>
                         </div>
-
                         </div> 
                     </div>
                 </div>
@@ -164,21 +161,3 @@
         </div> 
     </div>    
 </div>
-
- <!-- <nav aira-label="Page navigation example">
-                                <ul class="pagination">
-                                  <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                      <span aria-hidden="true" goToPrev()>&raquo;</span>
-                                    </a>
-                                  </li>
-                                   <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                                  <!-- <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                      <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </nav> -->
