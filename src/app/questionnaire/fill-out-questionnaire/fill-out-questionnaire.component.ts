@@ -156,7 +156,9 @@ export class FillOutQuestionnaireComponent implements OnInit {
         review.push(key);
       }
     });
-    review.push(formData.other);
+    if (formData.other !== '') {
+      review.push(formData.other);
+    }
     const questionnaireID = this.questionnaireStore.stateSnapshot.get('questionnaireID');
     this.questionnaireService.saveReview(review, questionnaireID).subscribe(message => {
       this.errorMessage = message;
