@@ -95,7 +95,6 @@ describe('NotificationsService', () => {
 
   it('updateData() should emitt list of questionnaire ids', () => {
     const listQs: NotificationsResponse200[] = [{id: 1}, {id: 2}, {id: 7}];
-    // subscribe, but skip the first as this is a BehaviorSubject and emits a default first value.
     service.updateData().subscribe((data: NotificationsResponse200) => {
       expect(data).not.toBe(null);
       expect(JSON.stringify(data)).toEqual(JSON.stringify(listQs));
