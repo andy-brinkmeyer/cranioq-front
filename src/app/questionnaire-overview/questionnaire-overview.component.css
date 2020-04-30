@@ -1,6 +1,7 @@
+.table {
+  overflow: scroll;
+}
 
-
-table {
-    width: 100%;
-  }
-  
+section{
+  padding-bottom:70px;
+}

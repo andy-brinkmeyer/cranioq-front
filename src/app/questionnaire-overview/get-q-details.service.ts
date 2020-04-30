@@ -20,10 +20,16 @@ export class GetQDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  // for object, put 'object[]' or 'any[]' to get a dictionary of the questonnare info when i do it
-  getQDetails(): Observable<object[]> {
+  getQDetails(pageNum, pgSize): Observable<object[]> {
     this.questionnaireUrl = environment.apiBaseUrl + '/quests/';
-    return this.http.get<GetQResponse200>(this.questionnaireUrl).pipe(
+    return this.http.get<GetQResponse200>(this.questionnaireUrl,
+      {
+        params: {
+        page: pageNum,
+        pageSize: pgSize
+        },
+      }
+    ).pipe(
       map(res => {
         this.QDetails = res;
 
@@ -37,8 +43,6 @@ export class GetQDetailsService {
             reviewedArray.push(this.QDetails[q]);
           }
         }
-        console.log('Reviewed arrays:', reviewedArray);
-        console.log('Pendng arrays:', pendingArray);
         return this.QDetails;
       }),
       catchError( error => {

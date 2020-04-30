@@ -1,6 +1,7 @@
-<div class="container-fluid px-0 full-height">
-    <div class="row p-3"> 
-        <div class="col text-left m-4">
+<div class="container-fluid px-0 mt-3">
+  <div class="row mx-0 w-100 h-100">
+    <div class="col-lg bg-white d-flex align-items-center">
+          <div class="container mx-auto">
           
             <form>
                 <div class="form-group">
@@ -18,32 +19,145 @@
                   </div>
                 </div>
               </form>
+              
+              <section id="tabs" class="project-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">All</a>
+                                    <a class="nav-item nav-link" id="nav-reviewed-tab" data-toggle="tab" href="#nav-reviewed" role="tab" aria-controls="nav-reviewed" aria-selected="false">Reviewed</a>
+                                    <a class="nav-item nav-link" id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-pending" aria-selected="false">Pending Review</a>
+                                </div>
+                            </nav>
+                            
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+                                  <table class="table table-hover table-bordered" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient ID </th>
+                                            <th *ngIf='role == "specialist"'>GP name</th>
+                                            <th>Date created</th>
+                                            <th *ngIf='role == "gp"'>Completion status</th>
+                                            <th>Review status</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                    
+                                    <tbody>
+                                        <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
+                                            <td>{{data.patient_id}}</td>
+                                            <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>
+                                            <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                                            <td *ngIf='role == "gp"'> 
+                                              <div *ngIf='data.completed_gp; else notGP'>
+                                                <p style="color: rgb(181, 230, 107);">✓ GP </p>
+                                              </div>
+                                              <ng-template #notGP>
+                                                <p style="color: rgb(228, 66, 66);">✘ GP</p>
+                                              </ng-template>
+                                              <div *ngIf='data.completed_guardian; else notGuardian'>
+                                                <p style="color: rgb(181, 230, 107);">✓ Parent</p>
+                                              </div>
+                                              <ng-template #notGuardian>
+                                                <p style="color: rgb(228, 66, 66);">✘ Parent </p>
+                                              </ng-template>
+                                            </td>
+                                            <td>
+                                              <div *ngIf='data.completed_gp && data.completed_guardian; else Incomplete'>
+                                                <div *ngIf='data.review ==""; else Reviewed'>
+                                                  <p style='color:red;'><b>Pending</b></p>
+                                                </div>
+                                                <ng-template #Reviewed>
+                                                  <p style="color:green;"><b>Reviewed</b></p>
+                                                </ng-template>
+                                              </div>
+                                              <ng-template #Incomplete>
+                                                <p style='color:grey'>Incomplete</p>
+                                              </ng-template>
+                                            </td>
+                                            <td>
+                                              <button class="btn btn-link" (click)='goToPage(data)'>View questionnaire</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p><em>There are {{total}} questionnaires on page {{pageNum}}</em></p>
+                              </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Patient ID </th>
-                        <th>GP name</th>
-                        <th>Date created</th>
-                        <th>Review status</th>
-                        <th> </th>
-                    </tr>
-                </thead>
+                                <div class="tab-pane fade" id="nav-reviewed" role="tabpanel" aria-labelledby="nav-reviewed-tab">  
+                                  <table class="table table-hover table-bordered" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient ID </th>
+                                            <th *ngIf='role == "specialist"'>GP name</th>
+                                            <th>Date created</th>
+                                            <th>Review status</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                    
+                                    <tbody>
+                                      <ng-container *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
+                                        <tr *ngIf='data.completed_gp && data.completed_guardian && data.review !=""'>
+                                         <td>{{data.patient_id}}</td>
+                                            <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>                                         <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                                         <td>
+                                           <p style="color: green;"><b>{{ data.review | reviewstatus }}</b></p>
+                                          </td>
+                                          <td>
+                                            <button class="btn btn-link" (click)='goToPage(data)'>View questionnaire</button>
+                                          </td>
+                                        </tr>
+                                      </ng-container>
+                                    </tbody>
+                                </table>
+                                </div>
 
-                <tbody>
-                    <tr *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
-                         <td>{{data.patient_id}}</td>
-                         <td>Dr {{ data.gp.first_name }} {{ data.gp.last_name }}</td>
-                         <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
-                         <td>                                     
-                            <button class="btn btn-primary m-1" (click)="getDetails(data.review)">{{ data.review | reviewstatus }}</button>
-                        </td>
-                        <td>
-                          <button class="btn btn-link" (click)='goToPage(data)'>View details</button>
-                        </td>
-                     </tr>
-                </tbody>
-            </table>
-        </div>
+                                <div class="tab-pane fade" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+                                   <table class="table table-hover table-bordered" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Patient ID </th>
+                                            <th *ngIf='role == "specialist"'>GP name</th>
+                                            <th>Date created</th>
+                                            <th>Review status</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                    
+                                    <tbody>
+                                      <ng-container *ngFor="let data of QDetails | filter : 'patient_id' : searchString; let i = index">
+                                        <tr *ngIf='data.completed_gp && data.completed_guardian && data.review ==""'>
+                                         <td>{{data.patient_id}}</td>
+                                         <td *ngIf='role == "specialist"'><a [routerLink]="['/view-profile', data.gp.id]">{{ data.gp.title}} {{ data.gp.first_name }} {{ data.gp.last_name }}</a></td>                                        <td>{{data.created | date:'dd/MM/yy, H:mm'}}</td>
+                                        <td>
+                                          <p style="color: red;"><b>{{ data.review | reviewstatus }}</b></p>
+                                        </td>
+                                        <td>
+                                          <button class="btn btn-link" (click)='goToPage(data)'>View questionnaire</button>
+                                        </td>
+                                        </tr>
+                                      </ng-container>
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+
+                        <div>
+                          <button *ngIf='pageNum!=1' class="btn btn-outline-primary mr-2" (click)="goToPrev()">Prev </button> 
+                          <button *ngIf='total!=0' class="btn btn-outline-primary mr-1" (click)="goToNext()">Next</button>
+                          <p>Page {{pageNum}}</p>
+                        </div>
+                        </div> 
+                    </div>
+                </div>
+              </section>
+
+
+          </div>
+        </div> 
     </div>    
 </div>

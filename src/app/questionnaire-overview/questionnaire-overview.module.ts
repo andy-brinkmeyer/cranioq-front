@@ -9,9 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { QuestionnaireDetailsComponent } from './questionnaire-details/questionnaire-details.component';
 
 
-// test questionnaire data 
-// import {questionnaires} from '../questionnaires';
-
 
 
 @NgModule({

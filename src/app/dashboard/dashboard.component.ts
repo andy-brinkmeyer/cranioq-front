@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   }
 
   manageQuestionnaire() {
-    this.router.navigate(['questionnaire-overview']).then();
+    this.loading = true;
+    this.router.navigate(['questionnaire-overview']).catch(() => this.loading = false);
   }
 }
