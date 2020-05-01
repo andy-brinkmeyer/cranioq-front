@@ -1,3 +1,6 @@
+/* Adapted the following to develop notifications:
+https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -39,5 +42,3 @@ export class NotificationsService {
   }
 }
 
-/* Used the following to develop notifications:
-https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */

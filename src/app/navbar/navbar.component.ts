@@ -1,3 +1,6 @@
+/* Adapted the following to develop notifications:
+https://stackoverflow.com/questions/44947551/angular2-4-refresh-data-realtime */
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
