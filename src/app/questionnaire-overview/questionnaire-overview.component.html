@@ -147,8 +147,8 @@
                             </div>
 
                         <div>
-                          <button *ngIf='pageNum!=1' class="btn btn-outline-primary mr-2" (click)="goToPrev()">Prev </button> 
-                          <button *ngIf='total!=0' class="btn btn-outline-primary mr-1" (click)="goToNext()">Next</button>
+                          <button *ngIf='pageNum != 1' class="btn btn-outline-primary mr-2" (click)="goToPrev()">Prev </button> 
+                          <button *ngIf='total == 50' class="btn btn-outline-primary mr-1" (click)="goToNext()">Next</button>
                           <p>Page {{pageNum}}</p>
                         </div>
                         </div> 
