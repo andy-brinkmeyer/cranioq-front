@@ -33,9 +33,10 @@ describe('NotificationsService', () => {
     expect(service).toBeTruthy();
   });
 
-  // Test that expects a GET Request to occur and provides a mock response - list of questionnaire ids
-  it('getQuestionnaires() should provide a list of questionnaire ids via GET request', () => {
-    const listQs: NotificationsResponse200[] = [{id: 1}, {id: 2}, {id: 7}]; /* mock list of questionnaire ids*/
+  // Test that expects a GET Request to occur and provides a mock response - list of questionnaire ids with corresponding patient id
+  it('getQuestionnaires() should provide a list of questionnaires via GET request', () => {
+    const listQs: NotificationsResponse200[] = [{id: 1, patient_id: 'nhs1234'},
+    {id: 2, patient_id: 'nhs1784'}, {id: 7, patient_id: 'nhs1904'}]; /* mock list of questionnaires*/
 
     service.getQuestionnaires().subscribe((data: NotificationsResponse200) => {
       expect(data).not.toBe(null);
@@ -43,7 +44,7 @@ describe('NotificationsService', () => {
     });
     const req = httpTestingController.expectOne(environment.apiBaseUrl + '/quests/notify');
     expect(req.request.method).toBe('GET');
-    // Respond with mock list of questionnaire ids
+    // Respond with mock list of questionnaires
     req.flush(listQs);
   });
 
@@ -93,8 +94,9 @@ describe('NotificationsService', () => {
     req.flush(emsg, { status: 400, statusText: 'Bad Request' });
   });
 
-  it('updateData() should emitt list of questionnaire ids', () => {
-    const listQs: NotificationsResponse200[] = [{id: 1}, {id: 2}, {id: 7}];
+  it('updateData() should emitt list of questionnaires', () => {
+    const listQs: NotificationsResponse200[] = [{id: 1, patient_id: 'nhs1234'},
+    {id: 2, patient_id: 'nhs1784'}, {id: 7, patient_id: 'nhs1904'}];
     service.updateData().subscribe((data: NotificationsResponse200) => {
       expect(data).not.toBe(null);
       expect(JSON.stringify(data)).toEqual(JSON.stringify(listQs));
@@ -102,7 +104,7 @@ describe('NotificationsService', () => {
 
     const req = httpTestingController.expectOne(environment.apiBaseUrl + '/quests/notify');
     expect(req.request.method).toBe('GET');
-    // Respond with mock list of questionnaire ids
+    // Respond with mock list of questionnaires
     req.flush(listQs);
   });
 

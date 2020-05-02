@@ -56,7 +56,10 @@ export class QuestionnaireOverviewComponent implements OnInit {
   }
 
   goToPrev() {
-    this.pageNum--;
+    if (this.pageNum > 1) {
+      this.pageNum--;
+  } else {this.pageNum = 1;
+  }
     this.getQDetailsService.getQDetails(this.pageNum, this.pgSize).subscribe((data) => {
       this.QDetails = data;
       this.total = this.QDetails.length;
