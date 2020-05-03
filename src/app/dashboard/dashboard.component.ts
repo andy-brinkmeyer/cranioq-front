@@ -10,25 +10,27 @@ import { AuthStorageService } from '../auth/services/auth-storage.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  loading: boolean;
+  loadingNew: boolean;
+  loadingManage: boolean;
 
   constructor(
     private router: Router,
     public authStorageService: AuthStorageService
   ) {
-    this.loading = false;
+    this.loadingNew = false;
+    this.loadingManage = false;
   }
 
   ngOnInit() {
   }
 
   newQuestionnaire() {
-    this.loading = true;
-    this.router.navigate(['questionnaires/new']).catch(() => this.loading = false);
+    this.loadingNew = true;
+    this.router.navigate(['questionnaires/new']).catch(() => this.loadingNew = false);
   }
 
   manageQuestionnaire() {
-    this.loading = true;
-    this.router.navigate(['questionnaire-overview']).catch(() => this.loading = false);
+    this.loadingManage = true;
+    this.router.navigate(['questionnaire-overview']).catch(() => this.loadingManage = false);
   }
 }
