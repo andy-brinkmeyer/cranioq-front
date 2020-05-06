@@ -24,8 +24,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   role = this.authStorageService.role;
   total = 0;
   listQs: any;
+  listNotify: any;
   interval: any;
   homeLink: string;
+  pageNum: number;
+  totalPgs = 0;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -47,16 +50,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
           this.listQs = data;
           if ( Array.isArray(this.listQs) && this.listQs.length ) {
             this.total = this.listQs.length;
+            if (this.total % 10 === 0) {
+              this.totalPgs = this.total /  10;
+            } else {
+              this.totalPgs = ((this.total - (this.total % 10)) /  10) + 1 ;
+            }
           }
           if ( Array.isArray(this.listQs) && !this.listQs.length ) {
             this.total = 0;
+            this.totalPgs = 0;
           }
           if ( !Array.isArray(this.listQs) ) {
             this.total = 0;
+            this.totalPgs = 0;
           }
         });
-      }
+      this.pageNum = 1;
+      if (this.total > 10) {
+        this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), (10 * this.pageNum));
+      } else { this.listNotify = this.listQs;
+        }
     }
+  }
 
   ngOnDestroy() {
     this.unsubscribe.next();
@@ -76,4 +91,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notificationsService.remove(id).subscribe();
     this.refreshData();
   }
+
+  goToNext($event) {
+    $event.stopPropagation();
+    if (this.pageNum < this.totalPgs) {
+      this.pageNum++;
+      if (this.listQs.length >= this.pageNum * 10) {
+        this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), (10 * this.pageNum));
+      } else {
+        this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), this.listQs.length);
+      }
+    }
+  }
+
+  goToPrev($event) {
+    $event.stopPropagation();
+    if (this.pageNum > 1) {
+      this.pageNum--;
+    } else {this.pageNum = 1;
+    }
+    if (this.listQs.length >= this.pageNum * 10) {
+      this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), (10 * this.pageNum));
+    } else {
+      this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), this.listQs.length);
+    }
+  }
+
 }

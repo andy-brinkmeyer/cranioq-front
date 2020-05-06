@@ -28,13 +28,23 @@
           </a>
           <div *ngIf="role == 'gp'" class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
             <h6 class="dropdown-header">Questionnaires to follow up:</h6>
-            <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Patient ID: {{ questionnaire.patient_id }}
+            <a *ngFor="let questionnaire of listNotify" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Patient ID: {{ questionnaire.patient_id }}
               <button type="button" class="close" aria-label="Close" (click)="dismiss($event, questionnaire.id)"><span aria-hidden="true">&times;</span></button>
             </a>
+            <div class="dropdown-divider"></div>
+            <form class="px-4 py-3">
+            <button *ngIf='pageNum != 1' class="btn btn-outline-primary mr-2 btn-sm" (click)="goToPrev($event)">Prev </button> 
+            <button *ngIf='pageNum < totalPgs' class="btn btn-outline-primary mr-1 btn-sm" (click)="goToNext($event)">Next</button>
+            </form>
           </div>
           <div *ngIf="role == 'specialist'" class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
             <h6 class="dropdown-header">Questionnaires to be reviewed:</h6>
-            <a *ngFor="let questionnaire of listQs" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Patient ID: {{ questionnaire.patient_id }}</a>
+            <a *ngFor="let questionnaire of listNotify" class="dropdown-item waves-effect waves-light" [routerLink]="['/questionnaire', questionnaire.id]">Patient ID: {{ questionnaire.patient_id }}</a>
+            <div class="dropdown-divider"></div>
+            <form class="px-4 py-3">
+            <button *ngIf='pageNum != 1' class="btn btn-outline-primary mr-2 btn-sm" (click)="goToPrev($event)">Prev </button> 
+            <button *ngIf='pageNum < totalPgs' class="btn btn-outline-primary mr-1 btn-sm" (click)="goToNext($event)">Next</button>
+            </form>
           </div>
         </li>
         <li class="nav-item"><a *ngIf="authStorageService.isLoggedIn" class="nav-link" [routerLink]="['/view-profile', authUserID]">
