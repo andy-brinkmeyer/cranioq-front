@@ -33,7 +33,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               public authStorageService: AuthStorageService,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService) {
+
+              this.pageNum = 1;
+               }
 
   ngOnInit() {
     if (this.authStorageService.isLoggedIn && this.authStorageService.role !== 'anon') {
@@ -64,12 +67,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.total = 0;
             this.totalPgs = 0;
           }
+          this.showNotify();
         });
-      this.pageNum = 1;
-      if (this.total > 10) {
-        this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), (10 * this.pageNum));
-      } else { this.listNotify = this.listQs;
-        }
     }
   }
 
@@ -84,6 +83,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.unsubscribe))
           .subscribe();
     }
+
+  showNotify() {
+    if (this.listQs.length > 10) {
+      this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), (10 * this.pageNum));
+    } else {
+      this.listNotify = this.listQs.slice(10 * (this.pageNum - 1), this.listQs.length);
+      }
+  }
 
   dismiss($event, id) {
     $event.stopPropagation();
